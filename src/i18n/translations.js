@@ -204,7 +204,7 @@ export const translations = {
       headline4: 'je tvoj.',
       sub: 'Pomažemo ti da razumeš sebe, svoju ličnost, talente i interesovanja, i pronađeš karijerni pravac koji stvarno odgovara tebi.',
       cta: 'Počni svoje putovanje',
-      ctaSub: 'Pogledaj kako radi',
+      ctaSub: 'Kako funkcioniše?',
       social: 'mladih pronašlo svoj put',
       scroll: 'Skroluj',
     },
