@@ -97,7 +97,7 @@ export default function Hero({ onStart, hasProgress }) {
             ))}
           </div>
           <p className="text-white/40 text-sm">
-            <span className="text-white/70 font-medium">2,400+</span> {h.social}
+            <span className="text-white/70 font-medium">900+</span> {h.social}
           </p>
         </div>
       </div>
