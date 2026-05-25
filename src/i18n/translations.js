@@ -198,8 +198,8 @@ export const translations = {
     // Hero
     hero: {
       badge: 'Platforma za samospoznaju',
-      headline1: 'Otkrij ko ',
-      headline2: 'zapravo jesi.',
+      headline1: 'Saznaj ko si, šta te pokreće',
+      headline2: 'i u čemu možeš postati najbolji.',
       headline3: 'Pronađi put koji',
       headline4: 'je tvoj.',
       sub: 'Pomažemo ti da razumeš sebe, svoju ličnost, talente i interesovanja, i pronađeš karijerni pravac koji stvarno odgovara tebi. Bez praznih fraza, samo konkretni odgovori.',

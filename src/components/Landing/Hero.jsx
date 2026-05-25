@@ -35,10 +35,10 @@ export default function Hero({ onStart, hasProgress }) {
       <div className="relative text-center max-w-4xl">
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.05] mb-6 animate-slide-up">
           <span className="text-white">{h.headline1}</span>
+          <br />
           <span className="gradient-text">{h.headline2}</span>
           <br />
           <span className="text-white">{h.headline3} </span>
-          <br className="hidden md:block" />
           <span className="gradient-text">{h.headline4}</span>
         </h1>
 
