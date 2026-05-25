@@ -5,7 +5,7 @@ export default function Problem() {
   const p = t.problem
 
   return (
-    <section className="py-28 px-6">
+    <section id="problem" className="py-28 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <span className="text-violet-400 text-sm font-medium tracking-widest uppercase mb-4 block">{p.tag}</span>

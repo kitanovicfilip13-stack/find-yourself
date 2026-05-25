@@ -32,6 +32,12 @@ export default function Navbar({ onStart, onDashboard }) {
 
           {/* Nav links */}
           <div className="hidden md:flex items-center gap-8">
+            <button
+              onClick={() => document.getElementById('problem')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-white/50 hover:text-white text-sm transition-colors duration-200"
+            >
+              {lang === 'sr' ? 'Prepoznaj se' : 'Recognize yourself'}
+            </button>
             {t.nav.links.map((label, i) => {
               const anchors = ['how-it-works', 'what-you-get', 'example']
               return (
