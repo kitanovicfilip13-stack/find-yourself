@@ -37,9 +37,6 @@ export default function Hero({ onStart, hasProgress }) {
           <span className="text-white">{h.headline1}</span>
           <br />
           <span className="gradient-text">{h.headline2}</span>
-          <br />
-          <span className="text-white">{h.headline3} </span>
-          <span className="gradient-text">{h.headline4}</span>
         </h1>
 
         <p className="text-white/50 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed animate-slide-up mb-10" style={{ animationDelay: '0.1s' }}>
