@@ -42,7 +42,7 @@ export default function Hero({ onStart, hasProgress }) {
               <span className="gradient-text">pokreće</span>
               <br />
               <span className="text-white">i gde </span>
-              <span className="gradient-text">pripadas.</span>
+              <span className="gradient-text">pripadaš.</span>
             </>
           ) : (
             <>
