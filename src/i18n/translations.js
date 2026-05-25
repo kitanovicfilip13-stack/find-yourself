@@ -15,7 +15,7 @@ export const translations = {
       headline2: 'you are.',
       headline3: "Find what you're",
       headline4: 'meant to do.',
-      sub: 'A self-discovery platform that helps you understand your personality, strengths, interests and possible career paths.',
+      sub: 'We help you understand yourself and your personality, discover your talents and interests, and learn how to apply them in a career that truly fits you.',
       cta: 'Start your journey',
       ctaSub: 'See how it works',
       social: 'people found their direction',
