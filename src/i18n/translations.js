@@ -202,7 +202,7 @@ export const translations = {
       headline2: 'zapravo jesi.',
       headline3: 'Pronađi put koji',
       headline4: 'je tvoj.',
-      sub: 'Pomažemo ti da razumeš sebe — svoju ličnost, talente i interesovanja — i pronađeš karijerni pravac koji stvarno odgovara tebi. Bez praznih fraza, samo konkretni odgovori.',
+      sub: 'Pomažemo ti da razumeš sebe, svoju ličnost, talente i interesovanja, i pronađeš karijerni pravac koji stvarno odgovara tebi. Bez praznih fraza, samo konkretni odgovori.',
       cta: 'Počni svoje putovanje',
       ctaSub: 'Pogledaj kako radi',
       social: 'mladih pronašlo svoj put',
@@ -213,8 +213,8 @@ export const translations = {
     problem: {
       tag: 'Prepoznaješ li se?',
       title: 'Nisi jedini koji se ovako oseća.',
-      sub: 'Ogromna većina mladih prolazi kroz isto. Nije problem u tebi — problem je što te niko nikada nije naučio kako da saznaš ko si i šta hoćeš.',
-      footer: 'Ako si se prepoznao u bilo čemu od ovoga — na pravom si mestu.',
+      sub: 'Ogromna većina mladih prolazi kroz isto. Nije problem u tebi. Problem je što te niko nikada nije naučio kako da saznaš ko si i šta hoćeš.',
+      footer: 'Ako si se prepoznao u bilo čemu od ovoga, na pravom si mestu.',
       items: [
         {
           emoji: '🌀',
@@ -248,7 +248,7 @@ export const translations = {
         {
           number: '01',
           title: 'Odgovori na 20 pitanja',
-          desc: 'Pitanja pokrivaju tvoje vrednosti, interesovanja, energiju i ambicije. Nema tačnih ni pogrešnih odgovora — samo budi iskren.',
+          desc: 'Pitanja pokrivaju tvoje vrednosti, interesovanja, energiju i ambicije. Nema tačnih ni pogrešnih odgovora, samo budi iskren.',
           tag: '~8 minuta',
           accent: 'text-violet-400',
         },
@@ -275,7 +275,7 @@ export const translations = {
       title: 'Tvoj lični profil',
       sub: 'Nije to jedan od onih testova ličnosti iz devedesetih. Ovo je praktičan, moderan uvid u sebe koji ti zaista pomaže da doneseš odluku.',
       features: [
-        { icon: '🧬', title: 'Ko si kao osoba', desc: 'Jasan i iskren opis kako razmišljaš, kako funkcionišeš i šta te pokreće — rečima koje će ti zazvučati poznato.' },
+        { icon: '🧬', title: 'Ko si kao osoba', desc: 'Jasan i iskren opis kako razmišljaš, kako funkcionišeš i šta te pokreće, rečima koje će ti zazvučati poznato.' },
         { icon: '⚡', title: 'Tvoje snage', desc: 'Konkretne stvari u kojima prirodno dobro ideš i koje, kada ih svesno koristiš, daju rezultate.' },
         { icon: '🔮', title: 'Karijerni pravci', desc: 'Ne opšte preporuke, nego oblasti i uloge koje stvarno odgovaraju tvom profilu i kombinaciji interesovanja.' },
         { icon: '📈', title: 'Šta da naučiš', desc: 'Veštine koje ima smisla razvijati upravo ti, na osnovu toga ko si i kuda ideš.' },
@@ -301,7 +301,7 @@ export const translations = {
         { label: 'Brend i marketing', match: 81 },
       ],
       firstStepLabel: 'Tvoj sledeći korak',
-      firstStep: "Provedi 30 minuta danas i redizajniraj nešto što koristiš svaki dan — aplikaciju, formular, meni. Objavi to bilo gde, makar kao belešku u telefonu. Poen nije da bude savršeno, nego da dokažeš sebi da možeš da pretvoriš ideju u nešto konkretno.",
+      firstStep: "Provedi 30 minuta danas i redizajniraj nešto što koristiš svaki dan: aplikaciju, formular ili meni. Objavi to bilo gde, makar kao belešku u telefonu. Poen nije da bude savršeno, nego da dokažeš sebi da možeš da pretvoriš ideju u nešto konkretno.",
       note: 'Tvoj rezultat će biti jedinstven za tebe.',
       cta: 'Napravi moj profil →',
     },
@@ -339,7 +339,7 @@ export const translations = {
       brand: 'Pronađi Sebe',
       continue: 'Dalje',
       seeResults: 'Vidi moj profil',
-      customPlaceholder: 'Ništa od ponuđenog mi ne odgovara — napiši šta misliš...',
+      customPlaceholder: 'Ništa od ponuđenog mi ne odgovara; napiši šta misliš...',
       customLabel: 'Tvoj odgovor',
       customHint: 'Slobodan odgovor se takođe uzima u obzir pri izračunavanju rezultata.',
     },
