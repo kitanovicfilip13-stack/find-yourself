@@ -41,8 +41,8 @@ export default function Hero({ onStart, hasProgress }) {
               <span className="text-white">, šta te </span>
               <span className="gradient-text">pokreće</span>
               <br />
-              <span className="text-white">i u čemu možeš postati </span>
-              <span className="gradient-text">najbolji.</span>
+              <span className="text-white">i gde </span>
+              <span className="gradient-text">pripadas.</span>
             </>
           ) : (
             <>
@@ -51,8 +51,8 @@ export default function Hero({ onStart, hasProgress }) {
               <span className="text-white">, what </span>
               <span className="gradient-text">drives you</span>
               <br />
-              <span className="text-white">and what you can be </span>
-              <span className="gradient-text">best at.</span>
+              <span className="text-white">and where you </span>
+              <span className="gradient-text">belong.</span>
             </>
           )}
         </h1>
