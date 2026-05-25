@@ -4,7 +4,7 @@ import { translations } from './i18n/translations'
 const LanguageContext = createContext(null)
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState('en')
+  const [lang, setLang] = useState('sr')
   const t = translations[lang]
   const toggle = () => setLang(l => l === 'en' ? 'sr' : 'en')
   return (
