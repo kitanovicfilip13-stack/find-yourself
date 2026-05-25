@@ -115,7 +115,10 @@ export default function App() {
       {page === 'dashboard' && (
         <Dashboard
           onRetake={handleRetake}
-          onGoToLanding={handleRestart}
+          onGoToLanding={() => {
+            window.scrollTo({ top: 0, behavior: 'instant' })
+            setPage('landing')
+          }}
         />
       )}
     </div>
