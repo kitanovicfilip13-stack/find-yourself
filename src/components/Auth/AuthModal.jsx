@@ -88,7 +88,7 @@ export default function AuthModal({ onClose }) {
 
         {/* Logo */}
         <div className="flex items-center gap-2 mb-8">
-          <img src="/logo.svg" alt="logo" className="w-8 h-8" />
+          <img src="/logo.png" alt="logo" className="w-8 h-8" />
           <span className="text-white font-semibold">{lang === 'sr' ? 'Pronađi Sebe' : 'Find Yourself'}</span>
         </div>
 
