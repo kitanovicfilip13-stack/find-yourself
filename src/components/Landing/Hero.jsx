@@ -34,13 +34,27 @@ export default function Hero({ onStart, hasProgress }) {
       {/* Headline */}
       <div className="relative text-center max-w-4xl">
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.05] mb-6 animate-slide-up">
-          <span className="text-white">Saznaj </span>
-          <span className="gradient-text">ko si</span>
-          <span className="text-white">, šta te </span>
-          <span className="gradient-text">pokreće</span>
-          <br />
-          <span className="text-white">i u čemu možeš postati </span>
-          <span className="gradient-text">najbolji.</span>
+          {lang === 'sr' ? (
+            <>
+              <span className="text-white">Saznaj </span>
+              <span className="gradient-text">ko si</span>
+              <span className="text-white">, šta te </span>
+              <span className="gradient-text">pokreće</span>
+              <br />
+              <span className="text-white">i u čemu možeš postati </span>
+              <span className="gradient-text">najbolji.</span>
+            </>
+          ) : (
+            <>
+              <span className="text-white">Find out </span>
+              <span className="gradient-text">who you are</span>
+              <span className="text-white">, what </span>
+              <span className="gradient-text">drives you</span>
+              <br />
+              <span className="text-white">and what you can be </span>
+              <span className="gradient-text">best at.</span>
+            </>
+          )}
         </h1>
 
         <p className="text-white/50 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed animate-slide-up mb-10" style={{ animationDelay: '0.1s' }}>
