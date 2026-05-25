@@ -3,15 +3,15 @@ import { useLanguage } from '../../LanguageContext'
 import { getQuestions } from '../../i18n/questions'
 import { scoreFromText } from '../../i18n/keywordScoring'
 
-export default function OnboardingTest({ onComplete, onBack }) {
+export default function OnboardingTest({ onComplete, onBack, initialAnswers = [], initialCurrent = 0 }) {
   const { t, lang } = useLanguage()
   const questions = getQuestions(lang)
   const ui = t.onboarding
 
-  const [current, setCurrent] = useState(0)
-  const [answers, setAnswers] = useState([])
-  const [selected, setSelected] = useState(null)   // index odabrane opcije ili null
-  const [customText, setCustomText] = useState('')  // slobodan odgovor
+  const [current, setCurrent] = useState(initialCurrent)
+  const [answers, setAnswers] = useState(initialAnswers)
+  const [selected, setSelected] = useState(initialAnswers[initialCurrent]?.selectedOption ?? null)
+  const [customText, setCustomText] = useState(initialAnswers[initialCurrent]?.customText || '')
   const [direction, setDirection] = useState(1)
   const [animating, setAnimating] = useState(false)
 
@@ -55,6 +55,15 @@ export default function OnboardingTest({ onComplete, onBack }) {
     }
   }
 
+  const saveProgress = (currentIdx, currentAnswers) => {
+    try {
+      localStorage.setItem('fy_progress', JSON.stringify({
+        current: currentIdx,
+        answers: currentAnswers,
+      }))
+    } catch {}
+  }
+
   const handleNext = () => {
     if (!canContinue || animating) return
     const newAnswer = buildAnswer()
@@ -69,10 +78,12 @@ export default function OnboardingTest({ onComplete, onBack }) {
     setDirection(1)
     setTimeout(() => {
       setAnswers(newAnswers)
-      setCurrent((c) => c + 1)
+      const nextIdx = current + 1
+      setCurrent(nextIdx)
       setSelected(null)
       setCustomText('')
       setAnimating(false)
+      saveProgress(nextIdx, newAnswers)
     }, 250)
   }
 

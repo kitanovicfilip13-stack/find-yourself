@@ -138,6 +138,14 @@ export const translations = {
       upcoming: ['AI Chat', 'Career Courses', 'Partner Companies', 'Job Matching', 'Community'],
     },
 
+    // Dashboard
+    dashboard: {
+      welcome: 'Welcome back',
+      title: 'Your profile',
+      continueTest: 'Continue test',
+      continueDesc: "You have an unfinished test. Pick up where you left off.",
+    },
+
     // Onboarding
     onboarding: {
       back: 'Back',
@@ -315,6 +323,14 @@ export const translations = {
       copy: '© 2025 Pronađi Sebe. Napravljeno za izgubljene.',
       comingSoon: 'Uskoro',
       upcoming: ['AI Chat', 'Kursevi karijere', 'Partnerske kompanije', 'Job Matching', 'Zajednica'],
+    },
+
+    // Dashboard
+    dashboard: {
+      welcome: 'Dobrodošao nazad',
+      title: 'Tvoj profil',
+      continueTest: 'Nastavi test',
+      continueDesc: 'Imaš nedovršen test. Nastavi odakle si stao.',
     },
 
     // Onboarding

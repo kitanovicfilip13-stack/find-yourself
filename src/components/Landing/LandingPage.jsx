@@ -7,11 +7,11 @@ import ExampleResult from './ExampleResult'
 import FinalCTA from './FinalCTA'
 import Footer from '../shared/Footer'
 
-export default function LandingPage({ onStart }) {
+export default function LandingPage({ onStart, hasProgress, onDashboard }) {
   return (
     <div className="relative">
-      <Navbar onStart={onStart} />
-      <Hero onStart={onStart} />
+      <Navbar onStart={onStart} onDashboard={onDashboard} />
+      <Hero onStart={onStart} hasProgress={hasProgress} />
       <Problem />
       <HowItWorks />
       <WhatYouGet />

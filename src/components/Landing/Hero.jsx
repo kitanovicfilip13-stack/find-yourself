@@ -1,7 +1,7 @@
 import { useLanguage } from '../../LanguageContext'
 
-export default function Hero({ onStart }) {
-  const { t } = useLanguage()
+export default function Hero({ onStart, hasProgress }) {
+  const { t, lang } = useLanguage()
   const h = t.hero
 
   return (
@@ -51,14 +51,24 @@ export default function Hero({ onStart }) {
             onClick={onStart}
             className="group relative px-8 py-4 bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-2xl hover:shadow-violet-500/30 hover:-translate-y-0.5 text-base"
           >
-            {h.cta}
+            {hasProgress ? (lang === 'sr' ? '▶ Nastavi test' : '▶ Continue test') : h.cta}
           </button>
-          <button
-            onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-4 glass glass-hover text-white/70 hover:text-white font-medium rounded-xl text-base border border-white/10"
-          >
-            {h.ctaSub}
-          </button>
+          {hasProgress && (
+            <button
+              onClick={() => { localStorage.removeItem('fy_progress'); onStart() }}
+              className="px-8 py-4 glass glass-hover text-white/50 hover:text-white font-medium rounded-xl text-base border border-white/10"
+            >
+              {lang === 'sr' ? 'Počni ispočetka' : 'Start over'}
+            </button>
+          )}
+          {!hasProgress && (
+            <button
+              onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-8 py-4 glass glass-hover text-white/70 hover:text-white font-medium rounded-xl text-base border border-white/10"
+            >
+              {h.ctaSub}
+            </button>
+          )}
         </div>
 
         {/* Social proof */}

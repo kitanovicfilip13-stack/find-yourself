@@ -3,7 +3,7 @@ import { useLanguage } from '../../LanguageContext'
 import { useAuth } from '../../AuthContext'
 import AuthModal from '../Auth/AuthModal'
 
-export default function Navbar({ onStart }) {
+export default function Navbar({ onStart, onDashboard }) {
   const { t, lang, toggle } = useLanguage()
   const { user, signOut } = useAuth()
   const [scrolled, setScrolled] = useState(false)
@@ -74,7 +74,15 @@ export default function Navbar({ onStart }) {
                     <div className="px-3 py-2 border-b border-white/5">
                       <p className="text-white/30 text-xs truncate">{user.email}</p>
                     </div>
-                    <button
+                    {onDashboard && (
+                      <button
+                        onClick={() => { setShowUserMenu(false); onDashboard() }}
+                        className="w-full text-left px-3 py-2 text-white/60 hover:text-white text-sm transition-colors"
+                      >
+                        {lang === 'sr' ? 'Moj profil' : 'My profile'}
+                      </button>
+                    )}
+                  <button
                       onClick={() => { signOut(); setShowUserMenu(false) }}
                       className="w-full text-left px-3 py-2 text-white/60 hover:text-white text-sm transition-colors"
                     >

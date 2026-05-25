@@ -11,7 +11,7 @@ import {
   getFirstPath,
 } from '../../i18n/scoring'
 
-export default function ResultPage({ answers, onRestart }) {
+export default function ResultPage({ answers, onRestart, onDashboard }) {
   const { t, lang } = useLanguage()
   const r = t.result
 
@@ -43,10 +43,18 @@ export default function ResultPage({ answers, onRestart }) {
             className="px-4 py-2 rounded-lg text-white/40 hover:text-white text-sm border border-white/10 hover:border-white/20 transition-all">
             {r.save}
           </button>
-          <button onClick={onRestart}
-            className="px-4 py-2 rounded-lg text-white text-sm bg-violet-600 hover:bg-violet-500 transition-all">
-            {r.retake}
-          </button>
+          {onDashboard && (
+            <button onClick={onDashboard}
+              className="px-4 py-2 rounded-lg text-white text-sm bg-violet-600 hover:bg-violet-500 transition-all">
+              {lang === 'sr' ? 'Moj profil →' : 'My profile →'}
+            </button>
+          )}
+          {!onDashboard && (
+            <button onClick={onRestart}
+              className="px-4 py-2 rounded-lg text-white text-sm bg-violet-600 hover:bg-violet-500 transition-all">
+              {r.retake}
+            </button>
+          )}
         </div>
       </div>
 
