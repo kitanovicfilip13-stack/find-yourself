@@ -203,7 +203,7 @@ export const translations = {
       headline3: 'Pronađi put koji',
       headline4: 'je tvoj.',
       sub: 'Pomažemo ti da razumeš sebe — svoju ličnost, talente i interesovanja — i pronađeš karijerni pravac koji stvarno odgovara tebi. Bez praznih fraza, samo konkretni odgovori.',
-      cta: 'Kreni odmah',
+      cta: 'Počni svoje putovanje',
       ctaSub: 'Pogledaj kako radi',
       social: 'mladih pronašlo svoj put',
       scroll: 'Skroluj',
@@ -312,7 +312,7 @@ export const translations = {
       title1: 'Jedan test između tebe',
       title2: 'i odgovora koje tražiš.',
       sub: 'Prestani da čekaš da se nešto samo desi. Osam minuta, 20 pitanja i dobijaš više jasnoće nego za godinu dana lutanja.',
-      btn: 'Kreni odmah',
+      btn: 'Počni svoje putovanje',
       fine: 'Bez registracije · Traje oko 8 minuta · Potpuno besplatno',
     },
 
