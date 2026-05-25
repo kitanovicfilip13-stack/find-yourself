@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLanguage } from '../../LanguageContext'
 import { getQuestions } from '../../i18n/questions'
+import { scoreFromText } from '../../i18n/keywordScoring'
 
 export default function OnboardingTest({ onComplete, onBack }) {
   const { t, lang } = useLanguage()
@@ -9,35 +10,68 @@ export default function OnboardingTest({ onComplete, onBack }) {
 
   const [current, setCurrent] = useState(0)
   const [answers, setAnswers] = useState([])
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState(null)   // index odabrane opcije ili null
+  const [customText, setCustomText] = useState('')  // slobodan odgovor
   const [direction, setDirection] = useState(1)
   const [animating, setAnimating] = useState(false)
 
   const question = questions[current]
   const progress = (current / questions.length) * 100
 
+  // Dugme je aktivno ako je odabrana opcija ILI je napisan tekst (min 3 karaktera)
+  const canContinue = selected !== null || customText.trim().length >= 3
+
   const handleSelect = (optionIndex) => {
     if (animating) return
     setSelected(optionIndex)
   }
 
-  const handleNext = () => {
-    if (selected === null || animating) return
-    const newAnswers = [...answers, {
+  const buildAnswer = () => {
+    let scores = {}
+
+    // Score iz odabrane opcije
+    if (selected !== null) {
+      const optionScores = question.options[selected].scores
+      Object.entries(optionScores).forEach(([k, v]) => {
+        scores[k] = (scores[k] || 0) + v
+      })
+    }
+
+    // Score iz slobodnog teksta (keyword matching)
+    if (customText.trim().length >= 3) {
+      const textScores = scoreFromText(customText)
+      if (textScores) {
+        Object.entries(textScores).forEach(([k, v]) => {
+          scores[k] = (scores[k] || 0) + v
+        })
+      }
+    }
+
+    return {
       questionId: question.id,
       selectedOption: selected,
-      scores: question.options[selected].scores,
-    }]
+      customText: customText.trim() || null,
+      scores,
+    }
+  }
+
+  const handleNext = () => {
+    if (!canContinue || animating) return
+    const newAnswer = buildAnswer()
+    const newAnswers = [...answers, newAnswer]
+
     if (current === questions.length - 1) {
       onComplete(newAnswers)
       return
     }
+
     setAnimating(true)
     setDirection(1)
     setTimeout(() => {
       setAnswers(newAnswers)
       setCurrent((c) => c + 1)
       setSelected(null)
+      setCustomText('')
       setAnimating(false)
     }, 250)
   }
@@ -49,7 +83,9 @@ export default function OnboardingTest({ onComplete, onBack }) {
     setDirection(-1)
     setTimeout(() => {
       setCurrent((c) => c - 1)
-      setSelected(answers[current - 1]?.selectedOption ?? null)
+      const prev = answers[current - 1]
+      setSelected(prev?.selectedOption ?? null)
+      setCustomText(prev?.customText || '')
       setAnswers((a) => a.slice(0, -1))
       setAnimating(false)
     }, 250)
@@ -107,6 +143,7 @@ export default function OnboardingTest({ onComplete, onBack }) {
             {question.question}
           </h2>
 
+          {/* Ponuđene opcije */}
           <div className="space-y-3">
             {question.options.map((option, i) => (
               <button key={i} onClick={() => handleSelect(i)}
@@ -131,10 +168,45 @@ export default function OnboardingTest({ onComplete, onBack }) {
             ))}
           </div>
 
-          <div className="mt-8 flex justify-end">
-            <button onClick={handleNext} disabled={selected === null}
+          {/* Slobodan odgovor */}
+          <div className="mt-4 relative">
+            <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+              customText.trim().length >= 3 && selected === null
+                ? 'border-violet-500/40 bg-violet-500/8'
+                : 'border-white/8 bg-white/[0.02]'
+            }`}>
+              <div className="flex items-center gap-3 px-5 pt-4 pb-1">
+                <div className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
+                  customText.trim().length >= 3 && selected === null
+                    ? 'border-violet-400 bg-violet-500'
+                    : 'border-white/20'
+                }`}>
+                  {customText.trim().length >= 3 && selected === null && (
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                </div>
+                <span className="text-white/30 text-xs uppercase tracking-widest">{ui.customLabel}</span>
+              </div>
+              <textarea
+                value={customText}
+                onChange={(e) => setCustomText(e.target.value)}
+                placeholder={ui.customPlaceholder}
+                rows={2}
+                className="w-full bg-transparent px-5 pb-4 pt-2 text-sm text-white/70 placeholder-white/20 resize-none outline-none leading-relaxed"
+              />
+            </div>
+            {customText.trim().length >= 3 && (
+              <p className="text-white/25 text-xs mt-2 px-1">{ui.customHint}</p>
+            )}
+          </div>
+
+          {/* Continue dugme */}
+          <div className="mt-6 flex justify-end">
+            <button onClick={handleNext} disabled={!canContinue}
               className={`flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm transition-all duration-300 ${
-                selected !== null
+                canContinue
                   ? 'bg-violet-600 hover:bg-violet-500 text-white hover:shadow-lg hover:shadow-violet-500/25 hover:-translate-y-0.5'
                   : 'bg-white/5 text-white/20 cursor-not-allowed'
               }`}>

@@ -144,6 +144,9 @@ export const translations = {
       brand: 'Find Yourself',
       continue: 'Continue',
       seeResults: 'See my results',
+      customPlaceholder: 'None of the above fits — write your own answer...',
+      customLabel: 'Your answer',
+      customHint: 'Writing your own answer will also affect your result.',
     },
 
     // Result page
@@ -320,6 +323,9 @@ export const translations = {
       brand: 'Pronađi Sebe',
       continue: 'Nastavi',
       seeResults: 'Pogledaj rezultate',
+      customPlaceholder: 'Ništa od ponuđenog ne odgovara — napiši svoj odgovor...',
+      customLabel: 'Tvoj odgovor',
+      customHint: 'Tvoj slobodan odgovor će uticati na rezultat.',
     },
 
     // Result page
