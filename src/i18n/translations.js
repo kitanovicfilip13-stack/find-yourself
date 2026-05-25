@@ -202,7 +202,7 @@ export const translations = {
       headline2: 'i u čemu možeš postati najbolji.',
       headline3: 'Pronađi put koji',
       headline4: 'je tvoj.',
-      sub: 'Pomažemo ti da razumeš sebe, svoju ličnost, talente i interesovanja, i pronađeš karijerni pravac koji stvarno odgovara tebi.',
+      sub: 'Pomažemo ti da razumeš sebe i svoju ličnost, otkriješ svoje talente i interesovanja i naučiš kako da ih primeniš u karijeri koja ti zaista odgovara.',
       cta: 'Počni svoje putovanje',
       ctaSub: 'Kako funkcioniše?',
       social: 'mladih pronašlo svoj put',
