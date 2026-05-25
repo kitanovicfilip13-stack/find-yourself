@@ -33,7 +33,7 @@ export default function ResultPage({ answers, onRestart, onDashboard }) {
       {/* Top nav */}
       <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
         <div className="flex items-center gap-2">
-          <img src="/logo.svg" alt="logo" className="w-6 h-6" />
+          <img src="/logo.png" alt="logo" className="w-6 h-6" />
           <span className="text-white/50 text-sm">{t.nav.brand}</span>
         </div>
         <div className="flex gap-3">

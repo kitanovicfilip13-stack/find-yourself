@@ -152,7 +152,7 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
       {/* Navbar */}
       <div className="flex items-center justify-between px-6 py-5 border-b border-white/5 sticky top-0 z-40" style={{ background: 'rgba(8,8,16,0.95)', backdropFilter: 'blur(20px)' }}>
         <button onClick={onGoToLanding} className="flex items-center gap-2 hover:opacity-70 transition-opacity">
-          <img src="/logo.svg" alt="logo" className="w-6 h-6" />
+          <img src="/logo.png" alt="logo" className="w-6 h-6" />
           <span className="text-white/60 text-sm font-medium">{t.nav.brand}</span>
         </button>
 

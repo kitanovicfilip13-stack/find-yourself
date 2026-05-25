@@ -26,7 +26,7 @@ export default function Navbar({ onStart, onDashboard }) {
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <img src="/logo.svg" alt="logo" className="w-7 h-7" />
+            <img src="/logo.png" alt="logo" className="w-7 h-7" />
             <span className="font-semibold text-white text-sm tracking-tight">{t.nav.brand}</span>
           </div>
 
