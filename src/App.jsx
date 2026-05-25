@@ -11,18 +11,10 @@ export default function App() {
   const [answers, setAnswers] = useState([])
   const [resumeFrom, setResumeFrom] = useState(null) // za "nastavi" test
 
-  // Kad se korisnik uloguje — provjeri ima li sačuvane rezultate
+  // Kad se korisnik odjavi dok je na dashboardu — vrati na landing
   useEffect(() => {
-    if (user) {
-      const saved = localStorage.getItem('fy_results')
-      if (saved) {
-        setPage('dashboard')
-      }
-    } else {
-      // Korisnik se odjavio — vrati na landing
-      if (page === 'dashboard') {
-        setPage('landing')
-      }
+    if (!user && page === 'dashboard') {
+      setPage('landing')
     }
   }, [user])
 
