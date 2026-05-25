@@ -55,6 +55,15 @@ export default function Navbar({ onStart, onDashboard }) {
 
             {user ? (
               // Ulogovan korisnik
+              <div className="flex items-center gap-3">
+                {onDashboard && (
+                  <button
+                    onClick={onDashboard}
+                    className="text-white/60 hover:text-white text-sm transition-colors duration-200 hidden md:block"
+                  >
+                    {lang === 'sr' ? 'Moj profil' : 'My profile'}
+                  </button>
+                )}
               <div className="relative">
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
@@ -90,6 +99,7 @@ export default function Navbar({ onStart, onDashboard }) {
                     </button>
                   </div>
                 )}
+              </div>
               </div>
             ) : (
               // Nije ulogovan
