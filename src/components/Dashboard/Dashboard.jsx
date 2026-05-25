@@ -120,6 +120,31 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
   const maxDimVal = Math.max(...topDims.map(d => d.val), 1)
 
   const shortEmail = user?.email?.split('@')[0]
+  const hasResults = savedAnswers.length > 0
+
+  if (!hasResults) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center px-6" style={{ background: '#080810' }}>
+        <div className="text-5xl mb-6">🧭</div>
+        <h1 className="text-2xl font-black text-white mb-3 text-center">
+          {lang === 'sr' ? 'Još nemaš profil' : "You don't have a profile yet"}
+        </h1>
+        <p className="text-white/40 text-sm mb-8 text-center max-w-sm">
+          {lang === 'sr'
+            ? 'Uradi test od 20 pitanja i dobij personalizovani profil sa karijernim pravcima, snagama i planom.'
+            : 'Take the 20-question test and get your personalized profile with career paths, strengths and action plan.'}
+        </p>
+        <button
+          onClick={onRetake}
+          className="px-8 py-4 bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl transition-all hover:shadow-2xl hover:shadow-violet-500/30">
+          {lang === 'sr' ? 'Počni test →' : 'Start test →'}
+        </button>
+        <button onClick={onGoToLanding} className="mt-4 text-white/30 hover:text-white text-sm transition-colors">
+          {lang === 'sr' ? '← Nazad na početnu' : '← Back to home'}
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen" style={{ background: '#080810' }}>

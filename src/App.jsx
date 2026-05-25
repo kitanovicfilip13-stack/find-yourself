@@ -94,7 +94,7 @@ export default function App() {
         <LandingPage
           onStart={handleStartJourney}
           hasProgress={hasProgress()}
-          onDashboard={user && localStorage.getItem('fy_results') ? handleGoToDashboard : null}
+          onDashboard={user ? handleGoToDashboard : null}
         />
       )}
       {page === 'onboarding' && (
