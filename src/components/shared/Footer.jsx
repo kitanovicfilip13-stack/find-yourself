@@ -138,9 +138,7 @@ export default function Footer() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center">
-                <span className="text-white text-xs font-bold">{lang === 'sr' ? 'P' : 'F'}</span>
-              </div>
+              <img src="/logo.svg" alt="logo" className="w-7 h-7" />
               <span className="font-semibold text-white text-sm tracking-tight">{f.brand}</span>
             </div>
 

@@ -114,9 +114,7 @@ export default function OnboardingTest({ onComplete, onBack, initialAnswers = []
         </button>
 
         <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded-md bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center">
-            <span className="text-white text-[10px] font-bold">{lang === 'sr' ? 'P' : 'F'}</span>
-          </div>
+          <img src="/logo.svg" alt="logo" className="w-5 h-5" />
           <span className="text-white/50 text-sm">{ui.brand}</span>
         </div>
 

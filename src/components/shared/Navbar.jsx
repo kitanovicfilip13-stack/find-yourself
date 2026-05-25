@@ -26,9 +26,7 @@ export default function Navbar({ onStart, onDashboard }) {
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center">
-              <span className="text-white text-xs font-bold">{lang === 'sr' ? 'P' : 'F'}</span>
-            </div>
+            <img src="/logo.svg" alt="logo" className="w-7 h-7" />
             <span className="font-semibold text-white text-sm tracking-tight">{t.nav.brand}</span>
           </div>
 
