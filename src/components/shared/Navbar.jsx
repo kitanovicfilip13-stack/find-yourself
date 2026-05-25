@@ -34,11 +34,18 @@ export default function Navbar({ onStart, onDashboard }) {
 
           {/* Nav links */}
           <div className="hidden md:flex items-center gap-8">
-            {t.nav.links.map((label) => (
-              <a key={label} href="#" className="text-white/50 hover:text-white text-sm transition-colors duration-200">
-                {label}
-              </a>
-            ))}
+            {t.nav.links.map((label, i) => {
+              const anchors = ['how-it-works', 'what-you-get', 'example']
+              return (
+                <button
+                  key={label}
+                  onClick={() => document.getElementById(anchors[i])?.scrollIntoView({ behavior: 'smooth' })}
+                  className="text-white/50 hover:text-white text-sm transition-colors duration-200"
+                >
+                  {label}
+                </button>
+              )
+            })}
           </div>
 
           {/* Right side */}
