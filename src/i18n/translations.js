@@ -197,7 +197,7 @@ export const translations = {
 
     // Hero
     hero: {
-      badge: 'Platforma za samospoznaju',
+      badge: 'Platforma za lični razvoj',
       headline1: 'Saznaj ko si, šta te pokreće',
       headline2: 'i u čemu možeš postati najbolji.',
       headline3: 'Pronađi put koji',
