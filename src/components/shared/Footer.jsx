@@ -7,7 +7,7 @@ const content = {
       title: 'About Find Yourself',
       body: `Find Yourself is a self-discovery platform built for young people (18–25) who feel lost about their career direction.
 
-We believe clarity isn't something you wait for — it's something you build. Our 20-question assessment maps your personality, strengths, and interests across 6 core dimensions to give you a personalized career profile.
+We believe clarity isn't something you wait for. it's something you build. Our 20-question assessment maps your personality, strengths, and interests across 6 core dimensions to give you a personalized career profile.
 
 No generic advice. No clichés. Just honest, actionable insight about who you are and where you could go.
 
@@ -21,7 +21,7 @@ What we collect: Your email address (for login), and your test answers (stored l
 
 What we don't do: We don't sell your data. We don't share it with third parties. We don't use it for advertising.
 
-Your test results are stored in your browser's local storage — they stay on your device unless you choose to delete them.
+Your test results are stored in your browser's local storage. they stay on your device unless you choose to delete them.
 
 We use Supabase for authentication, which follows industry-standard security practices.
 
@@ -32,7 +32,7 @@ Questions? Email us at privacy@findyourself.app`,
       body: `By using Find Yourself, you agree to the following:
 
 1. This platform is intended for personal self-discovery purposes only.
-2. Our results are based on a personality assessment algorithm — they are not a substitute for professional career counseling.
+2. Our results are based on a personality assessment algorithm. they are not a substitute for professional career counseling.
 3. You are responsible for any information you submit.
 4. We reserve the right to update or discontinue features at any time.
 5. Premium features, once available, are subject to their own billing terms.
@@ -49,7 +49,7 @@ Find Yourself is provided "as is" without warranties of any kind. Use at your ow
 
 We're a small team, so responses may take 1–3 business days. We read every message.
 
-If you have feedback about your results or suggestions for improving the platform — we especially want to hear that.`,
+If you have feedback about your results or suggestions for improving the platform. we especially want to hear that.`,
     },
   },
   sr: {
@@ -57,7 +57,7 @@ If you have feedback about your results or suggestions for improving the platfor
       title: 'O Pronađi Sebe',
       body: `Pronađi Sebe je platforma za samootkrivanje napravljena za mlade ljude (18–25) koji se osećaju izgubljeno u pogledu karijernog pravca.
 
-Verujemo da jasnoća nije nešto što se čeka — to je nešto što se gradi. Naš upitnik od 20 pitanja mapira tvoju ličnost, snage i interesovanja kroz 6 ključnih dimenzija kako bi ti dao personalizovani karijerni profil.
+Verujemo da jasnoća nije nešto što se čeka. to je nešto što se gradi. Naš upitnik od 20 pitanja mapira tvoju ličnost, snage i interesovanja kroz 6 ključnih dimenzija kako bi ti dao personalizovani karijerni profil.
 
 Nema generičkih saveta. Nema floskula. Samo iskrean, akcioni uvid u to ko si i gde možeš da ideš.
 
@@ -71,7 +71,7 @@ Napravili su ga ljudi koji su i sami bili izgubljeni.`,
 
 Šta ne radimo: Ne prodajemo tvoje podatke. Ne delimo ih sa trećim stranama. Ne koristimo ih za oglašavanje.
 
-Tvoji rezultati testa se čuvaju u lokalnom storage-u tvog browsera — ostaju na tvom uređaju osim ako ih ne obrišeš.
+Tvoji rezultati testa se čuvaju u lokalnom storage-u tvog browsera. ostaju na tvom uređaju osim ako ih ne obrišeš.
 
 Koristimo Supabase za autentifikaciju, koji prati industrijske standarde bezbednosti.
 
@@ -82,7 +82,7 @@ Pitanja? Piši nam na privacy@findyourself.app`,
       body: `Korišćenjem Pronađi Sebe, prihvataš sledeće:
 
 1. Ova platforma je namenjena isključivo za lično samootkrivanje.
-2. Naši rezultati se zasnivaju na algoritmu za procenu ličnosti — nisu zamena za profesionalno karijerono savetovanje.
+2. Naši rezultati se zasnivaju na algoritmu za procenu ličnosti. nisu zamena za profesionalno karijerono savetovanje.
 3. Odgovoran si za sve informacije koje uneseš.
 4. Zadržavamo pravo da ažuriramo ili ukinemo funkcije u bilo kom trenutku.
 5. Premium funkcije, kada budu dostupne, podležu sopstvenim uslovima naplate.
@@ -99,7 +99,7 @@ Pronađi Sebe se pruža "kakvo jeste" bez ikakvih garancija.`,
 
 Mali smo tim, pa odgovori mogu da potraju 1–3 radna dana. Čitamo svaku poruku.
 
-Ako imaš povratne informacije o rezultatima ili predloge za poboljšanje platforme — posebno to želimo da čujemo.`,
+Ako imaš povratne informacije o rezultatima ili predloge za poboljšanje platforme. posebno to želimo da čujemo.`,
     },
   },
 }
