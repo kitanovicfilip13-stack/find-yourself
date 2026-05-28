@@ -212,8 +212,8 @@ export const translations = {
     // Problem
     problem: {
       tag: 'Prepoznaješ li se?',
-      title: 'Nisi jedini koji se ovako oseća.',
-      sub: 'Ogromna većina mladih prolazi kroz isto. Nije problem u tebi. Problem je što te niko nikada nije naučio kako da saznaš ko si i šta hoćeš.',
+      title: 'Osećaj da vreme prolazi, a ti i dalje ne znaš kojim putem da kreneš.',
+      sub: 'Ogroman broj mladih prolazi kroz isto. Nije problem u tebi, problem je što te niko nikada nije naučio kako da pronađeš pravi smer za sebe i svoju budućnost.',
       footer: 'Ako si se prepoznao u bilo čemu od ovoga, na pravom si mestu.',
       items: [
         {
