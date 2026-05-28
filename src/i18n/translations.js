@@ -242,8 +242,8 @@ export const translations = {
     // How it works
     how: {
       tag: 'Kako radi',
-      title: 'Tri koraka do jasnoće',
-      sub: 'Bez komplikacija. Za manje od 10 minuta dobijaš konkretne odgovore o sebi.',
+      title: 'Tri koraka do odgovora.',
+      sub: 'Za manje od 10 minuta dobijaš odgovore na svako tvoje pitanje.',
       steps: [
         {
           number: '01',
