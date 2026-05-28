@@ -15,16 +15,9 @@ export default function Problem() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {p.items.map((item, i) => (
-            <div key={i} className="glass glass-hover rounded-2xl p-6 group">
-              <div className="flex items-start gap-4">
-                <div className="text-3xl flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-200">
-                  {item.emoji}
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold text-lg mb-2">{item.title}</h3>
-                  <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
+            <div key={i} className="glass glass-hover rounded-2xl p-6">
+              <h3 className="text-white font-semibold text-lg mb-2">{item.title}</h3>
+              <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
