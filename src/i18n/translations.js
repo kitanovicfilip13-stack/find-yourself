@@ -229,12 +229,12 @@ export const translations = {
         {
           emoji: '📋',
           title: 'Saveti koje dobijaš ne pomažu',
-          desc: '"Radi ono što voliš" zvuči lepo, ali potpuno je beskorisno kad ne znaš šta to uopšte jeste.',
+          desc: '"Radi ono što voliš" zvuči lepo, ali potpuno je beskorisno kad ne znaš ni šta je to uopšte.',
         },
         {
           emoji: '⏳',
           title: 'Osećaj da vreme prolazi',
-          desc: 'Gledaš kako vršnjaci napreduju, a ti i dalje stojiš u mestu i čekaš da nešto "klikne".',
+          desc: 'Gledaš kako vršnjaci napreduju, a ti i dalje stojiš u mestu i čekaš da se nešto desi.',
         },
       ],
     },
