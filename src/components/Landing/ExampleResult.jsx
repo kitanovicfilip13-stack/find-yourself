@@ -21,8 +21,12 @@ export default function ExampleResult({ onStart }) {
             <div className="p-6 border-b border-white/5"
               style={{ background: 'linear-gradient(135deg, rgba(109,40,217,0.2) 0%, rgba(37,99,235,0.1) 100%)' }}>
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl"
-                  style={{ background: 'rgba(139,92,246,0.2)' }}>🧠</div>
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-violet-400"
+                  style={{ background: 'rgba(139,92,246,0.2)' }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                  </svg>
+                </div>
                 <div>
                   <p className="text-white/40 text-xs uppercase tracking-widest mb-1">{e.personalityLabel}</p>
                   <h3 className="text-white font-bold text-xl">{e.personalityName}</h3>
