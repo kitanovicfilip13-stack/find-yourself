@@ -3,7 +3,7 @@ export const translations = {
     // Navbar
     nav: {
       brand: 'Find Yourself',
-      links: ['How it works', 'What you get', 'Example'],
+      links: ['How it works', 'What you get'],
       signin: 'Sign in',
       start: 'Get started',
     },
@@ -190,7 +190,7 @@ export const translations = {
     // Navbar
     nav: {
       brand: 'Pronađi Sebe',
-      links: ['Kako radi', 'Šta dobijaš', 'Primer'],
+      links: ['Kako radi', 'Šta dobijaš'],
       signin: 'Prijavi se',
       start: 'Počni',
     },

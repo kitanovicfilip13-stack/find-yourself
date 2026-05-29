@@ -39,7 +39,7 @@ export default function Navbar({ onStart, onDashboard }) {
               {lang === 'sr' ? 'Prepoznaj se' : 'Recognize yourself'}
             </button>
             {t.nav.links.map((label, i) => {
-              const anchors = ['how-it-works', 'what-you-get', 'example']
+              const anchors = ['how-it-works', 'what-you-get']
               return (
                 <button
                   key={label}
