@@ -78,7 +78,7 @@ export default function FAQ() {
   const items = faqs[lang] || faqs.sr
 
   return (
-    <section className="py-28 px-6">
+    <section id="faq" className="py-28 px-6">
       <div className="max-w-2xl mx-auto">
         <FadeUp className="text-center mb-12">
           <span className="text-violet-400 text-sm font-medium tracking-widest uppercase mb-4 block">FAQ</span>

@@ -50,6 +50,18 @@ export default function Navbar({ onStart, onDashboard }) {
                 </button>
               )
             })}
+            <button
+              onClick={() => document.getElementById('iskustva')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-white/50 hover:text-white text-sm transition-colors duration-200"
+            >
+              {lang === 'sr' ? 'Iskustva' : 'Testimonials'}
+            </button>
+            <button
+              onClick={() => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-white/50 hover:text-white text-sm transition-colors duration-200"
+            >
+              FAQ
+            </button>
           </div>
 
           {/* Right side */}
