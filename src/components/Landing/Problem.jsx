@@ -35,8 +35,8 @@ export default function Problem() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {p.items.map((item, i) => (
-            <FadeUp key={i} delay={i * 0.1}>
-            <div className="glass glass-hover rounded-2xl p-6">
+            <FadeUp key={i} delay={i * 0.1} className="h-full">
+            <div className="glass glass-hover rounded-2xl p-6 h-full">
               <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 mb-4">
                 {icons[i]}
               </div>

@@ -50,8 +50,8 @@ export default function WhatYouGet() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {w.features.map((f, i) => (
-            <FadeUp key={i} delay={i * 0.08}>
-            <div className="glass glass-hover rounded-2xl p-6 group relative overflow-hidden">
+            <FadeUp key={i} delay={i * 0.08} className="h-full">
+            <div className="glass glass-hover rounded-2xl p-6 group relative overflow-hidden h-full">
               <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-0 group-hover:opacity-10 transition-opacity duration-500"
                 style={{ background: accentColors[i], filter: 'blur(20px)' }} />
               <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-4" style={{ background: `${accentColors[i]}18`, color: accentColors[i] }}>
