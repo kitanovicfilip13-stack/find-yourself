@@ -311,7 +311,7 @@ export const translations = {
       badge: 'Besplatno',
       title1: 'Jedan test između tebe',
       title2: 'i odgovora koje tražiš.',
-      sub: 'Prestani da čekaš da se nešto samo desi. Osam minuta, 20 pitanja i dobijaš više jasnoće nego za godinu dana lutanja.',
+      sub: 'Prestani da čekaš da se nešto samo desi. Osam minuta, 20 pitanja i dobijaš više odgovora nego za godinu dana lutanja.',
       btn: 'Počni svoje putovanje',
       fine: 'Bez registracije · Traje oko 8 minuta · Potpuno besplatno',
     },
