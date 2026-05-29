@@ -1,4 +1,5 @@
 import { useLanguage } from '../../LanguageContext'
+import { FadeUp } from '../shared/ScrollReveal'
 
 const accentColors = ['#8b5cf6', '#3b82f6', '#06b6d4', '#10b981', '#f59e0b', '#ec4899']
 
@@ -41,15 +42,16 @@ export default function WhatYouGet() {
       </div>
 
       <div className="max-w-6xl mx-auto relative">
-        <div className="text-center mb-16">
+        <FadeUp className="text-center mb-16">
           <span className="text-violet-400 text-sm font-medium tracking-widest uppercase mb-4 block">{w.tag}</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">{w.title}</h2>
           <p className="text-white/40 text-lg max-w-xl mx-auto">{w.sub}</p>
-        </div>
+        </FadeUp>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {w.features.map((f, i) => (
-            <div key={i} className="glass glass-hover rounded-2xl p-6 group relative overflow-hidden">
+            <FadeUp key={i} delay={i * 0.08}>
+            <div className="glass glass-hover rounded-2xl p-6 group relative overflow-hidden">
               <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-0 group-hover:opacity-10 transition-opacity duration-500"
                 style={{ background: accentColors[i], filter: 'blur(20px)' }} />
               <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-4" style={{ background: `${accentColors[i]}18`, color: accentColors[i] }}>
@@ -58,6 +60,7 @@ export default function WhatYouGet() {
               <h3 className="text-white font-semibold text-lg mb-2">{f.title}</h3>
               <p className="text-white/40 text-sm leading-relaxed">{f.desc}</p>
             </div>
+            </FadeUp>
           ))}
         </div>
       </div>

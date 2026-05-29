@@ -1,4 +1,5 @@
 import { useLanguage } from '../../LanguageContext'
+import { FadeUp } from '../shared/ScrollReveal'
 
 export default function ExampleResult({ onStart }) {
   const { t } = useLanguage()
@@ -7,13 +8,13 @@ export default function ExampleResult({ onStart }) {
   return (
     <section id="example" className="py-28 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <FadeUp className="text-center mb-16">
           <span className="text-violet-400 text-sm font-medium tracking-widest uppercase mb-4 block">{e.tag}</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">{e.title}</h2>
           <p className="text-white/40 text-lg">{e.sub}</p>
-        </div>
+        </FadeUp>
 
-        <div className="max-w-2xl mx-auto">
+        <FadeUp delay={0.2} className="max-w-2xl mx-auto">
           <div className="rounded-3xl overflow-hidden border border-white/8"
             style={{ background: 'linear-gradient(145deg, #0f0f1e 0%, #0a0a18 100%)' }}>
 
@@ -80,7 +81,7 @@ export default function ExampleResult({ onStart }) {
               {e.cta}
             </button>
           </div>
-        </div>
+        </FadeUp>
       </div>
     </section>
   )

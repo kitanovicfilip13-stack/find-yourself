@@ -1,4 +1,5 @@
 import { useLanguage } from '../../LanguageContext'
+import { FadeUp } from '../shared/ScrollReveal'
 
 const icons = [
   // Izgubljen — kompas
@@ -26,27 +27,29 @@ export default function Problem() {
   return (
     <section id="problem" className="py-28 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <FadeUp className="text-center mb-16">
           <span className="text-violet-400 text-sm font-medium tracking-widest uppercase mb-4 block">{p.tag}</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">{p.title}</h2>
           <p className="text-white/40 text-lg max-w-xl mx-auto">{p.sub}</p>
-        </div>
+        </FadeUp>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {p.items.map((item, i) => (
-            <div key={i} className="glass glass-hover rounded-2xl p-6">
+            <FadeUp key={i} delay={i * 0.1}>
+            <div className="glass glass-hover rounded-2xl p-6">
               <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 mb-4">
                 {icons[i]}
               </div>
               <h3 className="text-white font-semibold text-lg mb-2">{item.title}</h3>
               <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
             </div>
+            </FadeUp>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <FadeUp delay={0.3} className="mt-12 text-center">
           <p className="text-white/30 text-sm">{p.footer}</p>
-        </div>
+        </FadeUp>
       </div>
     </section>
   )
