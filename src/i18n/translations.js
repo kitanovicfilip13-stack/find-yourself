@@ -278,7 +278,7 @@ export const translations = {
         { icon: '🧬', title: 'Ko si kao osoba', desc: 'Jasan i iskren opis kako razmišljaš, kako funkcionišeš i šta te pokreće, rečima koje će ti zazvučati poznato.' },
         { icon: '⚡', title: 'Tvoji potencijali', desc: 'Konkretne stvari u kojima si prirodno dobar i koje, kada ih svesno koristiš, daju rezultate.' },
         { icon: '🔮', title: 'Karijerni pravci', desc: 'Ne opšte preporuke, nego oblasti i uloge koje stvarno odgovaraju tvom profilu i kombinaciji interesovanja.' },
-        { icon: '📈', title: 'Šta da naučiš', desc: 'Veštine koje ima smisla razvijati upravo ti, na osnovu toga ko si i kuda ideš.' },
+        { icon: '📈', title: 'Šta da naučiš', desc: 'Veštine koje treba da razvijaš i koje će ti najviše koristiti u budućnosti.' },
         { icon: '📅', title: 'Plan za prvih 7 dana', desc: 'Konkretni koraci koje možeš da uradiš već ove nedelje. Ne teorija, nego akcija.' },
         { icon: '🎯', title: 'Tvoj sledeći korak', desc: 'Jedan jasan pravac od kojeg možeš da počneš. Bez paralize od previše opcija.' },
       ],
