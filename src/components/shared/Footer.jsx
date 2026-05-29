@@ -43,9 +43,9 @@ Find Yourself is provided "as is" without warranties of any kind. Use at your ow
       title: 'Contact Us',
       body: `We'd love to hear from you.
 
-📧 General inquiries: hello@findyourself.app
-🔒 Privacy concerns: privacy@findyourself.app
-🤝 Partnership & business: partners@findyourself.app
+General inquiries: hello@findyourself.app
+Privacy concerns: privacy@findyourself.app
+Partnership & business: partners@findyourself.app
 
 We're a small team, so responses may take 1–3 business days. We read every message.
 
@@ -93,13 +93,13 @@ Pronađi Sebe se pruža "kakvo jeste" bez ikakvih garancija.`,
       title: 'Kontaktiraj nas',
       body: `Rado bismo čuli od tebe.
 
-📧 Opšta pitanja: hello@findyourself.app
-🔒 Pitanja o privatnosti: privacy@findyourself.app
-🤝 Partnerstvo i biznis: partners@findyourself.app
+Opšta pitanja: hello@findyourself.app
+Pitanja o privatnosti: privacy@findyourself.app
+Partnerstvo i biznis: partners@findyourself.app
 
 Mali smo tim, pa odgovori mogu da potraju 1–3 radna dana. Čitamo svaku poruku.
 
-Ako imaš povratne informacije o rezultatima ili predloge za poboljšanje platforme. posebno to želimo da čujemo.`,
+Ako imaš povratne informacije o rezultatima ili predloge za poboljšanje platforme, posebno to želimo da čujemo.`,
     },
   },
 }

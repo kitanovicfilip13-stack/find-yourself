@@ -319,7 +319,7 @@ export const translations = {
     // Footer
     footer: {
       brand: 'Pronađi Sebe',
-      links: ['O nama', 'Privatnost', 'Uslovi korišćenja', 'Kontakt'],
+      links: ['O nama', 'Privatnost', 'Uslovi', 'Kontakt'],
       copy: '© 2025 Pronađi Sebe. Za sve koji još traže.',
       comingSoon: 'Uskoro',
       upcoming: ['AI Chat', 'Kursevi', 'Partnerske kompanije', 'Job Matching', 'Zajednica'],

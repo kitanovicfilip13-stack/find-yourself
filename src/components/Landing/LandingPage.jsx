@@ -4,6 +4,8 @@ import Problem from './Problem'
 import HowItWorks from './HowItWorks'
 import WhatYouGet from './WhatYouGet'
 import ExampleResult from './ExampleResult'
+import Testimonials from './Testimonials'
+import FAQ from './FAQ'
 import FinalCTA from './FinalCTA'
 import Footer from '../shared/Footer'
 
@@ -16,6 +18,8 @@ export default function LandingPage({ onStart, hasProgress, onDashboard }) {
       <HowItWorks />
       <WhatYouGet />
       <ExampleResult onStart={onStart} />
+      <Testimonials />
+      <FAQ />
       <FinalCTA onStart={onStart} />
       <Footer />
     </div>
