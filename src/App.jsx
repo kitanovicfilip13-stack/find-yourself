@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from './AuthContext'
+import { useLenis } from './hooks/useLenis'
 import LandingPage from './components/Landing/LandingPage'
 import OnboardingTest from './components/Onboarding/OnboardingTest'
 import ResultPage from './components/Results/ResultPage'
@@ -7,6 +8,7 @@ import Dashboard from './components/Dashboard/Dashboard'
 
 export default function App() {
   const { user } = useAuth()
+  useLenis()
   const [page, setPage] = useState('landing') // 'landing' | 'onboarding' | 'results' | 'dashboard'
   const [answers, setAnswers] = useState([])
   const [resumeFrom, setResumeFrom] = useState(null) // za "nastavi" test
