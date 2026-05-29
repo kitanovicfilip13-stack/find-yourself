@@ -292,7 +292,7 @@ export const translations = {
       personalityLabel: 'Tip ličnosti',
       personalityName: 'Kreativni strateg',
       personalityDesc: "Razmišljaš u sistemima, ali osećaš kroz priče. Trebaš slobodu da stvaraš, ali i jasnu strukturu unutar koje radiš. Samostalni rad te puni energijom, a najsrećniji si kada ono što radiš ima neki viši smisao.",
-      strengthsLabel: 'Najveće snage',
+      strengthsLabel: 'Najveći potencijali',
       strengths: ['Strateško razmišljanje', 'Vizuelna komunikacija', 'Samostalno učenje', 'Uočavanje obrazaca', 'Pisanje'],
       careersLabel: 'Karijerni pravci',
       careers: [
@@ -351,7 +351,7 @@ export const translations = {
       personalityLabel: 'Tvoj tip ličnosti',
       dimensionsLabel: 'Tvoj profil',
       dimNames: { C: 'Kreativnost', T: 'Tehnologija', P: 'Rad s ljudima', B: 'Biznis', O: 'Organizacija', N: 'Praktičan rad' },
-      strengthsLabel: 'Tvoje snage',
+      strengthsLabel: 'Tvoji najveći potencijali',
       watchLabel: 'Na šta da paziš',
       careersLabel: 'Karijerni pravci koji ti odgovaraju',
       topMatch: 'Najbolje poklapanje',
