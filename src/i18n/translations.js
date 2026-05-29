@@ -279,7 +279,7 @@ export const translations = {
         { icon: '⚡', title: 'Tvoji potencijali', desc: 'Konkretne stvari u kojima si prirodno dobar i koje, kada ih svesno koristiš, daju rezultate.' },
         { icon: '🔮', title: 'Karijerni pravci', desc: 'Ne opšte preporuke, nego oblasti i uloge koje stvarno odgovaraju tvom profilu i kombinaciji interesovanja.' },
         { icon: '📈', title: 'Šta da naučiš', desc: 'Veštine koje treba da razvijaš i koje će ti najviše koristiti u budućnosti.' },
-        { icon: '📅', title: 'Plan za prvih 7 dana', desc: 'Konkretni koraci koje možeš da uradiš već ove nedelje. Ne teorija, nego akcija.' },
+        { icon: '📅', title: 'Plan za prvih 7 dana', desc: 'Konkretni koraci koje možeš da uradiš već ove nedelje i napraviš prvi pomak ka budućnosti koju želiš.' },
         { icon: '🎯', title: 'Tvoj sledeći korak', desc: 'Jedan jasan pravac od kojeg možeš da počneš. Bez paralize od previše opcija.' },
       ],
     },
