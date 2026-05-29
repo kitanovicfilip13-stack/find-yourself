@@ -273,7 +273,7 @@ export const translations = {
     what: {
       tag: 'Šta dobijaš',
       title: 'Tvoj lični profil',
-      sub: 'Nije to jedan od onih testova ličnosti iz devedesetih. Ovo je praktičan, moderan uvid u sebe koji ti zaista pomaže da doneseš odluku.',
+      sub: '',
       features: [
         { icon: '🧬', title: 'Ko si kao osoba', desc: 'Jasan i iskren opis kako razmišljaš, kako funkcionišeš i šta te pokreće, rečima koje će ti zazvučati poznato.' },
         { icon: '⚡', title: 'Tvoje snage', desc: 'Konkretne stvari u kojima prirodno dobro ideš i koje, kada ih svesno koristiš, daju rezultate.' },
