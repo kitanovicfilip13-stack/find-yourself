@@ -158,7 +158,7 @@ export default function Testimonials() {
         <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
           style={{ background: 'linear-gradient(to left, #080810, transparent)' }} />
 
-        <div className="flex animate-marquee">
+        <div className="flex animate-marquee hover:[animation-play-state:paused]">
           {[...items, ...items].map((item, i) => (
             <TestimonialCard key={i} item={item} />
           ))}
