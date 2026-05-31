@@ -212,7 +212,7 @@ export const translations = {
     // Problem
     problem: {
       tag: 'Prepoznaješ li se?',
-      title: 'Osećaj da vreme prolazi, a ti i dalje ne znaš kojim putem da kreneš.',
+      title: 'Osećaj da vreme prolazi, a ti i dalje ne znaš kojim putem da kreneš',
       sub: 'Ogroman broj mladih prolazi kroz isto. Nije problem u tebi, problem je što te niko nikada nije naučio kako da pronađeš pravi smer za sebe i svoju budućnost.',
       footer: 'Ako si se prepoznao u bilo čemu od ovoga, na pravom si mestu.',
       items: [
@@ -242,7 +242,7 @@ export const translations = {
     // How it works
     how: {
       tag: 'Kako radi',
-      title: 'Tri koraka do odgovora.',
+      title: 'Tri koraka do odgovora',
       sub: 'Za manje od 10 minuta dobijaš odgovore na svako tvoje pitanje.',
       steps: [
         {

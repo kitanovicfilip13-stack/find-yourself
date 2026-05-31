@@ -83,7 +83,7 @@ export default function FAQ() {
         <FadeUp className="text-center mb-12">
           <span className="text-violet-400 text-sm font-medium tracking-widest uppercase mb-4 block">FAQ</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-            {lang === 'sr' ? 'Česta pitanja.' : 'Common questions.'}
+            {lang === 'sr' ? 'Česta pitanja' : 'Common questions'}
           </h2>
         </FadeUp>
 

@@ -62,7 +62,7 @@ export default function Testimonials() {
             {lang === 'sr' ? 'Iskustva' : 'Testimonials'}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-            {lang === 'sr' ? 'Šta kažu drugi.' : 'What others say.'}
+            {lang === 'sr' ? 'Šta kažu drugi' : 'What others say'}
           </h2>
         </FadeUp>
 

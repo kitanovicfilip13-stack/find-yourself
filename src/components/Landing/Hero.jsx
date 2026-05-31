@@ -42,7 +42,7 @@ export default function Hero({ onStart, hasProgress }) {
               <span className="gradient-text">pokreće</span>
               <br />
               <span className="text-white">i gde </span>
-              <span className="gradient-text">pripadaš.</span>
+              <span className="gradient-text">pripadaš</span>
             </>
           ) : (
             <>
@@ -52,7 +52,7 @@ export default function Hero({ onStart, hasProgress }) {
               <span className="gradient-text">drives you</span>
               <br />
               <span className="text-white">and where you </span>
-              <span className="gradient-text">belong.</span>
+              <span className="gradient-text">belong</span>
             </>
           )}
         </h1>
