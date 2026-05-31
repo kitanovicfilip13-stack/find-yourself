@@ -267,6 +267,102 @@ export const srednjeSkole = {
       'Ugostiteljska škola Subotica',
     ],
   },
+  'Valjevo': {
+    TECH: ['Tehnička škola Valjevo', 'Elektrotehnička škola Valjevo', 'Mašinska škola Valjevo', 'Saobraćajna škola Valjevo', 'IT smer – Tehnička škola'],
+    MED: ['Medicinska škola Valjevo', 'Škola za medicinske sestre Valjevo', 'Zdravstvena škola Valjevo', 'Farmaceutski smer Valjevo', 'Škola zdravstvene nege Valjevo'],
+    ART: ['Muzička škola Valjevo', 'Škola primenjene umetnosti Valjevo', 'Likovna škola Valjevo', 'Umetnički odeljak Valjevo', 'Škola za dizajn Valjevo'],
+    SOC: ['Valjevo – Gimnazija', 'Filološki smer Valjevo', 'Jezička škola Valjevo', 'Učiteljska škola Valjevo', 'Društveni smer Valjevo'],
+    SCI: ['Valjevo – Gimnazija – prirodni smer', 'Matematički smer Valjevo', 'PMF priprema Valjevo', 'Fizičko-matematički smer', 'Prirodno-naučni smer Valjevo'],
+    ECO: ['Ekonomska škola Valjevo', 'Turistička škola Valjevo', 'Poslovna škola Valjevo', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Valjevo'],
+  },
+  'Šabac': {
+    TECH: ['Tehnička škola Šabac', 'Elektrotehnička škola Šabac', 'Mašinska škola Šabac', 'IT smer Šabac', 'Hemijsko-prehrambena škola Šabac'],
+    MED: ['Medicinska škola Šabac', 'Škola za medicinske sestre Šabac', 'Zdravstvena škola Šabac', 'Farmaceutski smer Šabac', 'Škola zdravstvene nege Šabac'],
+    ART: ['Muzička škola Šabac', 'Škola primenjene umetnosti Šabac', 'Likovna škola Šabac', 'Umetnički odeljak Šabac', 'Škola za dizajn Šabac'],
+    SOC: ['Šabac – Gimnazija', 'Filološki smer Šabac', 'Jezička škola Šabac', 'Učiteljska škola Šabac', 'Društveni smer Šabac'],
+    SCI: ['Šabac – Gimnazija – prirodni smer', 'Matematički smer Šabac', 'PMF priprema Šabac', 'Fizičko-matematički smer', 'Prirodno-naučni smer Šabac'],
+    ECO: ['Ekonomska škola Šabac', 'Turistička škola Šabac', 'Poslovna škola Šabac', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Šabac'],
+  },
+  'Loznica': {
+    TECH: ['Tehnička škola Loznica', 'Elektrotehnička škola Loznica', 'Mašinska škola Loznica', 'IT smer Loznica', 'Hemijsko-prehrambena škola Loznica'],
+    MED: ['Medicinska škola Loznica', 'Škola za medicinske sestre Loznica', 'Zdravstvena škola Loznica', 'Farmaceutski smer Loznica', 'Škola zdravstvene nege Loznica'],
+    ART: ['Muzička škola Loznica', 'Škola primenjene umetnosti Loznica', 'Likovna škola Loznica', 'Umetnički odeljak Loznica', 'Škola za dizajn Loznica'],
+    SOC: ['Loznica – Gimnazija', 'Filološki smer Loznica', 'Jezička škola Loznica', 'Učiteljska škola Loznica', 'Društveni smer Loznica'],
+    SCI: ['Loznica – Gimnazija – prirodni smer', 'Matematički smer Loznica', 'PMF priprema Loznica', 'Fizičko-matematički smer', 'Prirodno-naučni smer Loznica'],
+    ECO: ['Ekonomska škola Loznica', 'Turistička škola Loznica', 'Poslovna škola Loznica', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Loznica'],
+  },
+  'Kruševac': {
+    TECH: ['Elektrotehnička škola "Mija Stanimirović" Kruševac', 'Tehnička škola Kruševac', 'Mašinska škola Kruševac', 'IT smer Kruševac', 'Hemijsko-tehnološka škola Kruševac'],
+    MED: ['Medicinska škola Kruševac', 'Škola za medicinske sestre Kruševac', 'Zdravstvena škola Kruševac', 'Farmaceutski smer Kruševac', 'Škola zdravstvene nege Kruševac'],
+    ART: ['Muzička škola Kruševac', 'Škola primenjene umetnosti Kruševac', 'Likovna škola Kruševac', 'Umetnički odeljak Kruševac', 'Škola za dizajn Kruševac'],
+    SOC: ['Kruševac – Gimnazija', 'Filološki smer Kruševac', 'Jezička škola Kruševac', 'Učiteljska škola Kruševac', 'Društveni smer Kruševac'],
+    SCI: ['Kruševac – Gimnazija – prirodni smer', 'Matematički smer Kruševac', 'PMF priprema Kruševac', 'Fizičko-matematički smer', 'Prirodno-naučni smer Kruševac'],
+    ECO: ['Ekonomska škola Kruševac', 'Turistička škola Kruševac', 'Poslovna škola Kruševac', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Kruševac'],
+  },
+  'Kraljevo': {
+    TECH: ['Tehnička škola "14. oktobar" Kraljevo', 'Elektrotehnička škola Kraljevo', 'Mašinska škola Kraljevo', 'IT smer Kraljevo', 'Hemijsko-tehnološka škola Kraljevo'],
+    MED: ['Medicinska škola Kraljevo', 'Škola za medicinske sestre Kraljevo', 'Zdravstvena škola Kraljevo', 'Farmaceutski smer Kraljevo', 'Škola zdravstvene nege Kraljevo'],
+    ART: ['Muzička škola Kraljevo', 'Škola primenjene umetnosti Kraljevo', 'Likovna škola Kraljevo', 'Umetnički odeljak Kraljevo', 'Škola za dizajn Kraljevo'],
+    SOC: ['Kraljevo – Gimnzija', 'Filološki smer Kraljevo', 'Jezička škola Kraljevo', 'Učiteljska škola Kraljevo', 'Društveni smer Kraljevo'],
+    SCI: ['Kraljevo – Gimnazija – prirodni smer', 'Matematički smer Kraljevo', 'PMF priprema Kraljevo', 'Fizičko-matematički smer', 'Prirodno-naučni smer Kraljevo'],
+    ECO: ['Ekonomska škola Kraljevo', 'Turistička škola Kraljevo', 'Poslovna škola Kraljevo', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Kraljevo'],
+  },
+  'Leskovac': {
+    TECH: ['Tehnička škola Leskovac', 'Elektrotehnička škola Leskovac', 'Mašinska škola Leskovac', 'IT smer Leskovac', 'Hemijsko-tehnološka škola Leskovac'],
+    MED: ['Medicinska škola Leskovac', 'Škola za medicinske sestre Leskovac', 'Zdravstvena škola Leskovac', 'Farmaceutski smer Leskovac', 'Škola zdravstvene nege Leskovac'],
+    ART: ['Muzička škola Leskovac', 'Škola primenjene umetnosti Leskovac', 'Likovna škola Leskovac', 'Umetnički odeljak Leskovac', 'Škola za dizajn Leskovac'],
+    SOC: ['Leskovac – Gimnazija', 'Filološki smer Leskovac', 'Jezička škola Leskovac', 'Učiteljska škola Leskovac', 'Društveni smer Leskovac'],
+    SCI: ['Leskovac – Gimnazija – prirodni smer', 'Matematički smer Leskovac', 'PMF priprema Leskovac', 'Fizičko-matematički smer', 'Prirodno-naučni smer Leskovac'],
+    ECO: ['Ekonomska škola Leskovac', 'Turistička škola Leskovac', 'Poslovna škola Leskovac', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Leskovac'],
+  },
+  'Vranje': {
+    TECH: ['Tehnička škola Vranje', 'Elektrotehnička škola Vranje', 'Mašinska škola Vranje', 'IT smer Vranje', 'Hemijsko-tehnološka škola Vranje'],
+    MED: ['Medicinska škola Vranje', 'Škola za medicinske sestre Vranje', 'Zdravstvena škola Vranje', 'Farmaceutski smer Vranje', 'Škola zdravstvene nege Vranje'],
+    ART: ['Muzička škola Vranje', 'Škola primenjene umetnosti Vranje', 'Likovna škola Vranje', 'Umetnički odeljak Vranje', 'Škola za dizajn Vranje'],
+    SOC: ['Vranje – Gimnazija', 'Filološki smer Vranje', 'Jezička škola Vranje', 'Učiteljska škola Vranje', 'Društveni smer Vranje'],
+    SCI: ['Vranje – Gimnazija – prirodni smer', 'Matematički smer Vranje', 'PMF priprema Vranje', 'Fizičko-matematički smer', 'Prirodno-naučni smer Vranje'],
+    ECO: ['Ekonomska škola Vranje', 'Turistička škola Vranje', 'Poslovna škola Vranje', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Vranje'],
+  },
+  'Zaječar': {
+    TECH: ['Tehnička škola Zaječar', 'Elektrotehnička škola Zaječar', 'Mašinska škola Zaječar', 'IT smer Zaječar', 'Hemijsko-tehnološka škola Zaječar'],
+    MED: ['Medicinska škola Zaječar', 'Škola za medicinske sestre Zaječar', 'Zdravstvena škola Zaječar', 'Farmaceutski smer Zaječar', 'Škola zdravstvene nege Zaječar'],
+    ART: ['Muzička škola Zaječar', 'Škola primenjene umetnosti Zaječar', 'Likovna škola Zaječar', 'Umetnički odeljak Zaječar', 'Škola za dizajn Zaječar'],
+    SOC: ['Zaječar – Gimnazija', 'Filološki smer Zaječar', 'Jezička škola Zaječar', 'Učiteljska škola Zaječar', 'Društveni smer Zaječar'],
+    SCI: ['Zaječar – Gimnazija – prirodni smer', 'Matematički smer Zaječar', 'PMF priprema Zaječar', 'Fizičko-matematički smer', 'Prirodno-naučni smer Zaječar'],
+    ECO: ['Ekonomska škola Zaječar', 'Turistička škola Zaječar', 'Poslovna škola Zaječar', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Zaječar'],
+  },
+  'Bor': {
+    TECH: ['Tehnička škola Bor', 'Elektrotehnička škola Bor', 'Mašinska škola Bor', 'IT smer Bor', 'Hemijsko-metalurška škola Bor'],
+    MED: ['Medicinska škola Bor', 'Škola za medicinske sestre Bor', 'Zdravstvena škola Bor', 'Farmaceutski smer Bor', 'Škola zdravstvene nege Bor'],
+    ART: ['Muzička škola Bor', 'Škola primenjene umetnosti Bor', 'Likovna škola Bor', 'Umetnički odeljak Bor', 'Škola za dizajn Bor'],
+    SOC: ['Bor – Gimnazija', 'Filološki smer Bor', 'Jezička škola Bor', 'Učiteljska škola Bor', 'Društveni smer Bor'],
+    SCI: ['Bor – Gimnazija – prirodni smer', 'Matematički smer Bor', 'PMF priprema Bor', 'Fizičko-matematički smer', 'Prirodno-naučni smer Bor'],
+    ECO: ['Ekonomska škola Bor', 'Turistička škola Bor', 'Poslovna škola Bor', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Bor'],
+  },
+  'Pirot': {
+    TECH: ['Tehnička škola Pirot', 'Elektrotehnička škola Pirot', 'Mašinska škola Pirot', 'IT smer Pirot', 'Hemijsko-tehnološka škola Pirot'],
+    MED: ['Medicinska škola Pirot', 'Škola za medicinske sestre Pirot', 'Zdravstvena škola Pirot', 'Farmaceutski smer Pirot', 'Škola zdravstvene nege Pirot'],
+    ART: ['Muzička škola Pirot', 'Škola primenjene umetnosti Pirot', 'Likovna škola Pirot', 'Umetnički odeljak Pirot', 'Škola za dizajn Pirot'],
+    SOC: ['Pirot – Gimnazija', 'Filološki smer Pirot', 'Jezička škola Pirot', 'Učiteljska škola Pirot', 'Društveni smer Pirot'],
+    SCI: ['Pirot – Gimnazija – prirodni smer', 'Matematički smer Pirot', 'PMF priprema Pirot', 'Fizičko-matematički smer', 'Prirodno-naučni smer Pirot'],
+    ECO: ['Ekonomska škola Pirot', 'Turistička škola Pirot', 'Poslovna škola Pirot', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Pirot'],
+  },
+  'Novi Pazar': {
+    TECH: ['Tehnička škola Novi Pazar', 'Elektrotehnička škola Novi Pazar', 'Mašinska škola Novi Pazar', 'IT smer Novi Pazar', 'Hemijsko-tehnološka škola Novi Pazar'],
+    MED: ['Medicinska škola Novi Pazar', 'Škola za medicinske sestre Novi Pazar', 'Zdravstvena škola Novi Pazar', 'Farmaceutski smer Novi Pazar', 'Škola zdravstvene nege Novi Pazar'],
+    ART: ['Muzička škola Novi Pazar', 'Škola primenjene umetnosti Novi Pazar', 'Likovna škola Novi Pazar', 'Umetnički odeljak Novi Pazar', 'Škola za dizajn Novi Pazar'],
+    SOC: ['Novi Pazar – Gimnazija', 'Filološki smer Novi Pazar', 'Jezička škola Novi Pazar', 'Učiteljska škola Novi Pazar', 'Društveni smer Novi Pazar'],
+    SCI: ['Novi Pazar – Gimnazija – prirodni smer', 'Matematički smer Novi Pazar', 'PMF priprema Novi Pazar', 'Fizičko-matematički smer', 'Prirodno-naučni smer Novi Pazar'],
+    ECO: ['Ekonomska škola Novi Pazar', 'Turistička škola Novi Pazar', 'Poslovna škola Novi Pazar', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Novi Pazar'],
+  },
+  'Užice': {
+    TECH: ['Tehnička škola Užice', 'Elektrotehnička škola Užice', 'Mašinska škola Užice', 'IT smer Užice', 'Hemijsko-tehnološka škola Užice'],
+    MED: ['Medicinska škola Užice', 'Škola za medicinske sestre Užice', 'Zdravstvena škola Užice', 'Farmaceutski smer Užice', 'Škola zdravstvene nege Užice'],
+    ART: ['Muzička škola Užice', 'Škola primenjene umetnosti Užice', 'Likovna škola Užice', 'Umetnički odeljak Užice', 'Škola za dizajn Užice'],
+    SOC: ['Užice – Gimnazija', 'Filološki smer Užice', 'Jezička škola Užice', 'Učiteljska škola Užice', 'Društveni smer Užice'],
+    SCI: ['Užice – Gimnazija – prirodni smer', 'Matematički smer Užice', 'PMF priprema Užice', 'Fizičko-matematički smer', 'Prirodno-naučni smer Užice'],
+    ECO: ['Ekonomska škola Užice', 'Turistička škola Užice', 'Poslovna škola Užice', 'Ekonomsko-trgovinska škola', 'Ugostiteljska škola Užice'],
+  },
 }
 
 export const fakulteti = {
@@ -576,20 +672,27 @@ export const fakulteti = {
       'PMF Beograd (alternativa)',
     ],
   },
+  'Valjevo': { TECH: ['Fakultet inženjerskih nauka Kragujevac (najbliži)', 'FON Beograd – online', 'Tehnički fakultet Čačak', 'ETF Beograd', 'Visoka tehnička škola Valjevo'], MED: ['Medicinski fakultet Beograd (najbliži)', 'Visoka medicinska škola Valjevo', 'Zdravstvena škola strukovnih studija', 'Farmaceutski Beograd', 'Visoka škola zdravstvenih studija'], ECO: ['Ekonomski fakultet Beograd', 'Visoka poslovna škola Valjevo', 'Poslovni fakultet Valjevo', 'Visoka škola strukovnih studija', 'FEFA Beograd'], LAW: ['Pravni fakultet Beograd', 'Pravni fakultet Kragujevac', 'Akademija strukovnih studija', 'Visoka škola za poslovnu ekonomiju', 'Pravni – online studije'], SOC: ['Filozofski fakultet Beograd', 'Pedagoški fakultet Jagodina', 'Učiteljski fakultet Beograd', 'Visoka škola za vaspitače', 'Filozofski Kragujevac'], ART: ['Fakultet primenjenih umetnosti Beograd', 'Akademija umetnosti Beograd', 'Muzička akademija Beograd', 'Visoka škola primenjenih umetnosti', 'Akademija umetnosti Novi Sad'], SCI: ['PMF Beograd', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'PMF Kragujevac', 'Matematički fakultet Beograd'] },
+  'Šabac': { TECH: ['ETF Beograd', 'FON Beograd', 'Mašinski fakultet Beograd', 'Tehnički fakultet Čačak', 'Visoka tehnička škola Šabac'], MED: ['Medicinski fakultet Beograd', 'Farmaceutski fakultet Beograd', 'Visoka medicinska škola Šabac', 'Stomatološki Beograd', 'Zdravstvena škola strukovnih studija'], ECO: ['Ekonomski fakultet Beograd', 'Visoka poslovna škola Šabac', 'Poslovni fakultet Šabac', 'Visoka škola strukovnih studija', 'FEFA Beograd'], LAW: ['Pravni fakultet Beograd', 'Fakultet političkih nauka Beograd', 'Akademija strukovnih studija', 'Visoka škola za poslovnu ekonomiju', 'Pravni – online studije'], SOC: ['Filozofski fakultet Beograd', 'Učiteljski fakultet Beograd', 'Visoka škola za vaspitače', 'Pedagoški fakultet Jagodina', 'Filozofski Kragujevac'], ART: ['Fakultet primenjenih umetnosti Beograd', 'Akademija umetnosti Beograd', 'Muzička akademija Beograd', 'FDU Beograd', 'Likovni fakultet Beograd'], SCI: ['PMF Beograd', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'Matematički fakultet Beograd', 'Fizički fakultet Beograd'] },
+  'Loznica': { TECH: ['ETF Beograd', 'FON Beograd', 'Mašinski fakultet Beograd', 'Tehnički fakultet Čačak', 'Visoka tehnička škola Loznica'], MED: ['Medicinski fakultet Beograd', 'Farmaceutski fakultet Beograd', 'Visoka medicinska škola Loznica', 'Zdravstvena škola strukovnih studija', 'Stomatološki Beograd'], ECO: ['Ekonomski fakultet Beograd', 'Visoka poslovna škola Loznica', 'Poslovni fakultet Loznica', 'Visoka škola strukovnih studija', 'FEFA Beograd'], LAW: ['Pravni fakultet Beograd', 'Akademija strukovnih studija', 'Visoka škola za poslovnu ekonomiju', 'Pravni – online studije', 'Fakultet političkih nauka'], SOC: ['Filozofski fakultet Beograd', 'Učiteljski fakultet Beograd', 'Visoka škola za vaspitače', 'Pedagoški fakultet', 'Filozofski Kragujevac'], ART: ['Fakultet primenjenih umetnosti Beograd', 'Akademija umetnosti Beograd', 'Muzička akademija Beograd', 'FDU Beograd', 'Likovni fakultet Beograd'], SCI: ['PMF Beograd', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'Matematički fakultet Beograd', 'Fizički fakultet Beograd'] },
+  'Kruševac': { TECH: ['Elektronski fakultet Niš', 'Fakultet inženjerskih nauka Kragujevac', 'ETF Beograd', 'Mašinski fakultet Niš', 'Visoka tehnička škola Kruševac'], MED: ['Medicinski fakultet Niš', 'Medicinski fakultet Kragujevac', 'Farmaceutski Beograd', 'Visoka medicinska škola Kruševac', 'Zdravstvena škola strukovnih studija'], ECO: ['Ekonomski fakultet Niš', 'Ekonomski fakultet Kragujevac', 'Visoka poslovna škola Kruševac', 'Poslovni fakultet Kruševac', 'Visoka škola strukovnih studija'], LAW: ['Pravni fakultet Niš', 'Pravni fakultet Kragujevac', 'Akademija strukovnih studija Šumadija', 'Visoka škola za poslovnu ekonomiju', 'Pravni – online studije'], SOC: ['Filozofski fakultet Niš', 'Pedagoški fakultet Jagodina', 'Visoka škola za vaspitače Kruševac', 'Učiteljski fakultet Beograd', 'Filozofski Kragujevac'], ART: ['Akademija umetnosti Beograd', 'Fakultet umetnosti Niš', 'Muzička akademija Beograd', 'Akademija umetnosti Novi Sad', 'Visoka škola primenjenih umetnosti'], SCI: ['PMF Niš', 'PMF Kragujevac', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'PMF Beograd'] },
+  'Kraljevo': { TECH: ['Fakultet za mašinstvo i građevinarstvo Kraljevo', 'Elektronski fakultet Niš', 'ETF Beograd', 'Tehnički fakultet Čačak', 'Visoka tehnička škola Kraljevo'], MED: ['Medicinski fakultet Kragujevac', 'Medicinski fakultet Niš', 'Farmaceutski Beograd', 'Visoka medicinska škola Kraljevo', 'Zdravstvena škola strukovnih studija'], ECO: ['Ekonomski fakultet Kragujevac', 'Ekonomski fakultet Niš', 'Visoka poslovna škola Kraljevo', 'Poslovni fakultet Kraljevo', 'Visoka škola strukovnih studija'], LAW: ['Pravni fakultet Kragujevac', 'Pravni fakultet Niš', 'Akademija strukovnih studija', 'Visoka škola za poslovnu ekonomiju', 'Pravni – online studije'], SOC: ['Filozofski fakultet Niš', 'Pedagoški fakultet Jagodina', 'Visoka škola za vaspitače Kruševac', 'Učiteljski fakultet Beograd', 'Filozofski Kragujevac'], ART: ['Akademija umetnosti Beograd', 'Fakultet umetnosti Niš', 'Muzička akademija Beograd', 'Akademija umetnosti Novi Sad', 'Visoka škola primenjenih umetnosti'], SCI: ['PMF Kragujevac', 'PMF Niš', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'Matematički fakultet Beograd'] },
+  'Leskovac': { TECH: ['Elektronski fakultet Niš', 'Tehnološki fakultet Leskovac', 'Mašinski fakultet Niš', 'ETF Beograd', 'Visoka tehnička škola Leskovac'], MED: ['Medicinski fakultet Niš', 'Farmaceutski Beograd', 'Visoka medicinska škola Niš', 'Zdravstvena škola strukovnih studija', 'Stomatološki Niš'], ECO: ['Ekonomski fakultet Niš', 'Visoka poslovna škola Leskovac', 'Poslovni fakultet Leskovac', 'Visoka škola strukovnih studija', 'EDUCONS Niš'], LAW: ['Pravni fakultet Niš', 'Akademija strukovnih studija Niš', 'Visoka škola za poslovnu ekonomiju', 'Departman za pravo Niš', 'Pravni – online studije'], SOC: ['Filozofski fakultet Niš', 'Učiteljski fakultet Vranje', 'Visoka škola za vaspitače Niš', 'Departman za psihologiju Niš', 'Filozofski Beograd'], ART: ['Fakultet umetnosti Niš', 'Akademija umetnosti Beograd', 'Muzička akademija Beograd', 'Departman za muziku Niš', 'Visoka škola primenjenih umetnosti'], SCI: ['PMF Niš', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'Departman za biologiju Niš', 'Matematički fakultet Beograd'] },
+  'Vranje': { TECH: ['Elektronski fakultet Niš', 'Mašinski fakultet Niš', 'ETF Beograd', 'Visoka tehnička škola Vranje', 'FON Beograd'], MED: ['Medicinski fakultet Niš', 'Farmaceutski Beograd', 'Visoka medicinska škola Vranje', 'Zdravstvena škola strukovnih studija Vranje', 'Stomatološki Niš'], ECO: ['Ekonomski fakultet Niš', 'Visoka poslovna škola Vranje', 'Poslovni fakultet Vranje', 'Visoka škola strukovnih studija', 'EDUCONS Niš'], LAW: ['Pravni fakultet Niš', 'Akademija strukovnih studija Niš', 'Visoka škola za poslovnu ekonomiju', 'Departman za pravo Niš', 'Pravni – online studije'], SOC: ['Učiteljski fakultet Vranje', 'Filozofski fakultet Niš', 'Visoka škola za vaspitače Niš', 'Departman za psihologiju Niš', 'Filozofski Beograd'], ART: ['Fakultet umetnosti Niš', 'Akademija umetnosti Beograd', 'Muzička akademija Beograd', 'Departman za muziku Niš', 'Visoka škola primenjenih umetnosti'], SCI: ['PMF Niš', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'Departman za biologiju Niš', 'Matematički fakultet Beograd'] },
+  'Zaječar': { TECH: ['Elektronski fakultet Niš', 'ETF Beograd', 'Mašinski fakultet Niš', 'Tehnički fakultet Zaječar', 'Visoka tehnička škola Zaječar'], MED: ['Medicinski fakultet Niš', 'Farmaceutski Beograd', 'Visoka medicinska škola Zaječar', 'Zdravstvena škola strukovnih studija', 'Stomatološki Niš'], ECO: ['Fakultet za menadžment Zaječar', 'Ekonomski fakultet Niš', 'Visoka poslovna škola Zaječar', 'Poslovni fakultet Zaječar', 'EDUCONS Niš'], LAW: ['Pravni fakultet Niš', 'Akademija strukovnih studija Niš', 'Departman za pravo Niš', 'Visoka škola za poslovnu ekonomiju', 'Pravni – online studije'], SOC: ['Filozofski fakultet Niš', 'Učiteljski fakultet Vranje', 'Visoka škola za vaspitače', 'Departman za psihologiju Niš', 'Filozofski Beograd'], ART: ['Fakultet umetnosti Niš', 'Akademija umetnosti Beograd', 'Muzička akademija Beograd', 'Visoka škola primenjenih umetnosti', 'Departman za muziku Niš'], SCI: ['PMF Niš', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'Matematički fakultet Beograd', 'Departman za biologiju Niš'] },
+  'Bor': { TECH: ['Tehnički fakultet Bor (Univerzitet u Beogradu)', 'Elektronski fakultet Niš', 'ETF Beograd', 'Mašinski fakultet Niš', 'Visoka tehnička škola Bor'], MED: ['Medicinski fakultet Niš', 'Farmaceutski Beograd', 'Visoka medicinska škola Bor', 'Zdravstvena škola strukovnih studija', 'Stomatološki Niš'], ECO: ['Ekonomski fakultet Niš', 'Visoka poslovna škola Bor', 'Fakultet za menadžment Zaječar', 'Poslovni fakultet Bor', 'EDUCONS Niš'], LAW: ['Pravni fakultet Niš', 'Akademija strukovnih studija Niš', 'Departman za pravo Niš', 'Visoka škola za poslovnu ekonomiju', 'Pravni – online studije'], SOC: ['Filozofski fakultet Niš', 'Učiteljski fakultet Vranje', 'Visoka škola za vaspitače', 'Departman za psihologiju Niš', 'Filozofski Beograd'], ART: ['Fakultet umetnosti Niš', 'Akademija umetnosti Beograd', 'Muzička akademija Beograd', 'Visoka škola primenjenih umetnosti', 'Departman za muziku Niš'], SCI: ['PMF Niš', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'Matematički fakultet Beograd', 'Tehnički fakultet Bor'] },
+  'Pirot': { TECH: ['Elektronski fakultet Niš', 'ETF Beograd', 'Mašinski fakultet Niš', 'Visoka tehnička škola Pirot', 'FON Beograd'], MED: ['Medicinski fakultet Niš', 'Farmaceutski Beograd', 'Visoka medicinska škola Pirot', 'Zdravstvena škola strukovnih studija', 'Stomatološki Niš'], ECO: ['Ekonomski fakultet Niš', 'Visoka poslovna škola Pirot', 'Poslovni fakultet Pirot', 'Visoka škola strukovnih studija', 'EDUCONS Niš'], LAW: ['Pravni fakultet Niš', 'Akademija strukovnih studija Niš', 'Departman za pravo Niš', 'Visoka škola za poslovnu ekonomiju', 'Pravni – online studije'], SOC: ['Filozofski fakultet Niš', 'Učiteljski fakultet Vranje', 'Visoka škola za vaspitače', 'Departman za psihologiju Niš', 'Filozofski Beograd'], ART: ['Fakultet umetnosti Niš', 'Akademija umetnosti Beograd', 'Muzička akademija Beograd', 'Visoka škola primenjenih umetnosti', 'Departman za muziku Niš'], SCI: ['PMF Niš', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'Matematički fakultet Beograd', 'Departman za biologiju Niš'] },
+  'Novi Pazar': { TECH: ['Državni Univerzitet Novi Pazar – tehničke nauke', 'ETF Beograd', 'FON Beograd', 'Elektronski fakultet Niš', 'Visoka tehnička škola Novi Pazar'], MED: ['Državni Univerzitet Novi Pazar – medicinski', 'Medicinski fakultet Beograd', 'Medicinski fakultet Kragujevac', 'Farmaceutski Beograd', 'Zdravstvena škola strukovnih studija'], ECO: ['Državni Univerzitet Novi Pazar – ekonomija', 'Ekonomski fakultet Kragujevac', 'Visoka poslovna škola Novi Pazar', 'Poslovni fakultet Novi Pazar', 'FEFA Beograd'], LAW: ['Državni Univerzitet Novi Pazar – pravo', 'Pravni fakultet Beograd', 'Pravni fakultet Kragujevac', 'Akademija strukovnih studija', 'Pravni – online studije'], SOC: ['Državni Univerzitet Novi Pazar – humanistika', 'Filozofski fakultet Beograd', 'Učiteljski fakultet Beograd', 'Visoka škola za vaspitače', 'Pedagoški fakultet Jagodina'], ART: ['Akademija umetnosti Beograd', 'Fakultet primenjenih umetnosti Beograd', 'Muzička akademija Beograd', 'Akademija umetnosti Novi Sad', 'Visoka škola primenjenih umetnosti'], SCI: ['PMF Beograd', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'Matematički fakultet Beograd', 'PMF Kragujevac'] },
+  'Užice': { TECH: ['Tehnički fakultet Čačak', 'ETF Beograd', 'Mašinski fakultet Beograd', 'FON Beograd', 'Visoka tehnička škola Užice'], MED: ['Medicinski fakultet Kragujevac', 'Medicinski fakultet Beograd', 'Farmaceutski Beograd', 'Visoka medicinska škola Užice', 'Zdravstvena škola strukovnih studija'], ECO: ['Ekonomski fakultet Kragujevac', 'Ekonomski fakultet Beograd', 'Visoka poslovna škola Užice', 'Poslovni fakultet Užice', 'Visoka škola strukovnih studija'], LAW: ['Pravni fakultet Kragujevac', 'Pravni fakultet Beograd', 'Akademija strukovnih studija', 'Visoka škola za poslovnu ekonomiju', 'Pravni – online studije'], SOC: ['Učiteljski fakultet Užice', 'Filozofski fakultet Beograd', 'Pedagoški fakultet Jagodina', 'Visoka škola za vaspitače', 'Filozofski Kragujevac'], ART: ['Akademija umetnosti Beograd', 'Fakultet primenjenih umetnosti Beograd', 'Muzička akademija Beograd', 'Akademija umetnosti Novi Sad', 'Visoka škola primenjenih umetnosti'], SCI: ['PMF Beograd', 'PMF Kragujevac', 'Hemijski fakultet Beograd', 'Biološki fakultet Beograd', 'Matematički fakultet Beograd'] },
 }
 
-export const gradovi = [
-  'Beograd',
-  'Novi Sad',
-  'Niš',
-  'Kragujevac',
-  'Čačak',
-  'Subotica',
-]
+import { gradToRegion } from '../components/Onboarding/CitySelector'
 
 export function getTop5Schools(segment, city, scores) {
   const db = segment === 'srednja' ? srednjeSkole : fakulteti
-  const cityData = db[city] || db['Beograd']
+  // Ako nema direktnih podataka za grad, koristi regionalni centar
+  const regionCity = gradToRegion[city] || city
+  const cityData = db[regionCity] || db[city] || db['Beograd']
 
   // Sortiraj dimenzije po skoru
   const ranked = Object.entries(scores)

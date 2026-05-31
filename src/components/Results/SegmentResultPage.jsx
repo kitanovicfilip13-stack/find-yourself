@@ -17,9 +17,12 @@ export default function SegmentResultPage({ answers, segment, city, onRestart })
 
   const { primary, alternatives, scores } = result
   const top5 = getTop5Schools(segment, city, scores)
-  const label = segment === 'srednja' ? 'Tvoj profil' : 'Tvoj profil'
-  const schoolLabel = segment === 'srednja' ? 'Top 5 preporučenih škola za tebe' : 'Top 5 preporučenih fakulteta za tebe'
-  const cityLabel = segment === 'srednja' ? `u ${city}` : `u ${city}`
+  const typeLabel = segment === 'srednja'
+    ? 'Koji tip srednje škole bi ti odgovarao'
+    : 'Koji tip fakulteta bi ti odgovarao'
+  const recLabel = segment === 'srednja'
+    ? `Preporučujemo u ${city}:`
+    : `Preporučujemo u ${city}:`
 
   return (
     <div className="min-h-screen px-6 py-16" style={{ background: '#080810' }}>
@@ -35,42 +38,43 @@ export default function SegmentResultPage({ answers, segment, city, onRestart })
           <p className="text-white/40">Na osnovu tvojih odgovora, ovo ti najviše odgovara.</p>
         </div>
 
-        {/* Profil tip */}
-        <div className="rounded-3xl overflow-hidden border border-white/8 mb-6"
+        {/* Tip škole/fakulteta */}
+        <div className="rounded-3xl overflow-hidden border border-white/8 mb-8"
           style={{ background: 'linear-gradient(145deg, #0f0f1e 0%, #0a0a18 100%)' }}>
-
           <div className="p-6 border-b border-white/5"
             style={{ background: `linear-gradient(135deg, ${primary.color}22 0%, transparent 100%)` }}>
-            <p className="text-white/40 text-xs uppercase tracking-widest mb-1">{label}</p>
+            <p className="text-white/40 text-xs uppercase tracking-widest mb-2">{typeLabel}</p>
             <h2 className="text-white font-bold text-2xl mb-1">{primary.name}</h2>
             <p style={{ color: primary.color }} className="text-sm font-medium">{primary.smer}</p>
           </div>
-
           <div className="p-6">
-            <p className="text-white/60 text-sm leading-relaxed">{primary.desc}</p>
+            <p className="text-white/55 text-sm leading-relaxed">{primary.desc}</p>
           </div>
         </div>
 
-        {/* Top 5 škola/fakulteta */}
+        {/* Top 5 preporuke */}
         {top5.length > 0 && (
-          <div className="mb-6">
-            <div className="flex items-center justify-between mb-3 px-1">
-              <p className="text-white/40 text-xs uppercase tracking-widest">{schoolLabel}</p>
-              <p className="text-white/20 text-xs">{cityLabel}</p>
-            </div>
+          <div className="mb-8">
+            <p className="text-white/50 text-sm font-medium mb-4">{recLabel}</p>
             <div className="space-y-2">
               {top5.map((school, i) => (
                 <div key={school}
-                  className="flex items-center gap-4 glass rounded-2xl px-5 py-4 border border-white/5">
-                  <span className="text-2xl font-black tabular-nums flex-shrink-0"
+                  className={`flex items-center gap-4 rounded-2xl px-5 py-4 border transition-all ${
+                    i === 0
+                      ? 'border-violet-500/30 bg-violet-500/8'
+                      : 'border-white/5 bg-white/[0.02]'
+                  }`}>
+                  <span className="text-xl font-black tabular-nums flex-shrink-0 w-6 text-center"
                     style={{ color: i === 0 ? primary.color : 'rgba(255,255,255,0.15)' }}>
                     {i + 1}
                   </span>
-                  <p className={`text-sm font-medium ${i === 0 ? 'text-white' : 'text-white/60'}`}>{school}</p>
+                  <p className={`text-sm leading-snug ${i === 0 ? 'text-white font-medium' : 'text-white/50'}`}>
+                    {school}
+                  </p>
                   {i === 0 && (
-                    <span className="ml-auto text-xs px-2 py-0.5 rounded-full border flex-shrink-0"
-                      style={{ color: primary.color, borderColor: `${primary.color}40`, background: `${primary.color}12` }}>
-                      Najbolji izbor
+                    <span className="ml-auto text-xs px-2.5 py-1 rounded-full flex-shrink-0 font-medium"
+                      style={{ color: primary.color, background: `${primary.color}18` }}>
+                      #1
                     </span>
                   )}
                 </div>
@@ -79,19 +83,19 @@ export default function SegmentResultPage({ answers, segment, city, onRestart })
           </div>
         )}
 
-        {/* Alternative tipovi */}
+        {/* Alternative */}
         {alternatives.length > 0 && (
           <div className="mb-10">
-            <p className="text-white/30 text-xs uppercase tracking-widest mb-3 px-1">Takođe odgovaraju</p>
+            <p className="text-white/30 text-xs uppercase tracking-widest mb-3">Takođe odgovaraju</p>
             <div className="space-y-3">
               {alternatives.map((alt) => (
                 <div key={alt.name} className="glass rounded-2xl p-5 border border-white/5">
                   <div className="flex items-center gap-3 mb-1">
                     <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: alt.color }} />
-                    <h3 className="text-white font-semibold text-base">{alt.name}</h3>
-                    <span className="text-white/30 text-xs">{alt.smer}</span>
+                    <h3 className="text-white font-semibold text-sm">{alt.name}</h3>
+                    <span className="text-white/25 text-xs">{alt.smer}</span>
                   </div>
-                  <p className="text-white/40 text-sm leading-relaxed pl-5">{alt.desc.split('.')[0]}.</p>
+                  <p className="text-white/35 text-sm leading-relaxed pl-5">{alt.desc.split('.')[0]}.</p>
                 </div>
               ))}
             </div>
@@ -100,16 +104,12 @@ export default function SegmentResultPage({ answers, segment, city, onRestart })
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-3">
-          <button
-            onClick={onRestart}
-            className="flex-1 px-6 py-3.5 bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-violet-500/20 text-sm"
-          >
+          <button onClick={onRestart}
+            className="flex-1 px-6 py-3.5 bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-violet-500/20 text-sm">
             Počni ispočetka
           </button>
-          <button
-            onClick={() => { localStorage.removeItem('fy_results'); localStorage.removeItem('fy_progress'); onRestart() }}
-            className="flex-1 px-6 py-3.5 glass glass-hover text-white/50 hover:text-white font-medium rounded-xl text-sm border border-white/10"
-          >
+          <button onClick={() => { localStorage.removeItem('fy_results'); localStorage.removeItem('fy_progress'); onRestart() }}
+            className="flex-1 px-6 py-3.5 glass glass-hover text-white/50 hover:text-white font-medium rounded-xl text-sm border border-white/10">
             Promeni segment
           </button>
         </div>
