@@ -60,7 +60,7 @@ export default function SegmentSelector({ onSelect, onBack }) {
         <div className="w-full max-w-2xl">
           <div className="text-center mb-12">
             <span className="text-violet-400 text-xs font-medium tracking-widest uppercase mb-4 block">Korak 1 od 2</span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">U kojoj oblasti ti je potrebna naša podrška</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">U kojoj oblasti ti je potrebna naša podrška?</h1>
             <p className="text-white/40 text-base">Odaberi oblast i dobijaš pitanja i preporuke prilagođene tvojoj situaciji.</p>
           </div>
 
@@ -90,6 +90,12 @@ export default function SegmentSelector({ onSelect, onBack }) {
               </button>
             ))}
           </div>
+        </div>
+
+        <div className="mt-10 p-6 rounded-2xl border border-white/5 bg-white/[0.02]">
+          <p className="text-white/35 text-sm leading-relaxed text-center">
+            Najveća greška nije izabrati pogrešno. Najveća greška je godinama ostati na putu koji nije tvoj. Nemoj trošiti vreme učeći ono što te ne zanima, studirajući nešto što te ne ispunjava ili radeći posao u kojem ne vidiš sebe. Pravi izbor danas može ti uštedeti godine lutanja sutra. Pomažemo ti da doneseš odluke zasnovane na tome ko si, a ne na pritisku okoline, očekivanjima drugih ili nasumičnom izboru.
+          </p>
         </div>
       </div>
     </div>
