@@ -3,6 +3,7 @@ import { useAuth } from './AuthContext'
 import { useLenis } from './hooks/useLenis'
 import LandingPage from './components/Landing/LandingPage'
 import SegmentSelector from './components/Onboarding/SegmentSelector'
+import CitySelector from './components/Onboarding/CitySelector'
 import OnboardingTest from './components/Onboarding/OnboardingTest'
 import ResultPage from './components/Results/ResultPage'
 import SegmentResultPage from './components/Results/SegmentResultPage'
@@ -11,8 +12,9 @@ import Dashboard from './components/Dashboard/Dashboard'
 export default function App() {
   const { user } = useAuth()
   useLenis()
-  const [page, setPage] = useState('landing') // 'landing' | 'segment-select' | 'onboarding' | 'results' | 'dashboard'
-  const [segment, setSegment] = useState('posao') // 'posao' | 'srednja' | 'fakultet'
+  const [page, setPage] = useState('landing')
+  const [segment, setSegment] = useState('posao')
+  const [city, setCity] = useState('Beograd')
   const [answers, setAnswers] = useState([])
   const [resumeFrom, setResumeFrom] = useState(null)
 
@@ -33,20 +35,15 @@ export default function App() {
 
   const handleStartJourney = () => {
     window.scrollTo({ top: 0, behavior: 'instant' })
-    // Ako ima sačuvan napredak za posao segment, nastavi
     try {
       const raw = localStorage.getItem('fy_progress')
       if (raw) {
         const parsed = JSON.parse(raw)
-        if (parsed.segment && parsed.segment !== 'posao') {
-          // Ima napredak za drugi segment — idi na selektor
-          setPage('segment-select')
-          return
-        }
         if (parsed.answers?.length > 0) {
           setAnswers(parsed.answers || [])
           setResumeFrom(parsed.current || 0)
           setSegment(parsed.segment || 'posao')
+          setCity(parsed.city || 'Beograd')
           setPage('onboarding')
           return
         }
@@ -60,12 +57,22 @@ export default function App() {
     setSegment(selectedSegment)
     setAnswers([])
     setResumeFrom(null)
+    if (selectedSegment === 'posao') {
+      setPage('onboarding')
+    } else {
+      setPage('city-select')
+    }
+  }
+
+  const handleSelectCity = (selectedCity) => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    setCity(selectedCity)
     setPage('onboarding')
   }
 
   const handleComplete = (finalAnswers) => {
     setAnswers(finalAnswers)
-    localStorage.setItem('fy_results', JSON.stringify({ answers: finalAnswers, segment }))
+    localStorage.setItem('fy_results', JSON.stringify({ answers: finalAnswers, segment, city }))
     localStorage.removeItem('fy_progress')
     setResumeFrom(null)
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -76,6 +83,7 @@ export default function App() {
     setAnswers([])
     setResumeFrom(null)
     setSegment('posao')
+    setCity('Beograd')
     localStorage.removeItem('fy_results')
     localStorage.removeItem('fy_progress')
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -96,16 +104,6 @@ export default function App() {
     setPage('dashboard')
   }
 
-  const saveProgress = (currentIdx, currentAnswers) => {
-    try {
-      localStorage.setItem('fy_progress', JSON.stringify({
-        current: currentIdx,
-        answers: currentAnswers,
-        segment,
-      }))
-    } catch {}
-  }
-
   return (
     <div className="min-h-screen bg-[#080810]">
       {page === 'landing' && (
@@ -121,10 +119,17 @@ export default function App() {
           onBack={() => setPage('landing')}
         />
       )}
+      {page === 'city-select' && (
+        <CitySelector
+          segment={segment}
+          onSelect={handleSelectCity}
+          onBack={() => setPage('segment-select')}
+        />
+      )}
       {page === 'onboarding' && (
         <OnboardingTest
           onComplete={handleComplete}
-          onBack={() => setPage('segment-select')}
+          onBack={() => segment === 'posao' ? setPage('segment-select') : setPage('city-select')}
           initialAnswers={answers}
           initialCurrent={resumeFrom || 0}
           segment={segment}
@@ -134,6 +139,7 @@ export default function App() {
         <SegmentResultPage
           answers={answers}
           segment={segment}
+          city={city}
           onRestart={handleRestart}
         />
       )}

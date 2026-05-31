@@ -1,6 +1,7 @@
 import { computeSegmentResult } from '../../i18n/segmentScoring'
+import { getTop5Schools } from '../../i18n/schoolsDB'
 
-export default function SegmentResultPage({ answers, segment, onRestart }) {
+export default function SegmentResultPage({ answers, segment, city, onRestart }) {
   const result = computeSegmentResult(answers, segment)
 
   if (!result) {
@@ -14,8 +15,11 @@ export default function SegmentResultPage({ answers, segment, onRestart }) {
     )
   }
 
-  const { primary, alternatives } = result
-  const label = segment === 'srednja' ? 'Preporučena srednja škola' : 'Preporučeni fakultet'
+  const { primary, alternatives, scores } = result
+  const top5 = getTop5Schools(segment, city, scores)
+  const label = segment === 'srednja' ? 'Tvoj profil' : 'Tvoj profil'
+  const schoolLabel = segment === 'srednja' ? 'Top 5 preporučenih škola za tebe' : 'Top 5 preporučenih fakulteta za tebe'
+  const cityLabel = segment === 'srednja' ? `u ${city}` : `u ${city}`
 
   return (
     <div className="min-h-screen px-6 py-16" style={{ background: '#080810' }}>
@@ -31,7 +35,7 @@ export default function SegmentResultPage({ answers, segment, onRestart }) {
           <p className="text-white/40">Na osnovu tvojih odgovora, ovo ti najviše odgovara.</p>
         </div>
 
-        {/* Primary result */}
+        {/* Profil tip */}
         <div className="rounded-3xl overflow-hidden border border-white/8 mb-6"
           style={{ background: 'linear-gradient(145deg, #0f0f1e 0%, #0a0a18 100%)' }}>
 
@@ -42,23 +46,40 @@ export default function SegmentResultPage({ answers, segment, onRestart }) {
             <p style={{ color: primary.color }} className="text-sm font-medium">{primary.smer}</p>
           </div>
 
-          <div className="p-6 border-b border-white/5">
-            <p className="text-white/60 text-sm leading-relaxed">{primary.desc}</p>
-          </div>
-
           <div className="p-6">
-            <p className="text-white/30 text-xs uppercase tracking-widest mb-3">Primeri</p>
-            <div className="flex flex-wrap gap-2">
-              {primary.examples.map((ex) => (
-                <span key={ex} className="px-3 py-1.5 rounded-lg text-xs font-medium text-white/70 border border-white/10 bg-white/5">
-                  {ex}
-                </span>
-              ))}
-            </div>
+            <p className="text-white/60 text-sm leading-relaxed">{primary.desc}</p>
           </div>
         </div>
 
-        {/* Alternatives */}
+        {/* Top 5 škola/fakulteta */}
+        {top5.length > 0 && (
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-3 px-1">
+              <p className="text-white/40 text-xs uppercase tracking-widest">{schoolLabel}</p>
+              <p className="text-white/20 text-xs">{cityLabel}</p>
+            </div>
+            <div className="space-y-2">
+              {top5.map((school, i) => (
+                <div key={school}
+                  className="flex items-center gap-4 glass rounded-2xl px-5 py-4 border border-white/5">
+                  <span className="text-2xl font-black tabular-nums flex-shrink-0"
+                    style={{ color: i === 0 ? primary.color : 'rgba(255,255,255,0.15)' }}>
+                    {i + 1}
+                  </span>
+                  <p className={`text-sm font-medium ${i === 0 ? 'text-white' : 'text-white/60'}`}>{school}</p>
+                  {i === 0 && (
+                    <span className="ml-auto text-xs px-2 py-0.5 rounded-full border flex-shrink-0"
+                      style={{ color: primary.color, borderColor: `${primary.color}40`, background: `${primary.color}12` }}>
+                      Najbolji izbor
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Alternative tipovi */}
         {alternatives.length > 0 && (
           <div className="mb-10">
             <p className="text-white/30 text-xs uppercase tracking-widest mb-3 px-1">Takođe odgovaraju</p>
