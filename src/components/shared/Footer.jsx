@@ -55,7 +55,7 @@ If you have feedback about your results or suggestions for improving the platfor
   sr: {
     'O nama': {
       title: 'O Pronađi Sebe',
-      body: `Pronađi Sebe je platforma za samootkrivanje napravljena za mlade ljude (18–25) koji se osećaju izgubljeno u pogledu karijernog pravca.
+      body: `Pronađi Sebe je platforma za samootkrivanje napravljena za mlade ljude koji se osećaju izgubljeno u pogledu karijernog pravca.
 
 Verujemo da odgovori nisu nešto što se čeka. to je nešto što se gradi. Naš upitnik od 20 pitanja mapira tvoju ličnost, potencijale i interesovanja kroz 6 ključnih dimenzija kako bi ti dao personalizovani karijerni profil.
 
