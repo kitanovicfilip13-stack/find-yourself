@@ -10,7 +10,7 @@ export default function SegmentSelector({ onSelect, onBack }) {
         </svg>
       ),
       color: '#8b5cf6',
-      tag: '20 pitanja · ~8 min',
+      tag: '20 pitanja',
     },
     {
       id: 'fakultet',
@@ -22,7 +22,7 @@ export default function SegmentSelector({ onSelect, onBack }) {
         </svg>
       ),
       color: '#3b82f6',
-      tag: '20 pitanja · ~8 min',
+      tag: '20 pitanja',
     },
     {
       id: 'posao',
@@ -34,7 +34,7 @@ export default function SegmentSelector({ onSelect, onBack }) {
         </svg>
       ),
       color: '#06b6d4',
-      tag: '20 pitanja · ~8 min',
+      tag: '20 pitanja',
     },
   ]
 
@@ -60,7 +60,7 @@ export default function SegmentSelector({ onSelect, onBack }) {
         <div className="w-full max-w-2xl">
           <div className="text-center mb-12">
             <span className="text-violet-400 text-xs font-medium tracking-widest uppercase mb-4 block">Korak 1 od 2</span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">U čemu ti treba pomoć?</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">U kojoj oblasti ti je potrebna naša podrška</h1>
             <p className="text-white/40 text-base">Odaberi oblast i dobijaš pitanja i preporuke prilagođene tvojoj situaciji.</p>
           </div>
 
