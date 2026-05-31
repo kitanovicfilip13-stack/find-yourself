@@ -410,6 +410,423 @@ const questionsData = {
   ],
 }
 
-export function getQuestions(lang = 'en') {
+// Scoring dimensions za Srednju školu:
+// TECH = tehnička/IT škola, ART = umetnička/muzička, SOC = gimnazija društveni smer
+// SCI = gimnazija prirodno-matematički, MED = medicinska/farmaceutska, ECO = ekonomska
+
+const srednjaQuestions = [
+  {
+    id: 1, category: 'Predmeti',
+    question: "Koji predmet ti je najdraži u školi?",
+    options: [
+      { text: "Matematika, fizika ili informatika.", scores: { TECH: 2, SCI: 1 } },
+      { text: "Srpski, strani jezici ili istorija.", scores: { SOC: 3 } },
+      { text: "Biologija ili hemija.", scores: { MED: 2, SCI: 1 } },
+      { text: "Likovno ili muzičko.", scores: { ART: 3 } },
+    ],
+  },
+  {
+    id: 2, category: 'Učenje',
+    question: "Kako najlakše usvajаš novo gradivo?",
+    options: [
+      { text: "Kroz zadatke, računanje i logičke probleme.", scores: { TECH: 2, SCI: 1 } },
+      { text: "Čitanjem, pisanjem i razgovorom.", scores: { SOC: 2 } },
+      { text: "Eksperimentima, laboratorijom i posmatranjem.", scores: { MED: 2, SCI: 2 } },
+      { text: "Crtanjem, pravljenjem i vizualizacijom.", scores: { ART: 3 } },
+    ],
+  },
+  {
+    id: 3, category: 'Slobodno vreme',
+    question: "Šta najčešće radiš kada imaš slobodnog vremena?",
+    options: [
+      { text: "Igram igrice, programiram ili razmontavam nešto da vidim kako radi.", scores: { TECH: 3 } },
+      { text: "Čitam, pišem ili gledam filmove i serije.", scores: { SOC: 2, ART: 1 } },
+      { text: "Crtam, sviram, pišem ili snimam.", scores: { ART: 3 } },
+      { text: "Bavim se sportom ili nekom fizičkom aktivnošću.", scores: { SCI: 1, MED: 1 } },
+    ],
+  },
+  {
+    id: 4, category: 'Budućnost',
+    question: "Šta te više zanima posle završene srednje škole?",
+    options: [
+      { text: "Upis tehničkog ili IT fakulteta.", scores: { TECH: 3 } },
+      { text: "Upis medicinskog ili farmaceutskog.", scores: { MED: 3 } },
+      { text: "Umetnička akademija ili dizajn.", scores: { ART: 3 } },
+      { text: "Ekonomski ili društveni fakultet.", scores: { ECO: 2, SOC: 1 } },
+    ],
+  },
+  {
+    id: 5, category: 'Radni stil',
+    question: "Koji način rada ti više odgovara?",
+    options: [
+      { text: "Logički problemi sa tačnim rešenjem.", scores: { TECH: 2, SCI: 2 } },
+      { text: "Kreativni projekti bez jednog tačnog odgovora.", scores: { ART: 2, SOC: 1 } },
+      { text: "Rad sa ljudima, razgovor i pomaganje.", scores: { MED: 1, SOC: 2 } },
+      { text: "Istraživanje i eksperimenti.", scores: { SCI: 2, MED: 1 } },
+    ],
+  },
+  {
+    id: 6, category: 'Satima',
+    question: "Koji predmet bi mogao/la da slušaš satima bez dosade?",
+    options: [
+      { text: "Fizika ili matematika.", scores: { TECH: 2, SCI: 2 } },
+      { text: "Strani jezici ili književnost.", scores: { SOC: 3 } },
+      { text: "Biologija ili hemija.", scores: { MED: 2, SCI: 2 } },
+      { text: "Likovna kultura ili muzička kultura.", scores: { ART: 3 } },
+    ],
+  },
+  {
+    id: 7, category: 'Zanimanje',
+    question: "Koji od ovih poslova ti zvuči najzanimljivije?",
+    options: [
+      { text: "Programer, inženjer ili arhitekta.", scores: { TECH: 3 } },
+      { text: "Doktor, farmaceut ili stomatolog.", scores: { MED: 3 } },
+      { text: "Novinar, prevodilac ili psiholog.", scores: { SOC: 3 } },
+      { text: "Dizajner, glumac ili muzičar.", scores: { ART: 3 } },
+    ],
+  },
+  {
+    id: 8, category: 'Veštine',
+    question: "U čemu si bolji/a od vršnjaka?",
+    options: [
+      { text: "Matematika, logika i tehničko razmišljanje.", scores: { TECH: 2, SCI: 1 } },
+      { text: "Jezici, komunikacija i pisanje.", scores: { SOC: 3 } },
+      { text: "Kreativnost, umetnost i dizajn.", scores: { ART: 3 } },
+      { text: "Prirodne nauke i razumevanje kako živi svet funkcioniše.", scores: { MED: 2, SCI: 2 } },
+    ],
+  },
+  {
+    id: 9, category: 'Tim',
+    question: "Kako voliš da radiš?",
+    options: [
+      { text: "Sam/a, tiho i fokusirano.", scores: { TECH: 1, SCI: 1 } },
+      { text: "U grupi, sa diskusijom i razmenom ideja.", scores: { SOC: 2, ECO: 1 } },
+      { text: "Uz slobodu da izrazim sebe kako hoću.", scores: { ART: 2 } },
+      { text: "Praktično, rukama, u akciji.", scores: { MED: 1, TECH: 1 } },
+    ],
+  },
+  {
+    id: 10, category: 'Motivacija',
+    question: "Šta te najviše motiviše u školi?",
+    options: [
+      { text: "Kada rešim težak zadatak koji niko drugi nije mogao.", scores: { TECH: 2, SCI: 2 } },
+      { text: "Kada napišem dobar esej ili ispričam nešto ubedljivo.", scores: { SOC: 2 } },
+      { text: "Kada naučim nešto fascinantno o živim bićima ili telu.", scores: { MED: 2, SCI: 1 } },
+      { text: "Kada završim kreativni rad koji izgleda dobro.", scores: { ART: 3 } },
+    ],
+  },
+  {
+    id: 11, category: 'Za 10 godina',
+    question: "Gde se vidiš za 10 godina?",
+    options: [
+      { text: "Radim u IT kompaniji ili imam svoju tech firmu.", scores: { TECH: 3 } },
+      { text: "Radim u medicini, farmaciji ili zdravstvenom sistemu.", scores: { MED: 3 } },
+      { text: "Izražavam se kroz umetnost, dizajn ili medije.", scores: { ART: 3 } },
+      { text: "Radim u poslovnom svetu, marketingu ili menadžmentu.", scores: { ECO: 3 } },
+    ],
+  },
+  {
+    id: 12, category: 'Izazov',
+    question: "Koji tip izazova ti deluje najzanimljivije?",
+    options: [
+      { text: "Izgraditi ili popraviti nešto tehničko.", scores: { TECH: 3 } },
+      { text: "Ubediti nekoga ili prezentovati ideju.", scores: { SOC: 2, ECO: 1 } },
+      { text: "Pomoći nekome da se oseća bolje.", scores: { MED: 2, SOC: 1 } },
+      { text: "Napraviti nešto lepo što će se svideti drugima.", scores: { ART: 3 } },
+    ],
+  },
+  {
+    id: 13, category: 'Okruženje',
+    question: "U kom okruženju bi voleo/la da radiš jednog dana?",
+    options: [
+      { text: "Za kompjuterom, na tehničkim projektima.", scores: { TECH: 3 } },
+      { text: "Bolnica, ordinacija ili laboratorija.", scores: { MED: 3 } },
+      { text: "Pozornica, studio, galerija ili mediji.", scores: { ART: 3 } },
+      { text: "Kancelarija, poslovni prostor, timski rad.", scores: { ECO: 2, SOC: 1 } },
+    ],
+  },
+  {
+    id: 14, category: 'Sadržaj',
+    question: "Kakav sadržaj najčešće konzumuješ?",
+    options: [
+      { text: "Tutorijali o tehnologiji, gaming, programiranje.", scores: { TECH: 3 } },
+      { text: "Dokumentarci o prirodi, telu ili nauci.", scores: { MED: 2, SCI: 2 } },
+      { text: "Muzika, filmovi, serije, umetnost.", scores: { ART: 2, SOC: 1 } },
+      { text: "Vesti, knjige, jezici, kultura.", scores: { SOC: 2, ECO: 1 } },
+    ],
+  },
+  {
+    id: 15, category: 'Prijatelji',
+    question: "Šta prijatelji kažu da si dobar/a u tome?",
+    options: [
+      { text: "Računanje, logika, tehničke stvari.", scores: { TECH: 2, SCI: 1 } },
+      { text: "Razgovor, pisanje, objašnjavanje.", scores: { SOC: 3 } },
+      { text: "Crtanje, muzika ili kreativnost.", scores: { ART: 3 } },
+      { text: "Organizacija, planiranje i snalaženje.", scores: { ECO: 2 } },
+    ],
+  },
+  {
+    id: 16, category: 'Tip škole',
+    question: "Koji tip srednje škole ti zvuči privlačno?",
+    options: [
+      { text: "Tehnička škola (IT, elektro ili mašinska).", scores: { TECH: 3 } },
+      { text: "Medicinska ili farmaceutska škola.", scores: { MED: 3 } },
+      { text: "Umetnička ili muzička škola.", scores: { ART: 3 } },
+      { text: "Ekonomska škola ili gimnazija.", scores: { ECO: 2, SOC: 1, SCI: 1 } },
+    ],
+  },
+  {
+    id: 17, category: 'Fascinacija',
+    question: "Šta te više zanima?",
+    options: [
+      { text: "Kako funkcioniše tehnologija i mašine.", scores: { TECH: 3 } },
+      { text: "Kako funkcioniše ljudski organizam.", scores: { MED: 3 } },
+      { text: "Kako funkcionišu jezik, kultura i društvo.", scores: { SOC: 3 } },
+      { text: "Kako se emocija izražava kroz umetnost.", scores: { ART: 3 } },
+    ],
+  },
+  {
+    id: 18, category: 'Problem',
+    question: "Kada nešto ne funkcioniše, šta radiš?",
+    options: [
+      { text: "Analiziram, tražim grešku i pokušavam ponovo.", scores: { TECH: 2, SCI: 1 } },
+      { text: "Tražim kreativno alternativno rešenje.", scores: { ART: 2, SOC: 1 } },
+      { text: "Istražujem, čitam i tražim informacije.", scores: { SCI: 2, MED: 1 } },
+      { text: "Pitam nekoga i zajedno rešavamo.", scores: { SOC: 1, ECO: 1 } },
+    ],
+  },
+  {
+    id: 19, category: 'Rezultati',
+    question: "Iz koje oblasti si ostvarivao/la najbolje ocene?",
+    options: [
+      { text: "Egzaktni predmeti (matematika, fizika, informatika).", scores: { TECH: 2, SCI: 2 } },
+      { text: "Jezici i humanistički predmeti.", scores: { SOC: 3 } },
+      { text: "Biologija i priroda.", scores: { MED: 2, SCI: 1 } },
+      { text: "Umetnost i kreativni predmeti.", scores: { ART: 3 } },
+    ],
+  },
+  {
+    id: 20, category: 'Odluka',
+    question: "Kada bi morao/la da se odlučiš odmah, šta bi upisao/la?",
+    options: [
+      { text: "Tehničku školu ili IT.", scores: { TECH: 3 } },
+      { text: "Medicinsku školu.", scores: { MED: 3 } },
+      { text: "Umetničku ili muzičku školu.", scores: { ART: 3 } },
+      { text: "Ekonomsku školu ili gimnaziju.", scores: { ECO: 2, SOC: 1 } },
+    ],
+  },
+]
+
+// Scoring dimensions za Fakultet:
+// TECH = tehnički/IT, MED = medicinski/farmaceutski, ECO = ekonomski/menadžment
+// LAW = pravni/politikološki, SOC = filozofski/psihologija/komunikacije
+// ART = umetničke akademije/dizajn, SCI = PMF/prirodne nauke
+
+const fakultetQuestions = [
+  {
+    id: 1, category: 'Oblast',
+    question: "Koja oblast znanja te najviše fascinira?",
+    options: [
+      { text: "Tehnologija, matematika i inženjering.", scores: { TECH: 3 } },
+      { text: "Medicina, farmacija i zdravlje.", scores: { MED: 3 } },
+      { text: "Ekonomija, menadžment i preduzetništvo.", scores: { ECO: 3 } },
+      { text: "Pravo, politika i društvo.", scores: { LAW: 2, SOC: 1 } },
+    ],
+  },
+  {
+    id: 2, category: 'Posao',
+    question: "Koji od ovih poslova bi voleo/la da radiš?",
+    options: [
+      { text: "Programer, inženjer ili naučnik.", scores: { TECH: 3 } },
+      { text: "Lekar, farmaceut ili fizioterapeut.", scores: { MED: 3 } },
+      { text: "Advokat, sudija ili diplomata.", scores: { LAW: 3 } },
+      { text: "Psiholog, pedagog ili socijalni radnik.", scores: { SOC: 3 } },
+    ],
+  },
+  {
+    id: 3, category: 'Stil studiranja',
+    question: "Kakav stil studiranja ti odgovara?",
+    options: [
+      { text: "Tehnički predmeti, zadaci, projekti i laboratorije.", scores: { TECH: 2, SCI: 1 } },
+      { text: "Ogromna količina gradiva za pamćenje i razumevanje.", scores: { MED: 3 } },
+      { text: "Pisanje radova, diskusije i debate.", scores: { SOC: 2, LAW: 2 } },
+      { text: "Projekti, kreativni radovi i prezentacije.", scores: { ART: 2, ECO: 1 } },
+    ],
+  },
+  {
+    id: 4, category: 'Svrha',
+    question: "Šta ti je najvažnije u budućem poslu?",
+    options: [
+      { text: "Rešavati tehničke probleme i graditi sisteme.", scores: { TECH: 2 } },
+      { text: "Direktno pomagati zdravlju i životu ljudi.", scores: { MED: 3 } },
+      { text: "Praviti novac i razvijati poslovne ideje.", scores: { ECO: 3 } },
+      { text: "Boriti se za pravdu i prava.", scores: { LAW: 3 } },
+    ],
+  },
+  {
+    id: 5, category: 'Slobodno vreme',
+    question: "Čime se najčešće baviš u slobodno vreme?",
+    options: [
+      { text: "Programiranje, gaming, elektronika ili matematika.", scores: { TECH: 3 } },
+      { text: "Čitanje o zdravlju, fitnes, priroda.", scores: { MED: 2, SCI: 1 } },
+      { text: "Biznis sadržaj, praćenje tržišta i ekonomije.", scores: { ECO: 3 } },
+      { text: "Pisanje, debatovanje, politika, pravo ili kultura.", scores: { LAW: 2, SOC: 2 } },
+    ],
+  },
+  {
+    id: 6, category: 'Tip fakulteta',
+    question: "Koji tip fakulteta te interesuje?",
+    options: [
+      { text: "Tehnički (ETF, Mašinski, Građevinski, Arhitektonski).", scores: { TECH: 3 } },
+      { text: "Medicinski ili farmaceutski.", scores: { MED: 3 } },
+      { text: "Ekonomski ili menadžment.", scores: { ECO: 3 } },
+      { text: "Filozofski, psihologija ili komunikacije.", scores: { SOC: 3 } },
+    ],
+  },
+  {
+    id: 7, category: 'Uticaj',
+    question: "Kako želiš da utičeš na svet?",
+    options: [
+      { text: "Kroz tehnologiju i inovacije.", scores: { TECH: 3 } },
+      { text: "Kroz lečenje i brigu o zdravlju.", scores: { MED: 3 } },
+      { text: "Kroz kreativnost, kulturu i umetnost.", scores: { ART: 3 } },
+      { text: "Kroz pravo i promenu sistema.", scores: { LAW: 3 } },
+    ],
+  },
+  {
+    id: 8, category: 'Trpljivost',
+    question: "Šta si spreman/a da podnesiš tokom studija?",
+    options: [
+      { text: "Duge sate učenja tehničkih predmeta i matematike.", scores: { TECH: 2, SCI: 1 } },
+      { text: "Ogromnu količinu gradiva za pamćenje.", scores: { MED: 3 } },
+      { text: "Pisanje dugačkih radova i istraživanje.", scores: { SOC: 2, LAW: 2 } },
+      { text: "Praktičan rad, projekti i kreativni output.", scores: { ART: 2, ECO: 1 } },
+    ],
+  },
+  {
+    id: 9, category: 'Za 10 godina',
+    question: "Gde se vidiš za 10 godina?",
+    options: [
+      { text: "Radim u IT kompaniji ili vodim tech startup.", scores: { TECH: 3 } },
+      { text: "Radim kao lekar, hirurg ili specijalista.", scores: { MED: 3 } },
+      { text: "Vodim sopstvenu firmu ili radim u menadžmentu.", scores: { ECO: 3 } },
+      { text: "Radim u pravosudnom ili diplomatskom sistemu.", scores: { LAW: 3 } },
+    ],
+  },
+  {
+    id: 10, category: 'Matematika',
+    question: "Kako se osećaš prema matematici na višem nivou?",
+    options: [
+      { text: "Obožavam je, to mi ide prirodno.", scores: { TECH: 3, SCI: 2 } },
+      { text: "Mogu, ali nije mi najdraža oblast.", scores: { ECO: 1, MED: 1 } },
+      { text: "Radije bih bez previše matematike.", scores: { SOC: 1, LAW: 1, ART: 1 } },
+      { text: "Izbegavam je što više mogu.", scores: { ART: 1, SOC: 1 } },
+    ],
+  },
+  {
+    id: 11, category: 'Prioritet',
+    question: "Koji argument te više privlači?",
+    options: [
+      { text: "Visoka zarada i odlične karijerne prilike.", scores: { ECO: 2, TECH: 1 } },
+      { text: "Pomaganje i spasavanje života.", scores: { MED: 3 } },
+      { text: "Intelektualni izazov i naučni napredak.", scores: { SCI: 2, TECH: 1 } },
+      { text: "Sloboda izražavanja i kreativnost.", scores: { ART: 3 } },
+    ],
+  },
+  {
+    id: 12, category: 'Radno okruženje',
+    question: "U kom radnom okruženju bi bio/la najsrećniji/a?",
+    options: [
+      { text: "Laboratorija, serverska soba ili inženjering projekat.", scores: { TECH: 2, SCI: 2 } },
+      { text: "Bolnica, ordinacija ili apoteka.", scores: { MED: 3 } },
+      { text: "Kancelarija, biznis okruženje, tim.", scores: { ECO: 2 } },
+      { text: "Sud, ministarstvo ili diplomatija.", scores: { LAW: 3 } },
+    ],
+  },
+  {
+    id: 13, category: 'Omiljeni predmet',
+    question: "Koji predmet ti je bio najdraži na kraju srednje škole?",
+    options: [
+      { text: "Matematika, fizika ili informatika.", scores: { TECH: 3, SCI: 1 } },
+      { text: "Biologija ili hemija.", scores: { MED: 2, SCI: 2 } },
+      { text: "Pravo, demokratija ili filozofija.", scores: { LAW: 2, SOC: 2 } },
+      { text: "Ekonomija ili preduzetništvo.", scores: { ECO: 3 } },
+    ],
+  },
+  {
+    id: 14, category: 'Istraživanje',
+    question: "Da možeš da istraživaš bilo šta, šta bi odabrao/la?",
+    options: [
+      { text: "Kako napraviti veštačku inteligenciju ili robotiku.", scores: { TECH: 3 } },
+      { text: "Kako funkcioniše ljudski mozak i telo.", scores: { MED: 2, SCI: 2 } },
+      { text: "Kako izgraditi uspešnu kompaniju.", scores: { ECO: 3 } },
+      { text: "Kako poboljšati zakone i pravdu u društvu.", scores: { LAW: 3 } },
+    ],
+  },
+  {
+    id: 15, category: 'Inostranstvo',
+    question: "Ako bi studirao/la u inostranstvu, koji smer bi tražio/la?",
+    options: [
+      { text: "Computer Science ili inženjering.", scores: { TECH: 3 } },
+      { text: "Medicine ili pharmacy.", scores: { MED: 3 } },
+      { text: "Business ili economics.", scores: { ECO: 3 } },
+      { text: "Law, political science ili international relations.", scores: { LAW: 3 } },
+    ],
+  },
+  {
+    id: 16, category: 'Izazov studija',
+    question: "Koji deo studiranja ti izgleda kao najveći izazov?",
+    options: [
+      { text: "Naučiti programirati ili savladati inženjering.", scores: { TECH: 2 } },
+      { text: "Naučiti ogromno gradivo iz medicine.", scores: { MED: 3 } },
+      { text: "Pisati dugačke radove i istraživati.", scores: { SOC: 2, LAW: 2 } },
+      { text: "Biti kreativan/a i originalan/a.", scores: { ART: 3 } },
+    ],
+  },
+  {
+    id: 17, category: 'Veština budućnosti',
+    question: "Koja veština ti deluje najvažnija za budućnost?",
+    options: [
+      { text: "Programiranje i tehnološka pismenost.", scores: { TECH: 3 } },
+      { text: "Medicinska znanja i dijagnostika.", scores: { MED: 3 } },
+      { text: "Pregovaranje i pravno razmišljanje.", scores: { LAW: 3 } },
+      { text: "Poslovni menadžment i finansije.", scores: { ECO: 3 } },
+    ],
+  },
+  {
+    id: 18, category: 'Stručnjak',
+    question: "Koji tip stručnjaka bi voleo/la da postaneš?",
+    options: [
+      { text: "Ekspert koji rešava tehničke probleme.", scores: { TECH: 3 } },
+      { text: "Stručnjak koji leči i pomaže bolesnima.", scores: { MED: 3 } },
+      { text: "Stručnjak koji vodi i razvija organizacije.", scores: { ECO: 3 } },
+      { text: "Stručnjak koji razume ljude i kulturu.", scores: { SOC: 3 } },
+    ],
+  },
+  {
+    id: 19, category: 'Tip predmeta',
+    question: "Koja vrsta predmeta ti ide bolje?",
+    options: [
+      { text: "Prirodne nauke (matematika, fizika, hemija, biologija).", scores: { SCI: 2, TECH: 1, MED: 1 } },
+      { text: "Društvene nauke (pravo, ekonomija, psihologija).", scores: { LAW: 1, ECO: 1, SOC: 2 } },
+      { text: "Humanistika (jezici, istorija, filozofija).", scores: { SOC: 3 } },
+      { text: "Umetnost i kultura.", scores: { ART: 3 } },
+    ],
+  },
+  {
+    id: 20, category: 'Odluka',
+    question: "Kada bi morao/la odmah da se upisuješ, šta bi izabrao/la?",
+    options: [
+      { text: "Tehnički ili IT fakultet.", scores: { TECH: 3 } },
+      { text: "Medicinski ili farmaceutski.", scores: { MED: 3 } },
+      { text: "Ekonomski ili menadžment.", scores: { ECO: 3 } },
+      { text: "Pravni, filozofski ili psihologija.", scores: { LAW: 2, SOC: 1 } },
+    ],
+  },
+]
+
+export function getQuestions(lang = 'en', segment = 'posao') {
+  if (segment === 'srednja') return srednjaQuestions
+  if (segment === 'fakultet') return fakultetQuestions
   return questionsData[lang] || questionsData.en
 }

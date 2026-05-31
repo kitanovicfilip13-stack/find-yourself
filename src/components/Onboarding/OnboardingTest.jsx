@@ -3,9 +3,9 @@ import { useLanguage } from '../../LanguageContext'
 import { getQuestions } from '../../i18n/questions'
 import { scoreFromText } from '../../i18n/keywordScoring'
 
-export default function OnboardingTest({ onComplete, onBack, initialAnswers = [], initialCurrent = 0 }) {
+export default function OnboardingTest({ onComplete, onBack, initialAnswers = [], initialCurrent = 0, segment = 'posao' }) {
   const { t, lang } = useLanguage()
-  const questions = getQuestions(lang)
+  const questions = getQuestions(lang, segment)
   const ui = t.onboarding
 
   const [current, setCurrent] = useState(initialCurrent)
