@@ -4,48 +4,104 @@ import { FadeUp } from '../shared/ScrollReveal'
 const testimonials = {
   sr: [
     {
-      text: 'Nisam znao šta da studiram. Posle testa sam konačno imao konkretnu ideju i počeo da idem u pravom smeru.',
-      name: 'Marko T.',
-      age: '21, Beograd',
-      initials: 'M',
+      text: 'Iskreno nisam očekivala ništa posebno, mislila sam da će biti neka glupa i nepovezana pitanja. Ali neke stvari su me stvarno pogodile, posebno deo o tome kako reagujem pod stresom. Poslala sam rezultate mami i rekla "eto, sad znaš zašto sam ovakva".',
+      name: 'Nina',
+      age: '23',
+      initials: 'N',
       color: '#8b5cf6',
     },
     {
-      text: 'Mislila sam da su svi testovi ličnosti isti. Ovo je prvi koji mi je zaista rekao nešto što nisam znala o sebi.',
-      name: 'Ana K.',
-      age: '23, Novi Sad',
-      initials: 'A',
+      text: 'Uradio sam test u 2 ujutru kad nisam mogao da spavam i razmišljao sam o tome dal sam na pravom putu sa poslom. Ne kažem da mi je promenilo život al neke stvari su mi pomogle oko razmišljanja. Dobra stvar.',
+      name: 'Srki',
+      age: '27',
+      initials: 'S',
       color: '#3b82f6',
     },
     {
-      text: 'Za 8 minuta dobio sam jasniju sliku o sebi nego za godinu dana razmišljanja. Preporučujem svima koji se osećaju izgubljeno.',
-      name: 'Stefan R.',
-      age: '19, Niš',
-      initials: 'S',
+      text: 'Neke stvari tačne, neke manje. Al generalno da, to sam ja. Iznenadio me deo o karijernim pravcima jer su predložili nešto o čemu nikad nisam razmišljala a zvuči zanimljivo.',
+      name: 'Teodora',
+      age: '24',
+      initials: 'T',
       color: '#06b6d4',
+    },
+    {
+      text: 'Radila sam slične testove pre i uvek su bili previše optimistični, kao svi su "lideri i kreativci". Ovaj je bio iskreniji, rekao mi je i neke stvari koje nisam volela da čujem al verovatno su tačne.',
+      name: 'Nikolina',
+      age: '27',
+      initials: 'N',
+      color: '#10b981',
+    },
+    {
+      text: 'Uradila dva puta sa razmakom od mesec dana i dobila skoro iste rezultate. To mi je dalo poverenje da je to zaista nešto u meni a ne random odgovori.',
+      name: 'Katarina',
+      age: '25',
+      initials: 'K',
+      color: '#f59e0b',
+    },
+    {
+      text: 'Korisno. Nisam prosvetljena al sam imala jedan od onih momenata "aaa zato to radim". Za 10 minuta koliko traje, vredelo je.',
+      name: 'Sara',
+      age: '22',
+      initials: 'S',
+      color: '#ec4899',
+    },
+    {
+      text: 'Jedina zamerka je što bih volela još konkretnih predloga šta da radim sa tim informacijama. Al opis ličnosti 1/1, prepoznala sam sebe odmah.',
+      name: 'Jovana',
+      age: '28',
+      initials: 'J',
+      color: '#a855f7',
     },
   ],
   en: [
     {
-      text: "I didn't know what to study. After the test I finally had a concrete idea and started moving in the right direction.",
-      name: 'Mark T.',
-      age: '21, Belgrade',
-      initials: 'M',
+      text: 'Honestly I wasn\'t expecting much, I thought it would be generic questions. But some things really hit home, especially the part about how I react under stress.',
+      name: 'Nina',
+      age: '23',
+      initials: 'N',
       color: '#8b5cf6',
     },
     {
-      text: 'I thought all personality tests were the same. This is the first one that actually told me something I didn\'t know about myself.',
-      name: 'Ana K.',
-      age: '23, Novi Sad',
-      initials: 'A',
+      text: 'I took the test at 2am when I couldn\'t sleep and was thinking about whether I\'m on the right path. Not saying it changed my life but some things helped me think. Good stuff.',
+      name: 'Srki',
+      age: '27',
+      initials: 'S',
       color: '#3b82f6',
     },
     {
-      text: 'In 8 minutes I got a clearer picture of myself than in a year of thinking. I recommend it to everyone who feels lost.',
-      name: 'Stefan R.',
-      age: '19, Niš',
-      initials: 'S',
+      text: 'Some things accurate, some less so. But generally yes, that\'s me. The career directions part surprised me because they suggested something I\'d never considered but sounds interesting.',
+      name: 'Teodora',
+      age: '24',
+      initials: 'T',
       color: '#06b6d4',
+    },
+    {
+      text: 'I\'ve done similar tests before and they were always too optimistic. This one was more honest, it told me things I didn\'t want to hear but they\'re probably true.',
+      name: 'Nikolina',
+      age: '27',
+      initials: 'N',
+      color: '#10b981',
+    },
+    {
+      text: 'Took it twice a month apart and got almost the same results. That gave me confidence that it\'s actually something in me and not random answers.',
+      name: 'Katarina',
+      age: '25',
+      initials: 'K',
+      color: '#f59e0b',
+    },
+    {
+      text: 'Useful. I\'m not enlightened but I had one of those "oh, that\'s why I do that" moments. For 10 minutes, it was worth it.',
+      name: 'Sara',
+      age: '22',
+      initials: 'S',
+      color: '#ec4899',
+    },
+    {
+      text: 'My only complaint is I\'d like more concrete suggestions on what to do with the information. But the personality description is spot on, I recognized myself immediately.',
+      name: 'Jovana',
+      age: '28',
+      initials: 'J',
+      color: '#a855f7',
     },
   ],
 }
@@ -66,7 +122,7 @@ export default function Testimonials() {
           </h2>
         </FadeUp>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {items.map((item, i) => (
             <FadeUp key={i} delay={i * 0.1} className="h-full">
               <div className="glass rounded-2xl p-6 h-full flex flex-col justify-between">
