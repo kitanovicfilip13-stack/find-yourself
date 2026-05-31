@@ -102,7 +102,15 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
   const savedAnswers = useMemo(() => {
     try {
       const raw = localStorage.getItem('fy_results')
-      return raw ? JSON.parse(raw) : []
+      if (!raw) return []
+      const parsed = JSON.parse(raw)
+      // Novi format: { answers: [...], segment, city }
+      if (parsed && typeof parsed === 'object' && Array.isArray(parsed.answers)) {
+        return parsed.answers
+      }
+      // Stari format: direktno niz
+      if (Array.isArray(parsed)) return parsed
+      return []
     } catch { return [] }
   }, [])
 

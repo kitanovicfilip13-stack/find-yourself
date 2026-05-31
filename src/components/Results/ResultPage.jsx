@@ -21,8 +21,10 @@ export default function ResultPage({ answers, onRestart, onDashboard }) {
 
   const saveResults = () => {
     try {
-      const data = JSON.parse(localStorage.getItem('fy_results') || '{}')
-      localStorage.setItem('fy_results', JSON.stringify({ ...data, savedAt: Date.now(), userId: user?.id }))
+      const raw = localStorage.getItem('fy_results')
+      const existing = raw ? JSON.parse(raw) : {}
+      const base = Array.isArray(existing) ? { answers: existing } : existing
+      localStorage.setItem('fy_results', JSON.stringify({ ...base, savedAt: Date.now(), userId: user?.id }))
       setSaved(true)
     } catch {}
   }
