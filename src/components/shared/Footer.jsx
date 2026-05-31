@@ -59,7 +59,7 @@ If you have feedback about your results or suggestions for improving the platfor
 
 Verujemo da odgovori nisu nešto što se čeka. to je nešto što se gradi. Naš upitnik od 20 pitanja mapira tvoju ličnost, potencijale i interesovanja kroz 6 ključnih dimenzija kako bi ti dao personalizovani karijerni profil.
 
-Nema generičkih saveta. Nema floskula. Samo iskrean, akcioni uvid u to ko si i gde možeš da ideš.
+Nema generičkih saveta. Nema floskula. Samo iskren, akcioni uvid u to ko si i gde možeš da ideš.
 
 Napravili su ga ljudi koji su i sami bili izgubljeni.`,
     },
