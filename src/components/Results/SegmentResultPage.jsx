@@ -4,7 +4,7 @@ import { computeSegmentResult } from '../../i18n/segmentScoring'
 import { getTop5Schools } from '../../i18n/schoolsDB'
 import AuthModal from '../Auth/AuthModal'
 
-export default function SegmentResultPage({ answers, segment, city, onRestart }) {
+export default function SegmentResultPage({ answers, segment, city, onRestart, onDashboard }) {
   const { user } = useAuth()
   const [showAuth, setShowAuth] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -26,18 +26,17 @@ export default function SegmentResultPage({ answers, segment, city, onRestart })
 
   const saveResults = () => {
     try {
-      const data = JSON.parse(localStorage.getItem('fy_results') || '{}')
-      localStorage.setItem('fy_results', JSON.stringify({ ...data, savedAt: Date.now(), userId: user?.id }))
+      const raw = localStorage.getItem('fy_results')
+      const existing = raw ? JSON.parse(raw) : {}
+      const base = Array.isArray(existing) ? { answers: existing } : existing
+      localStorage.setItem('fy_results', JSON.stringify({ ...base, savedAt: Date.now(), userId: user?.id }))
       setSaved(true)
+      setTimeout(() => onDashboard?.(), 800)
     } catch {}
   }
 
   const handleSaveClick = () => {
-    if (user) {
-      saveResults()
-    } else {
-      setShowAuth(true)
-    }
+    if (user) { saveResults() } else { setShowAuth(true) }
   }
 
   const handleAuthSuccess = () => {
@@ -52,8 +51,16 @@ export default function SegmentResultPage({ answers, segment, city, onRestart })
     : `Preporučujemo u ${city}:`
 
   return (
-    <div className="min-h-screen px-6 py-16" style={{ background: '#080810' }}>
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen" style={{ background: '#080810' }}>
+      {/* Top nav */}
+      <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
+        <div className="flex items-center gap-2">
+          <img src="/logo.png" alt="logo" className="w-6 h-6" />
+          <span className="text-white/50 text-sm">Pronađi Sebe</span>
+        </div>
+      </div>
+
+      <div className="px-6 py-16 max-w-2xl mx-auto">
 
         {/* Header */}
         <div className="text-center mb-12">

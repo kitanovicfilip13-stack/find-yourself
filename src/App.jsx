@@ -141,6 +141,7 @@ export default function App() {
           segment={segment}
           city={city}
           onRestart={handleRestart}
+          onDashboard={user ? handleGoToDashboard : null}
         />
       )}
       {page === 'results' && segment === 'posao' && (

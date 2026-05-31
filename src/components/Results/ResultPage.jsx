@@ -26,6 +26,7 @@ export default function ResultPage({ answers, onRestart, onDashboard }) {
       const base = Array.isArray(existing) ? { answers: existing } : existing
       localStorage.setItem('fy_results', JSON.stringify({ ...base, savedAt: Date.now(), userId: user?.id }))
       setSaved(true)
+      setTimeout(() => onDashboard?.(), 800)
     } catch {}
   }
 
