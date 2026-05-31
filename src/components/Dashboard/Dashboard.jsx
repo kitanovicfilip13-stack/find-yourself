@@ -131,7 +131,7 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
         </h1>
         <p className="text-white/40 text-sm mb-8 text-center max-w-sm">
           {lang === 'sr'
-            ? 'Uradi test od 20 pitanja i dobij personalizovani profil sa karijernim pravcima, snagama i planom.'
+            ? 'Uradi test od 20 pitanja i dobij personalizovani profil sa karijernim pravcima, potencijalima i planom.'
             : 'Take the 20-question test and get your personalized profile with career paths, strengths and action plan.'}
         </p>
         <button
