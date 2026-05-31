@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../../AuthContext'
 import { useLanguage } from '../../LanguageContext'
 
-export default function AuthModal({ onClose }) {
+export default function AuthModal({ onClose, onSuccess, context }) {
   const { signIn, signUp } = useAuth()
   const { lang } = useLanguage()
   const [mode, setMode] = useState('signin') // 'signin' | 'signup'
@@ -68,6 +68,7 @@ export default function AuthModal({ onClose }) {
     if (mode === 'signup') {
       setSuccess(true)
     } else {
+      onSuccess?.()
       onClose()
     }
   }
@@ -87,10 +88,16 @@ export default function AuthModal({ onClose }) {
         </button>
 
         {/* Logo */}
-        <div className="flex items-center gap-2 mb-8">
+        <div className="flex items-center gap-2 mb-6">
           <img src="/logo.png" alt="logo" className="w-8 h-8" />
           <span className="text-white font-semibold">{lang === 'sr' ? 'Pronađi Sebe' : 'Find Yourself'}</span>
         </div>
+
+        {context && (
+          <div className="mb-6 px-4 py-3 rounded-xl bg-violet-500/10 border border-violet-500/20">
+            <p className="text-violet-300 text-sm">{context}</p>
+          </div>
+        )}
 
         {success ? (
           <div className="text-center py-6">

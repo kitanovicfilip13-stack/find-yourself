@@ -1,7 +1,13 @@
+import { useState } from 'react'
+import { useAuth } from '../../AuthContext'
 import { computeSegmentResult } from '../../i18n/segmentScoring'
 import { getTop5Schools } from '../../i18n/schoolsDB'
+import AuthModal from '../Auth/AuthModal'
 
 export default function SegmentResultPage({ answers, segment, city, onRestart }) {
+  const { user } = useAuth()
+  const [showAuth, setShowAuth] = useState(false)
+  const [saved, setSaved] = useState(false)
   const result = computeSegmentResult(answers, segment)
 
   if (!result) {
@@ -17,6 +23,27 @@ export default function SegmentResultPage({ answers, segment, city, onRestart })
 
   const { primary, alternatives, scores } = result
   const top5 = getTop5Schools(segment, city, scores)
+
+  const saveResults = () => {
+    try {
+      const data = JSON.parse(localStorage.getItem('fy_results') || '{}')
+      localStorage.setItem('fy_results', JSON.stringify({ ...data, savedAt: Date.now(), userId: user?.id }))
+      setSaved(true)
+    } catch {}
+  }
+
+  const handleSaveClick = () => {
+    if (user) {
+      saveResults()
+    } else {
+      setShowAuth(true)
+    }
+  }
+
+  const handleAuthSuccess = () => {
+    setShowAuth(false)
+    saveResults()
+  }
   const typeLabel = segment === 'srednja'
     ? 'Koji tip srednje škole bi ti odgovarao'
     : 'Koji tip fakulteta bi ti odgovarao'
@@ -102,10 +129,27 @@ export default function SegmentResultPage({ answers, segment, city, onRestart })
           </div>
         )}
 
+        {/* Sačuvaj */}
+        <div className="mb-4">
+          {saved ? (
+            <div className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-green-500/30 bg-green-500/10 text-green-400 text-sm font-medium">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              Rezultat je sačuvan
+            </div>
+          ) : (
+            <button onClick={handleSaveClick}
+              className="w-full px-6 py-3.5 bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-violet-500/20 text-sm">
+              Sačuvaj rezultat
+            </button>
+          )}
+        </div>
+
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-3">
           <button onClick={onRestart}
-            className="flex-1 px-6 py-3.5 bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-violet-500/20 text-sm">
+            className="flex-1 px-6 py-3.5 glass glass-hover text-white/50 hover:text-white font-medium rounded-xl text-sm border border-white/10">
             Počni ispočetka
           </button>
           <button onClick={() => { localStorage.removeItem('fy_results'); localStorage.removeItem('fy_progress'); onRestart() }}
@@ -114,6 +158,14 @@ export default function SegmentResultPage({ answers, segment, city, onRestart })
           </button>
         </div>
       </div>
+
+      {showAuth && (
+        <AuthModal
+          onClose={() => setShowAuth(false)}
+          onSuccess={handleAuthSuccess}
+          context="Napravi nalog da sačuvaš svoje rezultate i pristupiš im kad god hoćeš."
+        />
+      )}
     </div>
   )
 }
