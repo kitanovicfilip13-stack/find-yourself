@@ -66,15 +66,6 @@ export default function Navbar({ onStart, onDashboard }) {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
-            {/* Language switcher */}
-            <button
-              onClick={toggle}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 hover:border-violet-500/40 transition-all duration-200"
-            >
-              <span className={`text-xs font-semibold transition-colors ${lang === 'en' ? 'text-white' : 'text-white/30'}`}>EN</span>
-              <span className="text-white/20 text-xs">/</span>
-              <span className={`text-xs font-semibold transition-colors ${lang === 'sr' ? 'text-white' : 'text-white/30'}`}>SR</span>
-            </button>
 
             {user ? (
               // Ulogovan korisnik
