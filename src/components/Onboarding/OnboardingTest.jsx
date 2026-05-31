@@ -10,7 +10,7 @@ export default function OnboardingTest({ onComplete, onBack, initialAnswers = []
 
   const [current, setCurrent] = useState(initialCurrent)
   const [answers, setAnswers] = useState(initialAnswers)
-  const [selected, setSelected] = useState(initialAnswers[initialCurrent]?.selectedOption ?? null)
+  const [selected, setSelected] = useState(initialAnswers[initialCurrent]?.selectedOptions ?? [])
   const [customText, setCustomText] = useState(initialAnswers[initialCurrent]?.customText || '')
   const [direction, setDirection] = useState(1)
   const [animating, setAnimating] = useState(false)
@@ -18,26 +18,29 @@ export default function OnboardingTest({ onComplete, onBack, initialAnswers = []
   const question = questions[current]
   const progress = (current / questions.length) * 100
 
-  // Dugme je aktivno ako je odabrana opcija ILI je napisan tekst (min 3 karaktera)
-  const canContinue = selected !== null || customText.trim().length >= 3
+  const canContinue = selected.length > 0 || customText.trim().length >= 3
 
   const handleSelect = (optionIndex) => {
     if (animating) return
-    setSelected(optionIndex)
+    setSelected(prev =>
+      prev.includes(optionIndex)
+        ? prev.filter(i => i !== optionIndex)
+        : [...prev, optionIndex]
+    )
   }
 
   const buildAnswer = () => {
     let scores = {}
 
-    // Score iz odabrane opcije
-    if (selected !== null) {
-      const optionScores = question.options[selected].scores
+    // Akumuliraj skorove iz svih odabranih opcija
+    selected.forEach(idx => {
+      const optionScores = question.options[idx].scores
       Object.entries(optionScores).forEach(([k, v]) => {
         scores[k] = (scores[k] || 0) + v
       })
-    }
+    })
 
-    // Score iz slobodnog teksta (keyword matching)
+    // Score iz slobodnog teksta
     if (customText.trim().length >= 3) {
       const textScores = scoreFromText(customText)
       if (textScores) {
@@ -49,7 +52,8 @@ export default function OnboardingTest({ onComplete, onBack, initialAnswers = []
 
     return {
       questionId: question.id,
-      selectedOption: selected,
+      selectedOptions: selected,
+      selectedOption: selected[0] ?? null, // backwards compat
       customText: customText.trim() || null,
       scores,
     }
@@ -60,6 +64,7 @@ export default function OnboardingTest({ onComplete, onBack, initialAnswers = []
       localStorage.setItem('fy_progress', JSON.stringify({
         current: currentIdx,
         answers: currentAnswers,
+        segment,
       }))
     } catch {}
   }
@@ -80,7 +85,7 @@ export default function OnboardingTest({ onComplete, onBack, initialAnswers = []
       setAnswers(newAnswers)
       const nextIdx = current + 1
       setCurrent(nextIdx)
-      setSelected(null)
+      setSelected([])
       setCustomText('')
       setAnimating(false)
       saveProgress(nextIdx, newAnswers)
@@ -95,7 +100,7 @@ export default function OnboardingTest({ onComplete, onBack, initialAnswers = []
     setTimeout(() => {
       setCurrent((c) => c - 1)
       const prev = answers[current - 1]
-      setSelected(prev?.selectedOption ?? null)
+      setSelected(prev?.selectedOptions ?? (prev?.selectedOption != null ? [prev.selectedOption] : []))
       setCustomText(prev?.customText || '')
       setAnswers((a) => a.slice(0, -1))
       setAnimating(false)
@@ -148,49 +153,53 @@ export default function OnboardingTest({ onComplete, onBack, initialAnswers = []
             </div>
           </div>
 
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 leading-snug">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-snug">
             {question.question}
           </h2>
+          <p className="text-white/30 text-xs mb-6">Možeš odabrati više odgovora</p>
 
-          {/* Ponuđene opcije */}
+          {/* Opcije — checkboxovi */}
           <div className="space-y-3">
-            {question.options.map((option, i) => (
-              <button key={i} onClick={() => handleSelect(i)}
-                className={`w-full text-left p-5 rounded-2xl border transition-all duration-200 group ${
-                  selected === i
-                    ? 'border-violet-500/60 bg-violet-500/15 text-white shadow-lg shadow-violet-500/10'
-                    : 'border-white/8 bg-white/[0.03] text-white/60 hover:border-white/20 hover:bg-white/[0.05] hover:text-white/90'
-                }`}>
-                <div className="flex items-start gap-4">
-                  <div className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5 transition-all duration-200 ${
-                    selected === i ? 'border-violet-400 bg-violet-500' : 'border-white/20'
+            {question.options.map((option, i) => {
+              const isSelected = selected.includes(i)
+              return (
+                <button key={i} onClick={() => handleSelect(i)}
+                  className={`w-full text-left p-5 rounded-2xl border transition-all duration-200 ${
+                    isSelected
+                      ? 'border-violet-500/60 bg-violet-500/15 text-white shadow-lg shadow-violet-500/10'
+                      : 'border-white/8 bg-white/[0.03] text-white/60 hover:border-white/20 hover:bg-white/[0.05] hover:text-white/90'
                   }`}>
-                    {selected === i && (
-                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    )}
+                  <div className="flex items-start gap-4">
+                    <div className={`flex-shrink-0 w-6 h-6 rounded-md border-2 flex items-center justify-center mt-0.5 transition-all duration-200 ${
+                      isSelected ? 'border-violet-400 bg-violet-500' : 'border-white/20'
+                    }`}>
+                      {isSelected && (
+                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </div>
+                    <span className="text-sm md:text-base leading-relaxed">{option.text}</span>
                   </div>
-                  <span className="text-sm md:text-base leading-relaxed">{option.text}</span>
-                </div>
-              </button>
-            ))}
+                </button>
+              )
+            })}
           </div>
 
           {/* Slobodan odgovor */}
           <div className="mt-4 relative">
             <div className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
-              customText.trim().length >= 3 && selected === null
+              customText.trim().length >= 3
                 ? 'border-violet-500/40 bg-violet-500/8'
                 : 'border-white/8 bg-white/[0.02]'
             }`}>
               <div className="flex items-center gap-3 px-5 pt-4 pb-1">
-                <div className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
-                  customText.trim().length >= 3 && selected === null
+                <div className={`flex-shrink-0 w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all duration-200 ${
+                  customText.trim().length >= 3
                     ? 'border-violet-400 bg-violet-500'
                     : 'border-white/20'
                 }`}>
-                  {customText.trim().length >= 3 && selected === null && (
+                  {customText.trim().length >= 3 && (
                     <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
