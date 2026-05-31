@@ -92,7 +92,7 @@ export default function SegmentSelector({ onSelect, onBack }) {
           </div>
         </div>
 
-        <p className="mt-8 text-white/30 text-sm leading-relaxed text-center max-w-xl mx-auto">
+        <p className="mt-8 text-white/30 text-sm leading-relaxed text-center">
           Najveća greška nije izabrati pogrešno. Najveća greška je godinama ostati na putu koji nije tvoj. Nemoj trošiti vreme učeći ono što te ne zanima, studirajući nešto što te ne ispunjava ili radeći posao u kojem ne vidiš sebe. Pravi izbor danas može ti uštedeti godine lutanja sutra. Pomažemo ti da doneseš odluke zasnovane na tome ko si, a ne na pritisku okoline, očekivanjima drugih ili nasumičnom izboru.
         </p>
       </div>
