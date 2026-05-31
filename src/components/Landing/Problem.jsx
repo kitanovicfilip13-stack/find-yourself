@@ -47,9 +47,6 @@ export default function Problem() {
           ))}
         </div>
 
-        <FadeUp delay={0.3} className="mt-12 text-center">
-          <p className="text-white/30 text-sm">{p.footer}</p>
-        </FadeUp>
       </div>
     </section>
   )
