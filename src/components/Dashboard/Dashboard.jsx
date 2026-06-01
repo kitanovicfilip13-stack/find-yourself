@@ -98,10 +98,11 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
   const d = t.dashboard
 
   const [showPremiumModal, setShowPremiumModal] = useState(false)
-  const [showUserMenu, setShowUserMenu] = useState(false)
-  const [activeTab, setActiveTab] = useState('profil') // 'profil' | 'rezultati'
+  const [activeTab, setActiveTab] = useState('profil')
   const [savedResults, setSavedResults] = useState([])
   const [loadingResults, setLoadingResults] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [planHovered, setPlanHovered] = useState(false)
 
   useEffect(() => {
     if (user && activeTab === 'rezultati') {
@@ -186,63 +187,91 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
         </div>
       </div>
 
-      {/* Layout: sidebar + content */}
-      <div className="flex min-h-[calc(100vh-73px)]">
+      {/* Layout */}
+      <div className="flex min-h-[calc(100vh-73px)] relative">
+
+        {/* Overlay kad je sidebar otvoren na mobilnom */}
+        {sidebarOpen && (
+          <div className="fixed inset-0 z-30 md:hidden bg-black/50 backdrop-blur-sm"
+            onClick={() => setSidebarOpen(false)} />
+        )}
 
         {/* Sidebar */}
-        <div className="hidden md:flex flex-col w-56 border-r border-white/5 px-4 py-8 flex-shrink-0">
-          {[
-            { id: 'profil', label: 'Pregled profila', icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg> },
-            { id: 'rezultati', label: 'Istorija rezultata', icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z" /></svg> },
-            { id: 'zadaci', label: 'Plan razvoja', icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg> },
-            { id: 'podesavanja', label: 'Podešavanja', icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg> },
-          ].map(item => (
-            <button key={item.id} onClick={() => setActiveTab(item.id)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 mb-1 text-left ${
-                activeTab === item.id
-                  ? 'bg-violet-500/15 text-white border border-violet-500/20'
-                  : 'text-white/40 hover:text-white/70 hover:bg-white/5'
-              }`}>
-              <span className={activeTab === item.id ? 'text-violet-400' : ''}>{item.icon}</span>
-              {item.label}
-            </button>
-          ))}
+        <div className={`fixed md:static top-[73px] left-0 bottom-0 z-40 flex flex-col border-r border-white/5 px-4 py-8 flex-shrink-0 transition-all duration-300 ease-in-out
+          ${sidebarOpen ? 'w-56 translate-x-0' : 'w-56 -translate-x-full md:translate-x-0 md:w-14'}
+        `} style={{ background: 'rgba(8,8,16,0.98)', backdropFilter: 'blur(20px)' }}>
 
-          <div className="mt-auto pt-8 border-t border-white/5 space-y-1">
-            <button onClick={onRetake}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/30 hover:text-white/60 hover:bg-white/5 transition-all w-full text-left">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
-              Uradi test ponovo
-            </button>
-            <button onClick={() => { signOut(); onGoToLanding() }}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/30 hover:text-red-400 hover:bg-red-500/5 transition-all w-full text-left">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" /></svg>
-              Odjava
-            </button>
-          </div>
-        </div>
+          {/* Toggle dugme */}
+          <button onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="flex items-center justify-center w-8 h-8 rounded-lg border border-white/10 hover:border-violet-500/30 hover:bg-white/5 transition-all mb-6 self-end text-white/40 hover:text-white/70">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d={sidebarOpen ? "M15 19l-7-7 7-7" : "M9 5l7 7-7 7"} />
+            </svg>
+          </button>
 
-        {/* Mobile tabs */}
-        <div className="md:hidden w-full absolute">
-          <div className="flex border-b border-white/5 px-2 overflow-x-auto">
+          {/* Nav stavke */}
+          <div className="space-y-1 flex-1">
             {[
-              { id: 'profil', label: 'Profil' },
-              { id: 'rezultati', label: 'Istorija' },
-              { id: 'zadaci', label: 'Plan razvoja' },
-              { id: 'podesavanja', label: 'Podešavanja' },
+              { id: 'profil', label: 'Pregled profila', icon: <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg> },
+              { id: 'rezultati', label: 'Istorija rezultata', icon: <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z" /></svg> },
+              { id: 'podesavanja', label: 'Podešavanja', icon: <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg> },
             ].map(item => (
-              <button key={item.id} onClick={() => setActiveTab(item.id)}
-                className={`py-3 px-3 text-sm font-medium border-b-2 transition-all -mb-px whitespace-nowrap ${
-                  activeTab === item.id ? 'border-violet-500 text-white' : 'border-transparent text-white/30'
+              <button key={item.id} onClick={() => { setActiveTab(item.id); if(window.innerWidth < 768) setSidebarOpen(false) }}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full text-left overflow-hidden ${
+                  activeTab === item.id ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/40 hover:text-white/70 hover:bg-white/5'
                 }`}>
-                {item.label}
+                <span className={`flex-shrink-0 ${activeTab === item.id ? 'text-violet-400' : ''}`}>{item.icon}</span>
+                {sidebarOpen && <span className="truncate">{item.label}</span>}
               </button>
             ))}
+
+            {/* Plan razvoja sa hover sub-menijem */}
+            <div className="relative" onMouseEnter={() => setPlanHovered(true)} onMouseLeave={() => setPlanHovered(false)}>
+              <button onClick={() => { setActiveTab('zadaci'); if(window.innerWidth < 768) setSidebarOpen(false) }}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full text-left overflow-hidden ${
+                  ['zadaci','preporuke'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/40 hover:text-white/70 hover:bg-white/5'
+                }`}>
+                <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                {sidebarOpen && <span className="truncate flex-1">Plan razvoja</span>}
+                {sidebarOpen && <svg className={`w-3 h-3 flex-shrink-0 transition-transform ${planHovered ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>}
+              </button>
+
+              {/* Sub-meni na hover */}
+              {planHovered && sidebarOpen && (
+                <div className="ml-4 mt-1 space-y-1 border-l border-white/5 pl-3">
+                  {[
+                    { id: 'zadaci', label: 'Moji zadaci' },
+                    { id: 'preporuke', label: 'Preporuke' },
+                  ].map(sub => (
+                    <button key={sub.id} onClick={() => { setActiveTab(sub.id); if(window.innerWidth < 768) setSidebarOpen(false) }}
+                      className={`w-full text-left px-2 py-2 rounded-lg text-xs transition-all ${
+                        activeTab === sub.id ? 'text-violet-400 font-medium' : 'text-white/35 hover:text-white/70'
+                      }`}>
+                      {sub.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Dno sidebar */}
+          <div className="pt-6 border-t border-white/5 space-y-1">
+            <button onClick={onRetake}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/30 hover:text-white/60 hover:bg-white/5 transition-all w-full text-left overflow-hidden">
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+              {sidebarOpen && <span className="truncate">Uradi test ponovo</span>}
+            </button>
+            <button onClick={() => { signOut(); onGoToLanding() }}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/30 hover:text-red-400 hover:bg-red-500/5 transition-all w-full text-left overflow-hidden">
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" /></svg>
+              {sidebarOpen && <span className="truncate">Odjava</span>}
+            </button>
           </div>
         </div>
 
         {/* Content */}
-        <div className="flex-1 px-6 md:px-10 py-10 md:pt-10 pt-14 max-w-3xl">
+        <div className={`flex-1 px-6 md:px-10 py-10 max-w-3xl transition-all duration-300 ${sidebarOpen ? 'md:ml-56' : 'md:ml-14'}`}>
 
         {/* TAB: Moji rezultati */}
         {activeTab === 'rezultati' && (
@@ -291,11 +320,36 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
           </div>
         )}
 
+        {/* TAB: Preporuke */}
+        {activeTab === 'preporuke' && (
+          <div>
+            <h2 className="text-xl font-bold text-white mb-2">Preporuke</h2>
+            <p className="text-white/30 text-sm mb-8">Veštine i oblasti koje ti preporučujemo da razvijaš.</p>
+            {skills && skills.length > 0 ? (
+              <div className="space-y-3">
+                {skills.map((skill, i) => (
+                  <div key={i} className="glass rounded-2xl p-5 border border-white/5 flex items-center gap-4">
+                    <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 flex-shrink-0">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-1.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+                    </div>
+                    <p className="text-white/70 text-sm">{skill}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="glass rounded-2xl p-8 text-center border border-white/5">
+                <p className="text-white/40 text-sm mb-4">Uradi test da bi dobio/la preporuke.</p>
+                <button onClick={onRetake} className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">Uradi test</button>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* TAB: Moji zadaci */}
         {activeTab === 'zadaci' && (
           <div>
-            <h2 className="text-xl font-bold text-white mb-2">Plan razvoja</h2>
-            <p className="text-white/30 text-sm mb-8">Konkretni koraci i zadaci prilagođeni tvom profilu.</p>
+            <h2 className="text-xl font-bold text-white mb-2">Moji zadaci</h2>
+            <p className="text-white/30 text-sm mb-8">Konkretni koraci prilagođeni tvom profilu.</p>
             {plan && plan.length > 0 ? (
               <div className="space-y-3">
                 {plan.map((task, i) => (
