@@ -340,7 +340,7 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
                 <button onClick={onRetake} className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">Uradi test</button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+              <div className="grid grid-cols-2 gap-5">
                 {/* Knjige */}
                 <div>
                   <div className="flex items-center gap-2 mb-4">
@@ -349,15 +349,11 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
                   </div>
                   <div className="space-y-3">
                     {recommendations.books.map((book, i) => (
-                      <div key={i} className="glass rounded-2xl p-5 border border-white/5">
-                        <div className="flex items-start gap-4">
-                          <span className="text-2xl font-black text-white/10 tabular-nums leading-none mt-0.5 flex-shrink-0">{i + 1}</span>
-                          <div>
-                            <p className="text-white font-medium text-sm">{book.title}</p>
-                            <p className="text-violet-400/70 text-xs mb-1">{book.author}</p>
-                            <p className="text-white/40 text-xs leading-relaxed">{book.desc}</p>
-                          </div>
-                        </div>
+                      <div key={i} className="glass rounded-xl p-4 border border-white/5">
+                        <p className="text-white/15 text-lg font-black mb-2">{i + 1}</p>
+                        <p className="text-white font-medium text-sm leading-snug">{book.title}</p>
+                        <p className="text-violet-400/70 text-xs mt-0.5 mb-1">{book.author}</p>
+                        <p className="text-white/40 text-xs leading-relaxed">{book.desc}</p>
                       </div>
                     ))}
                   </div>
@@ -371,14 +367,10 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
                   </div>
                   <div className="space-y-3">
                     {recommendations.podcasts.map((pod, i) => (
-                      <div key={i} className="glass rounded-2xl p-5 border border-white/5">
-                        <div className="flex items-start gap-4">
-                          <span className="text-2xl font-black text-white/10 tabular-nums leading-none mt-0.5 flex-shrink-0">{i + 1}</span>
-                          <div>
-                            <p className="text-white font-medium text-sm">{pod.title}</p>
-                            <p className="text-white/40 text-xs leading-relaxed mt-1">{pod.desc}</p>
-                          </div>
-                        </div>
+                      <div key={i} className="glass rounded-xl p-4 border border-white/5">
+                        <p className="text-white/15 text-lg font-black mb-2">{i + 1}</p>
+                        <p className="text-white font-medium text-sm leading-snug">{pod.title}</p>
+                        <p className="text-white/40 text-xs leading-relaxed mt-1">{pod.desc}</p>
                       </div>
                     ))}
                   </div>
