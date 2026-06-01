@@ -104,6 +104,36 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
   const [loadingResults, setLoadingResults] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [planHovered, setPlanHovered] = useState(false)
+  const [checkedItems, setCheckedItems] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('fy_checked') || '{}') } catch { return {} }
+  })
+
+  const toggleCheck = (id) => {
+    const updated = { ...checkedItems, [id]: !checkedItems[id] }
+    setCheckedItems(updated)
+    localStorage.setItem('fy_checked', JSON.stringify(updated))
+  }
+
+  const getVisibleItems = (allItems) => {
+    const visible = []
+    let replaced = 0
+    for (const item of allItems) {
+      if (visible.length >= 5) break
+      if (!checkedItems[item.id]) {
+        visible.push({ ...item, checked: false })
+      } else {
+        replaced++
+      }
+    }
+    // Dopuni do 5 sa checkiranim ako nema dovoljno
+    if (visible.length < 5) {
+      for (const item of allItems) {
+        if (visible.length >= 5) break
+        if (checkedItems[item.id]) visible.push({ ...item, checked: true })
+      }
+    }
+    return visible
+  }
 
   useEffect(() => {
     if (user && activeTab === 'rezultati') {
@@ -348,11 +378,18 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
                     <h3 className="text-white font-semibold text-sm uppercase tracking-wider">Knjige</h3>
                   </div>
                   <div className="space-y-3">
-                    {recommendations.books.map((book, i) => (
-                      <div key={i} className="glass rounded-xl p-4 border border-white/5">
-                        <p className="text-white/15 text-lg font-black mb-2">{i + 1}</p>
-                        <p className="text-white font-medium text-sm leading-snug">{book.title} <span className="text-violet-400/60 font-normal">· {book.author}</span></p>
-                        <p className="text-white/40 text-xs leading-relaxed mt-1">{book.desc}</p>
+                    {getVisibleItems(recommendations.books).map((book, i) => (
+                      <div key={book.id} className={`rounded-xl p-4 border transition-all duration-200 ${book.checked ? 'border-white/5 bg-white/[0.01] opacity-50' : 'glass border-white/5'}`}>
+                        <div className="flex items-start gap-3">
+                          <button onClick={() => toggleCheck(book.id)}
+                            className={`flex-shrink-0 w-5 h-5 rounded-md border-2 flex items-center justify-center mt-0.5 transition-all ${book.checked ? 'bg-violet-500 border-violet-400' : 'border-white/20 hover:border-violet-400'}`}>
+                            {book.checked && <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>}
+                          </button>
+                          <div className="flex-1">
+                            <p className={`font-medium text-sm leading-snug ${book.checked ? 'line-through text-white/30' : 'text-white'}`}>{book.title} <span className="text-violet-400/60 font-normal">· {book.author}</span></p>
+                            <p className="text-white/35 text-xs leading-relaxed mt-1">{book.desc}</p>
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -365,11 +402,18 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
                     <h3 className="text-white font-semibold text-sm uppercase tracking-wider">Podkasti</h3>
                   </div>
                   <div className="space-y-3">
-                    {recommendations.podcasts.map((pod, i) => (
-                      <div key={i} className="glass rounded-xl p-4 border border-white/5">
-                        <p className="text-white/15 text-lg font-black mb-2">{i + 1}</p>
-                        <p className="text-white font-medium text-sm leading-snug">{pod.title}</p>
-                        <p className="text-white/40 text-xs leading-relaxed mt-1">{pod.desc}</p>
+                    {getVisibleItems(recommendations.podcasts).map((pod, i) => (
+                      <div key={pod.id} className={`rounded-xl p-4 border transition-all duration-200 ${pod.checked ? 'border-white/5 bg-white/[0.01] opacity-50' : 'glass border-white/5'}`}>
+                        <div className="flex items-start gap-3">
+                          <button onClick={() => toggleCheck(pod.id)}
+                            className={`flex-shrink-0 w-5 h-5 rounded-md border-2 flex items-center justify-center mt-0.5 transition-all ${pod.checked ? 'bg-violet-500 border-violet-400' : 'border-white/20 hover:border-violet-400'}`}>
+                            {pod.checked && <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>}
+                          </button>
+                          <div className="flex-1">
+                            <p className={`font-medium text-sm leading-snug ${pod.checked ? 'line-through text-white/30' : 'text-white'}`}>{pod.title}</p>
+                            <p className="text-white/35 text-xs leading-relaxed mt-1">{pod.desc}</p>
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>
