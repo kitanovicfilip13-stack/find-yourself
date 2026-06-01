@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from 'react'
 import { useLanguage } from '../../LanguageContext'
 import { useAuth } from '../../AuthContext'
 import { getUserResults, deleteResult } from '../../supabase'
+import { getRecommendations } from '../../i18n/recommendations'
 import {
   calculateScores,
   getPersonalityType,
@@ -114,19 +115,17 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
     }
   }, [user, activeTab])
 
-  const savedAnswers = useMemo(() => {
+  const { savedAnswers, savedSegment } = useMemo(() => {
     try {
       const raw = localStorage.getItem('fy_results')
-      if (!raw) return []
+      if (!raw) return { savedAnswers: [], savedSegment: 'posao' }
       const parsed = JSON.parse(raw)
-      // Novi format: { answers: [...], segment, city }
       if (parsed && typeof parsed === 'object' && Array.isArray(parsed.answers)) {
-        return parsed.answers
+        return { savedAnswers: parsed.answers, savedSegment: parsed.segment || 'posao' }
       }
-      // Stari format: direktno niz
-      if (Array.isArray(parsed)) return parsed
-      return []
-    } catch { return [] }
+      if (Array.isArray(parsed)) return { savedAnswers: parsed, savedSegment: 'posao' }
+      return { savedAnswers: [], savedSegment: 'posao' }
+    } catch { return { savedAnswers: [], savedSegment: 'posao' } }
   }, [])
 
   const scores    = useMemo(() => calculateScores(savedAnswers), [savedAnswers])
@@ -137,6 +136,9 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
   const skills    = useMemo(() => getSkillsToLearn(scores, lang), [scores, lang])
   const plan      = useMemo(() => getActionPlan(scores, type, lang), [scores, type, lang])
   const firstPath = useMemo(() => getFirstPath(scores, type, lang), [scores, type, lang])
+
+  const recommendations = useMemo(() => getRecommendations(scores), [scores])
+  const isPosaoSegment = savedSegment === 'posao'
 
   const dimColors = { C: '#8b5cf6', T: '#3b82f6', P: '#ec4899', B: '#f59e0b', O: '#06b6d4', N: '#10b981' }
   const topDims = type.dims.slice(0, 6)
@@ -330,33 +332,80 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
         {activeTab === 'preporuke' && (
           <div>
             <h2 className="text-xl font-bold text-white mb-2">Preporuke</h2>
-            <p className="text-white/30 text-sm mb-8">Veštine i oblasti koje ti preporučujemo da razvijaš.</p>
-            {skills && skills.length > 0 ? (
-              <div className="space-y-3">
-                {skills.map((skill, i) => (
-                  <div key={i} className="glass rounded-2xl p-5 border border-white/5 flex items-center gap-4">
-                    <div className="w-8 h-8 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 flex-shrink-0">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-1.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
-                    </div>
-                    <p className="text-white/70 text-sm">{skill}</p>
-                  </div>
-                ))}
+            <p className="text-white/30 text-sm mb-8">Knjige i podkasti odabrani prema tvom tipu ličnosti.</p>
+
+            {!recommendations ? (
+              <div className="glass rounded-2xl p-8 text-center border border-white/5">
+                <p className="text-white/40 text-sm mb-4">Uradi test da bi dobio/la personalizovane preporuke.</p>
+                <button onClick={onRetake} className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">Uradi test</button>
               </div>
             ) : (
-              <div className="glass rounded-2xl p-8 text-center border border-white/5">
-                <p className="text-white/40 text-sm mb-4">Uradi test da bi dobio/la preporuke.</p>
-                <button onClick={onRetake} className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">Uradi test</button>
+              <div className="space-y-10">
+                {/* Knjige */}
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" /></svg>
+                    <h3 className="text-white font-semibold text-sm uppercase tracking-wider">Knjige</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {recommendations.books.map((book, i) => (
+                      <div key={i} className="glass rounded-2xl p-5 border border-white/5">
+                        <div className="flex items-start gap-4">
+                          <span className="text-2xl font-black text-white/10 tabular-nums leading-none mt-0.5">{i + 1}</span>
+                          <div>
+                            <p className="text-white font-medium text-sm">{book.title}</p>
+                            <p className="text-violet-400/70 text-xs mb-1">{book.author}</p>
+                            <p className="text-white/40 text-xs leading-relaxed">{book.desc}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Podkasti */}
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" /></svg>
+                    <h3 className="text-white font-semibold text-sm uppercase tracking-wider">Podkasti</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {recommendations.podcasts.map((pod, i) => (
+                      <div key={i} className="glass rounded-2xl p-5 border border-white/5">
+                        <div className="flex items-start gap-4">
+                          <span className="text-2xl font-black text-white/10 tabular-nums leading-none mt-0.5">{i + 1}</span>
+                          <div>
+                            <p className="text-white font-medium text-sm">{pod.title}</p>
+                            <p className="text-white/40 text-xs leading-relaxed mt-1">{pod.desc}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
           </div>
         )}
 
-        {/* TAB: Moji zadaci */}
+        {/* TAB: Plan razvoja */}
         {activeTab === 'zadaci' && (
           <div>
-            <h2 className="text-xl font-bold text-white mb-2">Moji zadaci</h2>
-            <p className="text-white/30 text-sm mb-8">Konkretni koraci prilagođeni tvom profilu.</p>
-            {plan && plan.length > 0 ? (
+            <h2 className="text-xl font-bold text-white mb-2">Plan razvoja</h2>
+            <p className="text-white/30 text-sm mb-8">Konkretni koraci prilagođeni tvom karijernom profilu.</p>
+
+            {!isPosaoSegment ? (
+              <div className="glass rounded-2xl p-8 text-center border border-violet-500/20 bg-violet-500/5">
+                <div className="w-12 h-12 rounded-full bg-violet-500/20 border border-violet-500/30 flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
+                </div>
+                <p className="text-white font-semibold text-sm mb-2">Plan razvoja je dostupan samo za segment Posao i karijera</p>
+                <p className="text-white/40 text-xs mb-5">Uradi test za karijeru da bi dobio/la personalizovani 7-dnevni plan razvoja.</p>
+                <button onClick={onRetake} className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">
+                  Uradi karijerski test
+                </button>
+              </div>
+            ) : plan && plan.length > 0 ? (
               <div className="space-y-3">
                 {plan.map((task, i) => (
                   <div key={i} className="glass rounded-2xl p-5 border border-white/5 flex items-start gap-4">
