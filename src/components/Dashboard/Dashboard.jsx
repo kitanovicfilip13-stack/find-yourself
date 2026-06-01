@@ -351,9 +351,8 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
                     {recommendations.books.map((book, i) => (
                       <div key={i} className="glass rounded-xl p-4 border border-white/5">
                         <p className="text-white/15 text-lg font-black mb-2">{i + 1}</p>
-                        <p className="text-white font-medium text-sm leading-snug">{book.title}</p>
-                        <p className="text-violet-400/70 text-xs mt-0.5 mb-1">{book.author}</p>
-                        <p className="text-white/40 text-xs leading-relaxed">{book.desc}</p>
+                        <p className="text-white font-medium text-sm leading-snug">{book.title} <span className="text-violet-400/60 font-normal">· {book.author}</span></p>
+                        <p className="text-white/40 text-xs leading-relaxed mt-1">{book.desc}</p>
                       </div>
                     ))}
                   </div>
