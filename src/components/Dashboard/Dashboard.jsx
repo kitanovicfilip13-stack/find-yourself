@@ -279,7 +279,7 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
         </div>
 
         {/* Content */}
-        <div className={`flex-1 px-6 md:px-10 py-10 transition-all duration-300 ${sidebarOpen ? 'md:ml-56' : 'md:ml-14'}`}>
+        <div className="flex-1 px-6 md:px-10 py-10">
 
         {/* TAB: Moji rezultati */}
         {activeTab === 'rezultati' && (
