@@ -178,55 +178,67 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
           <span className="text-white/60 text-sm font-medium">{t.nav.brand}</span>
         </button>
 
-        <div className="relative">
-          <button
-            onClick={() => setShowUserMenu(!showUserMenu)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/10 hover:border-violet-500/30 transition-all">
-            <div className="w-5 h-5 rounded-full bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center text-[10px] font-bold text-white">
-              {shortEmail?.[0]?.toUpperCase()}
-            </div>
-            <span className="text-white/70 text-sm hidden md:block">{shortEmail}</span>
-            <svg className="w-3 h-3 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          {showUserMenu && (
-            <div className="absolute right-0 top-10 w-48 glass rounded-xl border border-white/10 py-2 shadow-xl shadow-black/30 z-50">
-              <div className="px-3 py-2 border-b border-white/5">
-                <p className="text-white/30 text-xs truncate">{user?.email}</p>
-              </div>
-              <button
-                onClick={onRetake}
-                className="w-full text-left px-3 py-2 text-white/60 hover:text-white text-sm transition-colors">
-                {lang === 'sr' ? 'Uradi test ponovo' : 'Retake test'}
-              </button>
-              <button
-                onClick={() => { signOut(); onGoToLanding() }}
-                className="w-full text-left px-3 py-2 text-white/60 hover:text-white text-sm transition-colors">
-                {lang === 'sr' ? 'Odjava' : 'Sign out'}
-              </button>
-            </div>
-          )}
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/10">
+          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center text-[10px] font-bold text-white">
+            {shortEmail?.[0]?.toUpperCase()}
+          </div>
+          <span className="text-white/50 text-sm hidden md:block">{shortEmail}</span>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="border-b border-white/5 px-6">
-        <div className="max-w-3xl mx-auto flex gap-6">
-          {['profil', 'rezultati'].map(tab => (
-            <button key={tab} onClick={() => setActiveTab(tab)}
-              className={`py-3.5 text-sm font-medium border-b-2 transition-all -mb-px ${
-                activeTab === tab
-                  ? 'border-violet-500 text-white'
-                  : 'border-transparent text-white/30 hover:text-white/60'
+      {/* Layout: sidebar + content */}
+      <div className="flex min-h-[calc(100vh-73px)]">
+
+        {/* Sidebar */}
+        <div className="hidden md:flex flex-col w-56 border-r border-white/5 px-4 py-8 flex-shrink-0">
+          {[
+            { id: 'profil', label: 'Pregled profila', icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg> },
+            { id: 'rezultati', label: 'Moji rezultati', icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z" /></svg> },
+          ].map(item => (
+            <button key={item.id} onClick={() => setActiveTab(item.id)}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 mb-1 text-left ${
+                activeTab === item.id
+                  ? 'bg-violet-500/15 text-white border border-violet-500/20'
+                  : 'text-white/40 hover:text-white/70 hover:bg-white/5'
               }`}>
-              {tab === 'profil' ? 'Moj profil' : 'Moji rezultati'}
+              <span className={activeTab === item.id ? 'text-violet-400' : ''}>{item.icon}</span>
+              {item.label}
             </button>
           ))}
-        </div>
-      </div>
 
-      <div className="max-w-3xl mx-auto px-6 py-10">
+          <div className="mt-auto pt-8 border-t border-white/5 space-y-1">
+            <button onClick={onRetake}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/30 hover:text-white/60 hover:bg-white/5 transition-all w-full text-left">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+              Uradi test ponovo
+            </button>
+            <button onClick={() => { signOut(); onGoToLanding() }}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/30 hover:text-red-400 hover:bg-red-500/5 transition-all w-full text-left">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" /></svg>
+              Odjava
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile tabs */}
+        <div className="md:hidden w-full absolute">
+          <div className="flex border-b border-white/5 px-4">
+            {[
+              { id: 'profil', label: 'Profil' },
+              { id: 'rezultati', label: 'Rezultati' },
+            ].map(item => (
+              <button key={item.id} onClick={() => setActiveTab(item.id)}
+                className={`py-3 px-4 text-sm font-medium border-b-2 transition-all -mb-px ${
+                  activeTab === item.id ? 'border-violet-500 text-white' : 'border-transparent text-white/30'
+                }`}>
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 px-6 md:px-10 py-10 md:pt-10 pt-14 max-w-3xl">
 
         {/* TAB: Moji rezultati */}
         {activeTab === 'rezultati' && (
@@ -469,7 +481,8 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
 
         </> }
 
-      </div>
+        </div> {/* end content */}
+      </div> {/* end layout */}
 
       {showPremiumModal && <PremiumModal lang={lang} onClose={() => setShowPremiumModal(false)} />}
     </div>
