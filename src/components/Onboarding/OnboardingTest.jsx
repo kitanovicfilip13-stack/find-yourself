@@ -123,7 +123,24 @@ export default function OnboardingTest({ onComplete, onBack, initialAnswers = []
           <span className="text-white/50 text-sm">{ui.brand}</span>
         </div>
 
-        <span className="text-white/30 text-sm font-mono">{current + 1} / {questions.length}</span>
+        <div className="flex items-center gap-3">
+          <span className="text-white/30 text-sm font-mono">{current + 1} / {questions.length}</span>
+          <button
+            onClick={() => {
+              const dummyAnswers = questions.map(q => ({
+                questionId: q.id,
+                selectedOptions: [0],
+                selectedOption: 0,
+                customText: null,
+                scores: q.options[0].scores,
+              }))
+              onComplete(dummyAnswers)
+            }}
+            className="text-white/15 hover:text-white/40 text-xs transition-colors border border-white/10 rounded-lg px-2 py-1"
+          >
+            skip
+          </button>
+        </div>
       </div>
 
       {/* Progress bar */}
