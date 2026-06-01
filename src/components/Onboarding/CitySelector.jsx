@@ -50,7 +50,7 @@ export const gradToRegion = {
 
   // Vojvodina – Zrenjanin / Kikinda
   'Zrenjanin': 'Novi Sad', 'Kikinda': 'Novi Sad', 'Nova Crnja': 'Novi Sad',
-  'Žitište': 'Novi Sad', 'Novi Bečej': 'Novi Sad', 'Nova Crnja': 'Novi Sad',
+  'Žitište': 'Novi Sad', 'Novi Bečej': 'Novi Sad',
 
   // Vojvodina – Pančevo / Vršac
   'Vršac': 'Beograd', 'Bela Crkva': 'Beograd', 'Alibunar': 'Beograd',

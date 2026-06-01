@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useLanguage } from '../../LanguageContext'
 import { useAuth } from '../../AuthContext'
 import AuthModal from '../Auth/AuthModal'
+import { saveResultToDb } from '../../supabase'
 import {
   calculateScores,
   getPersonalityType,
@@ -19,12 +20,16 @@ export default function ResultPage({ answers, onRestart, onDashboard }) {
   const [showAuth, setShowAuth] = useState(false)
   const [saved, setSaved] = useState(false)
 
-  const saveResults = () => {
+  const saveResults = async () => {
+    if (!user) return
     try {
-      const raw = localStorage.getItem('fy_results')
-      const existing = raw ? JSON.parse(raw) : {}
-      const base = Array.isArray(existing) ? { answers: existing } : existing
-      localStorage.setItem('fy_results', JSON.stringify({ ...base, savedAt: Date.now(), userId: user?.id }))
+      await saveResultToDb({
+        userId: user.id,
+        segment: 'posao',
+        city: null,
+        answers,
+        resultLabel: type?.name || null,
+      })
       setSaved(true)
       setTimeout(() => onDashboard?.(), 800)
     } catch {}
@@ -58,7 +63,7 @@ export default function ResultPage({ answers, onRestart, onDashboard }) {
           <img src="/logo.png" alt="logo" className="w-6 h-6" />
           <span className="text-white/50 text-sm">{t.nav.brand}</span>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
           {saved ? (
             <div className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-green-500/30 bg-green-500/10 text-green-400 text-sm">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
@@ -70,18 +75,13 @@ export default function ResultPage({ answers, onRestart, onDashboard }) {
               Sačuvaj rezultat
             </button>
           )}
-          {onDashboard && (
-            <button onClick={onDashboard}
-              className="px-4 py-2 rounded-lg text-white text-sm bg-violet-600 hover:bg-violet-500 transition-all">
-              {lang === 'sr' ? 'Moj profil →' : 'My profile →'}
-            </button>
-          )}
-          {!onDashboard && (
-            <button onClick={onRestart}
-              className="px-4 py-2 rounded-lg text-white text-sm bg-violet-600 hover:bg-violet-500 transition-all">
-              {r.retake}
-            </button>
-          )}
+          <button onClick={onDashboard}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm bg-violet-600 hover:bg-violet-500 transition-all">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+            </svg>
+            Moj profil
+          </button>
         </div>
       </div>
 

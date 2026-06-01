@@ -8,6 +8,7 @@ import OnboardingTest from './components/Onboarding/OnboardingTest'
 import ResultPage from './components/Results/ResultPage'
 import SegmentResultPage from './components/Results/SegmentResultPage'
 import Dashboard from './components/Dashboard/Dashboard'
+import AuthModal from './components/Auth/AuthModal'
 
 export default function App() {
   const { user } = useAuth()
@@ -17,11 +18,10 @@ export default function App() {
   const [city, setCity] = useState('Beograd')
   const [answers, setAnswers] = useState([])
   const [resumeFrom, setResumeFrom] = useState(null)
+  const [showAuthWall, setShowAuthWall] = useState(false)
 
   useEffect(() => {
-    if (!user && page === 'dashboard') {
-      setPage('landing')
-    }
+    if (!user && page === 'dashboard') setPage('landing')
   }, [user])
 
   const hasProgress = () => {
@@ -33,7 +33,7 @@ export default function App() {
     } catch { return false }
   }
 
-  const handleStartJourney = () => {
+  const proceedAfterAuth = () => {
     window.scrollTo({ top: 0, behavior: 'instant' })
     try {
       const raw = localStorage.getItem('fy_progress')
@@ -52,16 +52,21 @@ export default function App() {
     setPage('segment-select')
   }
 
+  const handleStartJourney = () => {
+    if (!user) {
+      setShowAuthWall(true)
+    } else {
+      proceedAfterAuth()
+    }
+  }
+
   const handleSelectSegment = (selectedSegment) => {
     window.scrollTo({ top: 0, behavior: 'instant' })
     setSegment(selectedSegment)
     setAnswers([])
     setResumeFrom(null)
-    if (selectedSegment === 'posao') {
-      setPage('onboarding')
-    } else {
-      setPage('city-select')
-    }
+    if (selectedSegment === 'posao') setPage('onboarding')
+    else setPage('city-select')
   }
 
   const handleSelectCity = (selectedCity) => {
@@ -141,14 +146,14 @@ export default function App() {
           segment={segment}
           city={city}
           onRestart={handleRestart}
-          onDashboard={user ? handleGoToDashboard : null}
+          onDashboard={handleGoToDashboard}
         />
       )}
       {page === 'results' && segment === 'posao' && (
         <ResultPage
           answers={answers}
           onRestart={handleRestart}
-          onDashboard={user ? handleGoToDashboard : null}
+          onDashboard={handleGoToDashboard}
         />
       )}
       {page === 'dashboard' && (
@@ -158,6 +163,15 @@ export default function App() {
             window.scrollTo({ top: 0, behavior: 'instant' })
             setPage('landing')
           }}
+        />
+      )}
+
+      {showAuthWall && (
+        <AuthModal
+          onClose={() => setShowAuthWall(false)}
+          onSuccess={() => { setShowAuthWall(false); proceedAfterAuth() }}
+          context="Napravi nalog da bi mogao/la da počneš i sačuvaš svoje rezultate."
+          defaultMode="signup"
         />
       )}
     </div>

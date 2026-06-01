@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useLanguage } from '../../LanguageContext'
 import { useAuth } from '../../AuthContext'
+import { getUserResults, deleteResult } from '../../supabase'
 import {
   calculateScores,
   getPersonalityType,
@@ -98,6 +99,19 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
 
   const [showPremiumModal, setShowPremiumModal] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const [activeTab, setActiveTab] = useState('profil') // 'profil' | 'rezultati'
+  const [savedResults, setSavedResults] = useState([])
+  const [loadingResults, setLoadingResults] = useState(false)
+
+  useEffect(() => {
+    if (user && activeTab === 'rezultati') {
+      setLoadingResults(true)
+      getUserResults(user.id).then(({ data }) => {
+        setSavedResults(data || [])
+        setLoadingResults(false)
+      })
+    }
+  }, [user, activeTab])
 
   const savedAnswers = useMemo(() => {
     try {
@@ -196,7 +210,73 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
         </div>
       </div>
 
+      {/* Tabs */}
+      <div className="border-b border-white/5 px-6">
+        <div className="max-w-3xl mx-auto flex gap-6">
+          {['profil', 'rezultati'].map(tab => (
+            <button key={tab} onClick={() => setActiveTab(tab)}
+              className={`py-3.5 text-sm font-medium border-b-2 transition-all -mb-px ${
+                activeTab === tab
+                  ? 'border-violet-500 text-white'
+                  : 'border-transparent text-white/30 hover:text-white/60'
+              }`}>
+              {tab === 'profil' ? 'Moj profil' : 'Moji rezultati'}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="max-w-3xl mx-auto px-6 py-10">
+
+        {/* TAB: Moji rezultati */}
+        {activeTab === 'rezultati' && (
+          <div>
+            <h2 className="text-xl font-bold text-white mb-6">Istorija rezultata</h2>
+            {loadingResults ? (
+              <p className="text-white/30 text-sm">Učitavanje...</p>
+            ) : savedResults.length === 0 ? (
+              <div className="glass rounded-2xl p-8 text-center border border-white/5">
+                <p className="text-white/40 text-sm mb-4">Još nemaš sačuvanih rezultata.</p>
+                <button onClick={onRetake}
+                  className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">
+                  Uradi test
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {savedResults.map((res) => {
+                  const segmentLabel = res.segment === 'srednja' ? 'Srednja škola' : res.segment === 'fakultet' ? 'Fakultet' : 'Posao i karijera'
+                  const date = new Date(res.created_at).toLocaleDateString('sr-RS', { day: '2-digit', month: '2-digit', year: 'numeric' })
+                  return (
+                    <div key={res.id} className="glass rounded-2xl p-5 border border-white/5 flex items-center justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-xs text-violet-400 border border-violet-500/20 bg-violet-500/10 rounded-full px-2.5 py-0.5 font-medium">{segmentLabel}</span>
+                          {res.city && <span className="text-white/25 text-xs">{res.city}</span>}
+                        </div>
+                        <p className="text-white font-medium text-sm">{res.result_label || 'Rezultat'}</p>
+                        <p className="text-white/30 text-xs mt-1">{date}</p>
+                      </div>
+                      <button
+                        onClick={async () => {
+                          await deleteResult(res.id)
+                          setSavedResults(prev => prev.filter(r => r.id !== res.id))
+                        }}
+                        className="text-white/20 hover:text-red-400 transition-colors flex-shrink-0">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* TAB: Moj profil */}
+        {activeTab === 'profil' && <>
 
         {/* Welcome */}
         <div className="mb-8">
@@ -386,6 +466,9 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
             {r.retakeLink}
           </button>
         </div>
+
+        </> }
+
       </div>
 
       {showPremiumModal && <PremiumModal lang={lang} onClose={() => setShowPremiumModal(false)} />}

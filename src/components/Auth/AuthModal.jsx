@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { useAuth } from '../../AuthContext'
 import { useLanguage } from '../../LanguageContext'
 
-export default function AuthModal({ onClose, onSuccess, context }) {
+export default function AuthModal({ onClose, onSuccess, context, defaultMode = 'signin' }) {
   const { signIn, signUp } = useAuth()
   const { lang } = useLanguage()
-  const [mode, setMode] = useState('signin') // 'signin' | 'signup'
+  const [mode, setMode] = useState(defaultMode)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')

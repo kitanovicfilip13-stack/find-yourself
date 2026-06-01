@@ -3,6 +3,7 @@ import { useAuth } from '../../AuthContext'
 import { computeSegmentResult } from '../../i18n/segmentScoring'
 import { getTop5Schools } from '../../i18n/schoolsDB'
 import AuthModal from '../Auth/AuthModal'
+import { saveResultToDb } from '../../supabase'
 
 export default function SegmentResultPage({ answers, segment, city, onRestart, onDashboard }) {
   const { user } = useAuth()
@@ -24,12 +25,16 @@ export default function SegmentResultPage({ answers, segment, city, onRestart, o
   const { primary, alternatives, scores } = result
   const top5 = getTop5Schools(segment, city, scores)
 
-  const saveResults = () => {
+  const saveResults = async () => {
+    if (!user) return
     try {
-      const raw = localStorage.getItem('fy_results')
-      const existing = raw ? JSON.parse(raw) : {}
-      const base = Array.isArray(existing) ? { answers: existing } : existing
-      localStorage.setItem('fy_results', JSON.stringify({ ...base, savedAt: Date.now(), userId: user?.id }))
+      await saveResultToDb({
+        userId: user.id,
+        segment,
+        city,
+        answers,
+        resultLabel: primary?.name || null,
+      })
       setSaved(true)
       setTimeout(() => onDashboard?.(), 800)
     } catch {}
@@ -58,6 +63,13 @@ export default function SegmentResultPage({ answers, segment, city, onRestart, o
           <img src="/logo.png" alt="logo" className="w-6 h-6" />
           <span className="text-white/50 text-sm">Pronađi Sebe</span>
         </div>
+        <button onClick={onDashboard}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm bg-violet-600 hover:bg-violet-500 transition-all">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>
+          Moj profil
+        </button>
       </div>
 
       <div className="px-6 py-16 max-w-2xl mx-auto">
