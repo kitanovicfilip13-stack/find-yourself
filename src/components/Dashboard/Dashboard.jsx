@@ -677,8 +677,10 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                     </div>
                     <div>
                       <label className="text-white/30 text-xs uppercase tracking-widest mb-1.5 block">Email</label>
-                      <input value={user?.email} disabled
-                        className="w-full bg-white/3 border border-white/5 rounded-xl px-4 py-3 text-white/40 text-sm outline-none cursor-not-allowed" />
+                      <div className="w-full bg-white/3 border border-white/5 rounded-xl px-4 py-3 text-white/35 text-sm flex items-center justify-between">
+                        <span>{user?.email}</span>
+                        <span className="text-white/15 text-xs">nije moguće menjati</span>
+                      </div>
                     </div>
                     <div>
                       <label className="text-white/30 text-xs uppercase tracking-widest mb-1.5 block">Zašto si došao/la na naš sajt?</label>
