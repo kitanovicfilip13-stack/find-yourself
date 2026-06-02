@@ -170,18 +170,38 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
     }
   }, [user, activeTab])
 
+  const [mainResult, setMainResult] = useState(null)
+
+  useEffect(() => {
+    if (user) {
+      // Učitaj poslednji posao rezultat iz Supabase
+      getUserResults(user.id).then(({ data }) => {
+        if (data && data.length > 0) {
+          const posaoResult = data.find(r => r.segment === 'posao')
+          if (posaoResult && Array.isArray(posaoResult.answers)) {
+            setMainResult(posaoResult)
+          }
+        }
+      })
+    }
+  }, [user])
+
   const { savedAnswers, savedSegment } = useMemo(() => {
+    if (mainResult && Array.isArray(mainResult.answers)) {
+      return { savedAnswers: mainResult.answers, savedSegment: 'posao' }
+    }
+    // Fallback na localStorage
     try {
       const raw = localStorage.getItem('fy_results')
       if (!raw) return { savedAnswers: [], savedSegment: 'posao' }
       const parsed = JSON.parse(raw)
-      if (parsed && typeof parsed === 'object' && Array.isArray(parsed.answers)) {
-        return { savedAnswers: parsed.answers, savedSegment: parsed.segment || 'posao' }
+      if (parsed && typeof parsed === 'object' && Array.isArray(parsed.answers) && parsed.segment === 'posao') {
+        return { savedAnswers: parsed.answers, savedSegment: 'posao' }
       }
       if (Array.isArray(parsed)) return { savedAnswers: parsed, savedSegment: 'posao' }
       return { savedAnswers: [], savedSegment: 'posao' }
     } catch { return { savedAnswers: [], savedSegment: 'posao' } }
-  }, [])
+  }, [mainResult])
 
   const scores    = useMemo(() => calculateScores(savedAnswers), [savedAnswers])
   const type      = useMemo(() => getPersonalityType(scores, lang), [scores, lang])
