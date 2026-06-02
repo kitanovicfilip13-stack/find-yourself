@@ -47,6 +47,30 @@ export async function getUserResults(userId) {
   return { data, error }
 }
 
+export async function getGoals(userId) {
+  const { data, error } = await supabase
+    .from('goals')
+    .select('*')
+    .eq('user_id', userId)
+    .order('order_index')
+  return { data, error }
+}
+
+export async function upsertGoal(goal) {
+  const { data, error } = await supabase.from('goals').upsert(goal).select().single()
+  return { data, error }
+}
+
+export async function deleteGoal(id) {
+  const { error } = await supabase.from('goals').delete().eq('id', id)
+  return { error }
+}
+
+export async function toggleGoal(id, completed) {
+  const { error } = await supabase.from('goals').update({ completed }).eq('id', id)
+  return { error }
+}
+
 export async function deleteResult(id) {
   const { error } = await supabase.from('results').delete().eq('id', id)
   return { error }
