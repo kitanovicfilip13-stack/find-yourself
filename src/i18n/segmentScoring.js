@@ -54,7 +54,7 @@ const fakultetTypes = {
   MED: {
     name: 'Medicinski fakultet',
     smer: 'Medicina / Farmacija / Stomatologija',
-    desc: 'Voliš biologiju, zanima te zdravlje i želiš direktno da pomažeš ljudima. Medicinski put je zahtevan ali neverovatno ispunjavajući — svaki dan pravio/la bi stvarnu razliku.',
+    desc: 'Voliš biologiju, zanima te zdravlje i želiš direktno da pomažeš ljudima. Medicinski put je zahtevan ali neverovatno ispunjavajući, svaki dan pravio/la bi stvarnu razliku.',
     examples: ['Medicinski fakultet', 'Farmaceutski fakultet', 'Stomatološki fakultet', 'Visoka medicinska škola'],
     color: '#10b981',
   },
