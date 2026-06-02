@@ -71,6 +71,23 @@ export async function toggleGoal(id, completed) {
   return { error }
 }
 
+export async function getWeeklyFocus(userId, weekStart) {
+  const { data, error } = await supabase.from('weekly_focus').select('*').eq('user_id', userId).eq('week_start', weekStart)
+  return { data, error }
+}
+export async function upsertWeeklyFocus(item) {
+  const { data, error } = await supabase.from('weekly_focus').upsert(item).select().single()
+  return { data, error }
+}
+export async function deleteWeeklyFocus(id) {
+  const { error } = await supabase.from('weekly_focus').delete().eq('id', id)
+  return { error }
+}
+export async function toggleWeeklyFocus(id, completed) {
+  const { error } = await supabase.from('weekly_focus').update({ completed }).eq('id', id)
+  return { error }
+}
+
 export async function deleteResult(id) {
   const { error } = await supabase.from('results').delete().eq('id', id)
   return { error }

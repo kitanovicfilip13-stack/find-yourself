@@ -4,6 +4,7 @@ import { useAuth } from '../../AuthContext'
 import { getUserResults, deleteResult, getProfile, upsertProfile } from '../../supabase'
 import { getRecommendations } from '../../i18n/recommendations'
 import GoalsTab from './GoalsTab'
+import WeeklyFocusTab from './WeeklyFocusTab'
 import { dimDescriptions } from '../../i18n/scoring'
 import {
   calculateScores,
@@ -341,6 +342,15 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               )}
             </div>
 
+            {/* Nedeljni fokus */}
+            <button onClick={() => { setActiveTab('fokus'); if(window.innerWidth < 768) setSidebarOpen(false) }}
+              className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
+                ${sidebarOpen ? 'px-3 text-left' : 'px-0 justify-center'}
+                ${activeTab === 'fokus' ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
+              {sidebarOpen && <span className="truncate">Nedeljni fokus</span>}
+            </button>
+
             {/* Kursevi */}
             <button onClick={() => { setActiveTab('kursevi'); if(window.innerWidth < 768) setSidebarOpen(false) }}
               className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
@@ -518,6 +528,11 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               </div>
             )}
           </div>
+        )}
+
+        {/* TAB: Nedeljni fokus */}
+        {activeTab === 'fokus' && (
+          <WeeklyFocusTab userId={user?.id} />
         )}
 
         {/* TAB: Kursevi */}

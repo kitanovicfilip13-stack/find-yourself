@@ -11,6 +11,9 @@ export default function GoalsTab({ userId, isPosao }) {
   const [newSmallText, setNewSmallText] = useState('')
   const [editingReason, setEditingReason] = useState(null)
   const [reasonText, setReasonText] = useState('')
+  const [editingNotes, setEditingNotes] = useState(null)
+  const [notesText, setNotesText] = useState('')
+  const [editingDeadline, setEditingDeadline] = useState(null)
 
   useEffect(() => {
     if (userId) {
@@ -97,6 +100,29 @@ export default function GoalsTab({ userId, isPosao }) {
     setEditingReason(null)
   }
 
+  const saveNotes = async (goalId) => {
+    await upsertGoal({ id: goalId, user_id: userId, notes: notesText })
+    setGoals(prev => prev.map(g => g.id === goalId ? { ...g, notes: notesText } : g))
+    setEditingNotes(null)
+  }
+
+  const saveDeadline = async (goalId, date) => {
+    await upsertGoal({ id: goalId, user_id: userId, deadline: date || null })
+    setGoals(prev => prev.map(g => g.id === goalId ? { ...g, deadline: date || null } : g))
+    setEditingDeadline(null)
+  }
+
+  const formatDeadline = (d) => {
+    if (!d) return null
+    const date = new Date(d)
+    const today = new Date()
+    const diff = Math.ceil((date - today) / (1000 * 60 * 60 * 24))
+    const formatted = date.toLocaleDateString('sr-RS', { day: '2-digit', month: '2-digit', year: 'numeric' })
+    if (diff < 0) return { text: `${formatted} (prošlo)`, color: '#ef4444' }
+    if (diff <= 7) return { text: `${formatted} (${diff}d)`, color: '#f59e0b' }
+    return { text: formatted, color: 'rgba(255,255,255,0.3)' }
+  }
+
   if (!isPosao) {
     return (
       <div className="glass rounded-2xl p-8 text-center border border-white/5">
@@ -176,6 +202,7 @@ export default function GoalsTab({ userId, isPosao }) {
                   <div className="flex-1">
                     <p className={`font-bold text-base leading-snug ${main.completed ? 'line-through text-white/40' : 'text-white'}`}>{main.title}</p>
                     {/* Razlog */}
+                    {/* Razlog */}
                     {editingReason === main.id ? (
                       <div className="mt-2 flex gap-2">
                         <input autoFocus value={reasonText} onChange={e => setReasonText(e.target.value)}
@@ -189,6 +216,41 @@ export default function GoalsTab({ userId, isPosao }) {
                       <button onClick={() => { setEditingReason(main.id); setReasonText(main.reason || '') }}
                         className="text-white/25 text-xs mt-1 hover:text-violet-400 transition-colors text-left">
                         {main.reason ? `Razlog: ${main.reason}` : '+ Zašto ti je ovo važno?'}
+                      </button>
+                    )}
+
+                    {/* Rok */}
+                    <div className="mt-1.5 flex items-center gap-2">
+                      {editingDeadline === main.id ? (
+                        <input type="date" autoFocus defaultValue={main.deadline || ''}
+                          onChange={e => saveDeadline(main.id, e.target.value)}
+                          onBlur={() => setEditingDeadline(null)}
+                          className="bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-white text-xs outline-none focus:border-violet-500/50" />
+                      ) : (
+                        <button onClick={() => setEditingDeadline(main.id)}
+                          className="text-xs transition-colors hover:opacity-80"
+                          style={{ color: main.deadline ? formatDeadline(main.deadline)?.color : 'rgba(255,255,255,0.2)' }}>
+                          {main.deadline ? `🗓 Rok: ${formatDeadline(main.deadline)?.text}` : '+ Postavi rok'}
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Beleške */}
+                    {editingNotes === main.id ? (
+                      <div className="mt-2">
+                        <textarea autoFocus value={notesText} onChange={e => setNotesText(e.target.value)}
+                          placeholder="Dodaj belešku..."
+                          rows={2}
+                          className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs outline-none focus:border-violet-500/50 placeholder-white/20 resize-none" />
+                        <div className="flex gap-2 mt-1">
+                          <button onClick={() => saveNotes(main.id)} className="text-violet-400 text-xs">Sačuvaj</button>
+                          <button onClick={() => setEditingNotes(null)} className="text-white/20 text-xs">Otkaži</button>
+                        </div>
+                      </div>
+                    ) : (
+                      <button onClick={() => { setEditingNotes(main.id); setNotesText(main.notes || '') }}
+                        className="text-white/20 text-xs mt-1 hover:text-white/50 transition-colors text-left block">
+                        {main.notes ? `📝 ${main.notes}` : '+ Dodaj belešku'}
                       </button>
                     )}
                   </div>
