@@ -103,10 +103,20 @@ export default function ResultPage({ answers, onRestart, onDashboard }) {
                 <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">{type.name}</h1>
               </div>
             </div>
-            <p className="text-lg md:text-xl font-medium mb-4" style={{ color: type.color }}>{type.tagline}</p>
-            <p className="text-white/50 text-sm leading-relaxed">
-              {r.profileDesc(r.dimNames[type.primary], r.dimNames[type.secondary], type.isIntrovert, type.isRiskTaker)}
-            </p>
+            <p className="text-white/60 text-sm leading-relaxed mb-4">{type.tagline}</p>
+            {type.jobs && type.jobs.length > 0 && (
+              <div>
+                <p className="text-white/30 text-xs uppercase tracking-widest mb-2">Možeš da radiš kao</p>
+                <div className="flex flex-wrap gap-2">
+                  {type.jobs.map(job => (
+                    <span key={job} className="px-3 py-1 rounded-lg text-xs font-medium border"
+                      style={{ color: type.color, borderColor: `${type.color}30`, background: `${type.color}10` }}>
+                      {job}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
