@@ -170,10 +170,11 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
   }, [user, activeTab])
 
   const [mainResult, setMainResult] = useState(null)
+  const [mainResultLoading, setMainResultLoading] = useState(true)
 
   useEffect(() => {
     if (user) {
-      // Učitaj poslednji posao rezultat iz Supabase
+      setMainResultLoading(true)
       getUserResults(user.id).then(({ data }) => {
         if (data && data.length > 0) {
           const posaoResult = data.find(r => r.segment === 'posao')
@@ -181,6 +182,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
             setMainResult(posaoResult)
           }
         }
+        setMainResultLoading(false)
       })
     }
   }, [user])
@@ -220,6 +222,17 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
 
   const shortEmail = user?.email?.split('@')[0]
   const hasResults = savedAnswers.length > 0
+
+  if (mainResultLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#080810' }}>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 rounded-full border-2 border-violet-500/30 border-t-violet-500 animate-spin" />
+          <p className="text-white/30 text-sm">Učitavanje profila...</p>
+        </div>
+      </div>
+    )
+  }
 
   if (!hasResults) {
     return (
