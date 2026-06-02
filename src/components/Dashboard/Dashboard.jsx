@@ -894,43 +894,6 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
           </div>
         </div>
 
-        {/* 7-Day Plan — PREMIUM LOCKED */}
-        <div className="relative glass rounded-2xl p-6 mb-6 overflow-hidden">
-          <PremiumLock lang={lang} onUpgrade={() => setShowPremiumModal(true)} />
-          <div className="flex items-center gap-2 mb-5" style={{ filter: 'blur(3px)' }}>
-            <div className="w-2 h-2 rounded-full bg-cyan-400" />
-            <h2 className="text-white font-semibold text-sm uppercase tracking-widest opacity-60">{r.planLabel}</h2>
-          </div>
-          <div className="space-y-3" style={{ filter: 'blur(3px)' }}>
-            {plan.slice(0, 3).map((item, i) => (
-              <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03]">
-                <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold"
-                  style={{ background: `${type.color}15`, color: type.color }}>
-                  {i + 1}
-                </div>
-                <div>
-                  <p className="text-white/40 text-xs mb-1 uppercase tracking-wide">{item.day}</p>
-                  <p className="text-white/75 text-sm leading-relaxed">{item.action}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* First Path — PREMIUM LOCKED */}
-        <div className="relative rounded-3xl overflow-hidden p-8 mb-8"
-          style={{ background: `linear-gradient(135deg, ${type.color}18 0%, rgba(37,99,235,0.08) 100%)`, border: `1px solid ${type.color}30` }}>
-          <PremiumLock lang={lang} onUpgrade={() => setShowPremiumModal(true)} />
-          <div className="flex items-start gap-4" style={{ filter: 'blur(4px)' }}>
-            <div className="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl"
-              style={{ background: `${type.color}20` }}>🎯</div>
-            <div>
-              <p className="text-white/40 text-xs uppercase tracking-widest mb-2">{r.firstPathLabel}</p>
-              <p className="text-white font-semibold text-lg leading-snug mb-2">{firstPath}</p>
-              <p className="text-white/40 text-sm">{r.firstPathSub}</p>
-            </div>
-          </div>
-        </div>
 
 
         {/* Retake */}
@@ -946,7 +909,6 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
         </div> {/* end content */}
       </div> {/* end layout */}
 
-      {showPremiumModal && <PremiumModal lang={lang} onClose={() => setShowPremiumModal(false)} />}
     </div>
   )
 }
