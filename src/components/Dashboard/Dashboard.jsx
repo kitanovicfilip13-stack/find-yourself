@@ -578,24 +578,19 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
         {/* Dimensions */}
         <div className="glass rounded-2xl p-6 mb-6">
           <h2 className="text-white font-semibold mb-5 text-sm uppercase tracking-widest opacity-60">{r.dimensionsLabel}</h2>
-          <div className="space-y-2">
+          <div className="space-y-4">
             {topDims.map((dim) => (
               <div key={dim.key}>
-                <button onClick={() => setActiveDim(activeDim === dim.key ? null : dim.key)}
-                  className="w-full flex items-center gap-3 py-1.5 hover:bg-white/3 rounded-lg px-1 transition-all group">
-                  <span className="text-white/60 text-sm w-32 flex-shrink-0 text-left group-hover:text-white/90 transition-colors">{r.dimNames[dim.key]}</span>
+                <div className="flex items-center gap-3 mb-1.5">
+                  <span className="text-white/70 text-sm w-32 flex-shrink-0">{r.dimNames[dim.key]}</span>
                   <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
                     <div className="h-full rounded-full transition-all duration-1000"
                       style={{ width: `${Math.round((dim.val / maxDimVal) * 100)}%`, background: `linear-gradient(90deg, ${dimColors[dim.key]}, ${dimColors[dim.key]}88)` }} />
                   </div>
                   <span className="text-white/40 text-xs w-8 text-right">{Math.round((dim.val / maxDimVal) * 100)}%</span>
-                  <svg className={`w-3.5 h-3.5 text-white/20 flex-shrink-0 transition-transform ${activeDim === dim.key ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-                </button>
-                {activeDim === dim.key && dimDescriptions?.sr?.[dim.key] && (
-                  <div className="ml-1 mt-1 mb-2 px-3 py-2.5 rounded-xl text-xs text-white/50 leading-relaxed"
-                    style={{ background: `${dimColors[dim.key]}08`, borderLeft: `2px solid ${dimColors[dim.key]}40` }}>
-                    {dimDescriptions.sr[dim.key]}
-                  </div>
+                </div>
+                {dimDescriptions?.sr?.[dim.key] && (
+                  <p className="text-white/35 text-xs leading-relaxed pl-[9.5rem]">{dimDescriptions.sr[dim.key]}</p>
                 )}
               </div>
             ))}
@@ -640,36 +635,25 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
             <div className="w-2 h-2 rounded-full bg-violet-400" />
             <h2 className="text-white font-semibold text-sm uppercase tracking-widest opacity-60">{r.careersLabel}</h2>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-4">
             {careers.map((c, i) => (
               <div key={i}>
-                <button onClick={() => setActiveCareer(activeCareer === i ? null : i)}
-                  className="w-full hover:bg-white/3 rounded-lg px-1 py-1 transition-all group">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <div className="flex items-center gap-2">
-                      {i === 0 && (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-medium text-violet-300 bg-violet-500/15 border border-violet-500/20">
-                          {r.topMatch}
-                        </span>
-                      )}
-                      <span className="text-white/80 text-sm font-medium group-hover:text-white transition-colors">{c.label}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-white/30 text-xs">{c.percent}%</span>
-                      <svg className={`w-3 h-3 text-white/20 transition-transform ${activeCareer === i ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-                    </div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center gap-2">
+                    {i === 0 && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-medium text-violet-300 bg-violet-500/15 border border-violet-500/20">
+                        {r.topMatch}
+                      </span>
+                    )}
+                    <span className="text-white/80 text-sm font-medium">{c.label}</span>
                   </div>
-                  <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-                    <div className="h-full rounded-full"
-                      style={{ width: `${c.percent}%`, background: i === 0 ? 'linear-gradient(90deg, #7c3aed, #2563eb)' : `linear-gradient(90deg, ${type.color}99, ${type.color}44)` }} />
-                  </div>
-                </button>
-                {activeCareer === i && c.desc && (
-                  <div className="ml-1 mt-1 mb-1 px-3 py-2.5 rounded-xl text-xs text-white/50 leading-relaxed"
-                    style={{ background: 'rgba(255,255,255,0.03)', borderLeft: '2px solid rgba(255,255,255,0.08)' }}>
-                    {c.desc}
-                  </div>
-                )}
+                  <span className="text-white/30 text-xs">{c.percent}%</span>
+                </div>
+                <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-1.5">
+                  <div className="h-full rounded-full"
+                    style={{ width: `${c.percent}%`, background: i === 0 ? 'linear-gradient(90deg, #7c3aed, #2563eb)' : `linear-gradient(90deg, ${type.color}99, ${type.color}44)` }} />
+                </div>
+                {c.desc && <p className="text-white/35 text-xs leading-relaxed">{c.desc}</p>}
               </div>
             ))}
           </div>

@@ -364,7 +364,7 @@ export function getPersonalityType(scores, lang = 'en') {
 export function getCareerPaths(scores, lang = 'en') {
   const careers = (careerData[lang] || careerData.en).map((c) => {
     const score = Object.entries(c.weights).reduce((sum, [key, w]) => sum + (scores[key] || 0) * w, 0)
-    return { label: c.label, score }
+    return { label: c.label, desc: c.desc || null, score }
   })
   const maxScore = Math.max(...careers.map(c => c.score), 1)
   return careers
