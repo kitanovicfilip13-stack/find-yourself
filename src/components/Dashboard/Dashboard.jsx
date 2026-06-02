@@ -329,7 +329,6 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                 </div>
               )}
             </div>
-          </div>
 
             {/* Kursevi */}
             <button onClick={() => { setActiveTab('kursevi'); if(window.innerWidth < 768) setSidebarOpen(false) }}
@@ -340,6 +339,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               {sidebarOpen && <span className="truncate flex-1">Kursevi</span>}
               {sidebarOpen && <span className="text-[10px] text-white/20 border border-white/10 rounded-full px-1.5 py-0.5 flex-shrink-0">uskoro</span>}
             </button>
+          </div>
 
           {/* Dno sidebar */}
           <div className="pt-6 border-t border-white/5 space-y-1">
