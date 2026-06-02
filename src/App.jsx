@@ -163,6 +163,12 @@ export default function App() {
             window.scrollTo({ top: 0, behavior: 'instant' })
             setPage('landing')
           }}
+          onViewResult={(savedAnswers, savedSegment) => {
+            setAnswers(savedAnswers)
+            setSegment(savedSegment || 'posao')
+            window.scrollTo({ top: 0, behavior: 'instant' })
+            setPage('results')
+          }}
         />
       )}
 

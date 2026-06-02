@@ -93,7 +93,7 @@ function PremiumModal({ lang, onClose }) {
   )
 }
 
-export default function Dashboard({ onRetake, onGoToLanding }) {
+export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
   const { t, lang } = useLanguage()
   const { user, signOut } = useAuth()
   const r = t.result
@@ -107,6 +107,7 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
   const [planHovered, setPlanHovered] = useState(false)
   const [activeDim, setActiveDim] = useState(null)
   const [activeCareer, setActiveCareer] = useState(null)
+  const [expandedResult, setExpandedResult] = useState(null)
   const [checkedItems, setCheckedItems] = useState(() => {
     try { return JSON.parse(localStorage.getItem('fy_checked') || '{}') } catch { return {} }
   })
@@ -333,26 +334,97 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
                 {savedResults.map((res) => {
                   const segmentLabel = res.segment === 'srednja' ? 'Srednja škola' : res.segment === 'fakultet' ? 'Fakultet' : 'Posao i karijera'
                   const date = new Date(res.created_at).toLocaleDateString('sr-RS', { day: '2-digit', month: '2-digit', year: 'numeric' })
+                  const isExpanded = expandedResult === res.id
+
+                  // Izračunaj preview za posao segment
+                  let preview = null
+                  if (isExpanded && res.segment === 'posao' && Array.isArray(res.answers)) {
+                    const sc = calculateScores(res.answers)
+                    const tp = getPersonalityType(sc, 'sr')
+                    const cr = getCareerPaths(sc, 'sr').slice(0, 3)
+                    preview = { type: tp, careers: cr }
+                  }
+
                   return (
-                    <div key={res.id} className="glass rounded-2xl p-5 border border-white/5 flex items-center justify-between gap-4">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-xs text-violet-400 border border-violet-500/20 bg-violet-500/10 rounded-full px-2.5 py-0.5 font-medium">{segmentLabel}</span>
-                          {res.city && <span className="text-white/25 text-xs">{res.city}</span>}
-                        </div>
-                        <p className="text-white font-medium text-sm">{res.result_label || 'Rezultat'}</p>
-                        <p className="text-white/30 text-xs mt-1">{date}</p>
-                      </div>
+                    <div key={res.id} className={`glass rounded-2xl border transition-all duration-200 overflow-hidden ${isExpanded ? 'border-violet-500/20' : 'border-white/5'}`}>
+                      {/* Header — uvek vidljiv */}
                       <button
-                        onClick={async () => {
-                          await deleteResult(res.id)
-                          setSavedResults(prev => prev.filter(r => r.id !== res.id))
-                        }}
-                        className="text-white/20 hover:text-red-400 transition-colors flex-shrink-0">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
+                        onClick={() => setExpandedResult(isExpanded ? null : res.id)}
+                        className="w-full flex items-center justify-between p-5 text-left">
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-xs text-violet-400 border border-violet-500/20 bg-violet-500/10 rounded-full px-2.5 py-0.5 font-medium">{segmentLabel}</span>
+                            {res.city && <span className="text-white/25 text-xs">{res.city}</span>}
+                          </div>
+                          <p className="text-white font-medium text-sm">{res.result_label || 'Rezultat'}</p>
+                          <p className="text-white/30 text-xs mt-1">{date}</p>
+                        </div>
+                        <div className="flex items-center gap-3 flex-shrink-0">
+                          <svg className={`w-4 h-4 text-white/30 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                          </svg>
+                          <button
+                            onClick={async (e) => {
+                              e.stopPropagation()
+                              await deleteResult(res.id)
+                              setSavedResults(prev => prev.filter(r => r.id !== res.id))
+                            }}
+                            className="text-white/20 hover:text-red-400 transition-colors">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+                        </div>
                       </button>
+
+                      {/* Expand sadržaj */}
+                      {isExpanded && (
+                        <div className="px-5 pb-5 border-t border-white/5 pt-4">
+                          {preview ? (
+                            <div className="space-y-4">
+                              {/* Tip */}
+                              <div className="p-4 rounded-xl" style={{ background: `${preview.type.color}10`, border: `1px solid ${preview.type.color}25` }}>
+                                <p className="text-white/40 text-xs mb-0.5">Radni stil</p>
+                                <p className="text-white font-semibold text-sm">{preview.type.name}</p>
+                                <p className="text-white/50 text-xs leading-relaxed mt-1">{preview.type.tagline.split('.')[0]}.</p>
+                              </div>
+
+                              {/* Top 3 karijere */}
+                              <div>
+                                <p className="text-white/30 text-xs uppercase tracking-widest mb-2">Karijerni pravci</p>
+                                <div className="space-y-1.5">
+                                  {preview.careers.map((c, i) => (
+                                    <div key={i} className="flex items-center justify-between">
+                                      <span className="text-white/60 text-xs">{c.label}</span>
+                                      <span className="text-white/30 text-xs">{c.percent}%</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Vidi ceo rezultat */}
+                              {onViewResult && (
+                                <button
+                                  onClick={() => onViewResult(res.answers, res.segment)}
+                                  className="w-full py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">
+                                  Vidi ceo rezultat
+                                </button>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="space-y-3">
+                              <p className="text-white/40 text-xs">Segment: {segmentLabel}{res.city ? `, ${res.city}` : ''}</p>
+                              {onViewResult && (
+                                <button
+                                  onClick={() => onViewResult(res.answers, res.segment)}
+                                  className="w-full py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">
+                                  Vidi ceo rezultat
+                                </button>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   )
                 })}
