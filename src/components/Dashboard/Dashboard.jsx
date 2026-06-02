@@ -401,10 +401,16 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                         className="w-full flex items-center justify-between p-5 text-left">
                         <div>
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs text-violet-400 border border-violet-500/20 bg-violet-500/10 rounded-full px-2.5 py-0.5 font-medium flex items-center gap-1.5">
-                              {segmentIcon}
-                              {segmentLabel}
-                            </span>
+                            {(() => {
+                              const sc = res.segment === 'srednja' ? '#8b5cf6' : res.segment === 'fakultet' ? '#3b82f6' : '#06b6d4'
+                              return (
+                                <span className="text-xs rounded-full px-2.5 py-0.5 font-medium flex items-center gap-1.5"
+                                  style={{ color: sc, background: `${sc}18`, border: `1px solid ${sc}35` }}>
+                                  {segmentIcon}
+                                  {segmentLabel}
+                                </span>
+                              )
+                            })()}
                             {res.city && <span className="text-white/25 text-xs">{res.city}</span>}
                           </div>
                           <p className="text-white font-medium text-sm">{res.result_label || 'Rezultat'}</p>
