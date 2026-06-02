@@ -116,16 +116,14 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
   useEffect(() => {
     if (user) {
       getProfile(user.id).then(({ data }) => {
-        if (data) {
-          setProfile(data)
-          setProfileForm({
-            fullName: data.full_name || '',
-            age: data.age || '',
-            phone: data.phone || '',
-            city: data.city || '',
-            comment: data.comment || '',
-          })
-        }
+        setProfile(data || null)
+        setProfileForm({
+          fullName: data?.full_name || '',
+          age: data?.age || '',
+          phone: data?.phone || '',
+          city: data?.city || '',
+          comment: data?.comment || '',
+        })
       })
     }
   }, [user])
