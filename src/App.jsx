@@ -4,6 +4,7 @@ import { useLenis } from './hooks/useLenis'
 import LandingPage from './components/Landing/LandingPage'
 import SegmentSelector from './components/Onboarding/SegmentSelector'
 import CitySelector from './components/Onboarding/CitySelector'
+import UserInfoForm from './components/Onboarding/UserInfoForm'
 import OnboardingTest from './components/Onboarding/OnboardingTest'
 import ResultPage from './components/Results/ResultPage'
 import SegmentResultPage from './components/Results/SegmentResultPage'
@@ -16,6 +17,7 @@ export default function App() {
   const [page, setPage] = useState('landing')
   const [segment, setSegment] = useState('posao')
   const [city, setCity] = useState('Beograd')
+  const [userInfo, setUserInfo] = useState(null)
   const [answers, setAnswers] = useState([])
   const [resumeFrom, setResumeFrom] = useState(null)
   const [showAuthWall, setShowAuthWall] = useState(false)
@@ -65,19 +67,25 @@ export default function App() {
     setSegment(selectedSegment)
     setAnswers([])
     setResumeFrom(null)
-    if (selectedSegment === 'posao') setPage('onboarding')
+    if (selectedSegment === 'posao') setPage('user-info')
     else setPage('city-select')
   }
 
   const handleSelectCity = (selectedCity) => {
     window.scrollTo({ top: 0, behavior: 'instant' })
     setCity(selectedCity)
+    setPage('user-info')
+  }
+
+  const handleUserInfo = (info) => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    setUserInfo(info)
     setPage('onboarding')
   }
 
   const handleComplete = (finalAnswers) => {
     setAnswers(finalAnswers)
-    localStorage.setItem('fy_results', JSON.stringify({ answers: finalAnswers, segment, city }))
+    localStorage.setItem('fy_results', JSON.stringify({ answers: finalAnswers, segment, city, userInfo }))
     localStorage.removeItem('fy_progress')
     setResumeFrom(null)
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -131,6 +139,12 @@ export default function App() {
           onBack={() => setPage('segment-select')}
         />
       )}
+      {page === 'user-info' && (
+        <UserInfoForm
+          onNext={handleUserInfo}
+          onBack={() => segment === 'posao' ? setPage('segment-select') : setPage('city-select')}
+        />
+      )}
       {page === 'onboarding' && (
         <OnboardingTest
           onComplete={handleComplete}
@@ -145,6 +159,7 @@ export default function App() {
           answers={answers}
           segment={segment}
           city={city}
+          userInfo={userInfo}
           onRestart={handleRestart}
           onDashboard={handleGoToDashboard}
         />
@@ -152,6 +167,7 @@ export default function App() {
       {page === 'results' && segment === 'posao' && (
         <ResultPage
           answers={answers}
+          userInfo={userInfo}
           onRestart={handleRestart}
           onDashboard={handleGoToDashboard}
         />

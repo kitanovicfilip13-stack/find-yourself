@@ -15,7 +15,7 @@ import {
   getFirstPath,
 } from '../../i18n/scoring'
 
-export default function ResultPage({ answers, onRestart, onDashboard }) {
+export default function ResultPage({ answers, userInfo, onRestart, onDashboard }) {
   const { t, lang } = useLanguage()
   const { user } = useAuth()
   const [showAuth, setShowAuth] = useState(false)
@@ -33,6 +33,7 @@ export default function ResultPage({ answers, onRestart, onDashboard }) {
         city: null,
         answers,
         resultLabel: type?.name || null,
+        userInfo,
       })
       setSaved(true)
       setTimeout(() => onDashboard?.(), 800)

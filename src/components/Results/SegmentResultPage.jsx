@@ -5,7 +5,7 @@ import { getTop5Schools } from '../../i18n/schoolsDB'
 import AuthModal from '../Auth/AuthModal'
 import { saveResultToDb } from '../../supabase'
 
-export default function SegmentResultPage({ answers, segment, city, onRestart, onDashboard }) {
+export default function SegmentResultPage({ answers, segment, city, userInfo, onRestart, onDashboard }) {
   const { user } = useAuth()
   const [showAuth, setShowAuth] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -34,6 +34,7 @@ export default function SegmentResultPage({ answers, segment, city, onRestart, o
         city,
         answers,
         resultLabel: primary?.name || null,
+        userInfo,
       })
       setSaved(true)
       setTimeout(() => onDashboard?.(), 800)
