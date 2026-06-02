@@ -265,18 +265,7 @@ export default function ResultPage({ answers, userInfo, onRestart, onDashboard }
           </div>
         </div>
 
-        {/* ── COMING SOON ── */}
-        <div className="glass rounded-2xl p-6 mb-8">
-          <p className="text-white/30 text-xs uppercase tracking-widest mb-4">{r.comingSoon}</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {r.upcoming.map((item) => (
-              <div key={item.label} className="p-4 rounded-xl bg-white/[0.02] border border-white/5 opacity-60">
-                <div className="text-xl mb-2">{item.icon}</div>
-                <p className="text-white/70 text-xs font-medium mb-1">{item.label}</p>
-                <p className="text-white/30 text-xs">{item.desc}</p>
-              </div>
-            ))}
-          </div>
+        <div>
         </div>
 
         {/* ── RESTART ── */}

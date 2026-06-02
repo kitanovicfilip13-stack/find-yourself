@@ -157,14 +157,6 @@ export default function Footer() {
             <p className="text-white/20 text-sm">{f.copy}</p>
           </div>
 
-          <div className="mt-10 pt-8 border-t border-white/5">
-            <p className="text-white/20 text-xs text-center mb-4 uppercase tracking-widest">{f.comingSoon}</p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              {f.upcoming.map((item) => (
-                <span key={item} className="px-3 py-1.5 rounded-full text-xs text-white/20 border border-white/5">{item}</span>
-              ))}
-            </div>
-          </div>
         </div>
       </footer>
 
