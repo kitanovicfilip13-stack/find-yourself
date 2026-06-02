@@ -59,7 +59,12 @@ export default function App() {
     setSegment(selectedSegment)
     setAnswers([])
     setResumeFrom(null)
-    setPage('setup')
+    if (user && selectedSegment === 'posao') {
+      // Ulogovan + posao → direktno na test
+      setPage('onboarding')
+    } else {
+      setPage('setup')
+    }
   }
 
   const handleSetupDone = (info) => {

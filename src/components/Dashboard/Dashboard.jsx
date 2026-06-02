@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react'
 import { useLanguage } from '../../LanguageContext'
 import { useAuth } from '../../AuthContext'
-import { getUserResults, deleteResult } from '../../supabase'
+import { getUserResults, deleteResult, getProfile, upsertProfile } from '../../supabase'
 import { getRecommendations, } from '../../i18n/recommendations'
 import { dimDescriptions } from '../../i18n/scoring'
 import {
@@ -108,6 +108,27 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
   const [activeDim, setActiveDim] = useState(null)
   const [activeCareer, setActiveCareer] = useState(null)
   const [expandedResult, setExpandedResult] = useState(null)
+  const [profile, setProfile] = useState(null)
+  const [profileForm, setProfileForm] = useState(null)
+  const [profileSaving, setProfileSaving] = useState(false)
+  const [profileSaved, setProfileSaved] = useState(false)
+
+  useEffect(() => {
+    if (user) {
+      getProfile(user.id).then(({ data }) => {
+        if (data) {
+          setProfile(data)
+          setProfileForm({
+            fullName: data.full_name || '',
+            age: data.age || '',
+            phone: data.phone || '',
+            city: data.city || '',
+            comment: data.comment || '',
+          })
+        }
+      })
+    }
+  }, [user])
   const [checkedItems, setCheckedItems] = useState(() => {
     try { return JSON.parse(localStorage.getItem('fy_checked') || '{}') } catch { return {} }
   })
@@ -581,13 +602,69 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
             <h2 className="text-xl font-bold text-white mb-2">Podešavanja</h2>
             <p className="text-white/30 text-sm mb-8">Upravljaj svojim nalogom.</p>
             <div className="space-y-4">
-              <div className="glass rounded-2xl p-6 border border-white/5">
-                <p className="text-white/40 text-xs uppercase tracking-widest mb-1">Email</p>
-                <p className="text-white text-sm">{user?.email}</p>
-              </div>
+
+              {/* Moji podaci */}
+              {profileForm && (
+                <div className="glass rounded-2xl p-6 border border-white/5">
+                  <p className="text-white font-medium text-sm mb-4">Moji podaci</p>
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-white/30 text-xs uppercase tracking-widest mb-1.5 block">Ime i prezime</label>
+                        <input value={profileForm.fullName} onChange={e => setProfileForm(p => ({ ...p, fullName: e.target.value }))}
+                          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-violet-500/50 transition-all" />
+                      </div>
+                      <div>
+                        <label className="text-white/30 text-xs uppercase tracking-widest mb-1.5 block">Broj godina</label>
+                        <input type="number" value={profileForm.age} onChange={e => setProfileForm(p => ({ ...p, age: e.target.value }))}
+                          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-violet-500/50 transition-all" />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-white/30 text-xs uppercase tracking-widest mb-1.5 block">Grad</label>
+                      <input value={profileForm.city} onChange={e => setProfileForm(p => ({ ...p, city: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-violet-500/50 transition-all" />
+                    </div>
+                    <div>
+                      <label className="text-white/30 text-xs uppercase tracking-widest mb-1.5 block">Broj telefona</label>
+                      <input value={profileForm.phone} onChange={e => setProfileForm(p => ({ ...p, phone: e.target.value }))}
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-violet-500/50 transition-all" />
+                    </div>
+                    <div>
+                      <label className="text-white/30 text-xs uppercase tracking-widest mb-1.5 block">Email</label>
+                      <input value={user?.email} disabled
+                        className="w-full bg-white/3 border border-white/5 rounded-xl px-4 py-3 text-white/40 text-sm outline-none cursor-not-allowed" />
+                    </div>
+                    <div>
+                      <label className="text-white/30 text-xs uppercase tracking-widest mb-1.5 block">Zašto si došao/la na naš sajt?</label>
+                      <textarea value={profileForm.comment} onChange={e => setProfileForm(p => ({ ...p, comment: e.target.value }))}
+                        rows={2} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-violet-500/50 transition-all resize-none" />
+                    </div>
+                    {profileSaved ? (
+                      <div className="flex items-center gap-2 text-green-400 text-sm">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                        Sačuvano
+                      </div>
+                    ) : (
+                      <button disabled={profileSaving} onClick={async () => {
+                        setProfileSaving(true)
+                        await upsertProfile(user.id, profileForm)
+                        setProfile(prev => ({ ...prev, full_name: profileForm.fullName, age: profileForm.age, phone: profileForm.phone, city: profileForm.city, comment: profileForm.comment }))
+                        setProfileSaving(false)
+                        setProfileSaved(true)
+                        setTimeout(() => setProfileSaved(false), 3000)
+                      }}
+                        className="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">
+                        {profileSaving ? 'Čuvanje...' : 'Sačuvaj izmene'}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+
               <div className="glass rounded-2xl p-6 border border-white/5">
                 <p className="text-white font-medium text-sm mb-1">Uradi test ponovo</p>
-                <p className="text-white/40 text-xs mb-4">Počni novi test i ažuriraj svoj profil.</p>
+                <p className="text-white/40 text-xs mb-4">Počni novi test i dobij ažurirane rezultate.</p>
                 <button onClick={onRetake}
                   className="px-5 py-2 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">
                   Uradi test
@@ -610,7 +687,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
 
         {/* Welcome */}
         <div className="mb-8">
-          <p className="text-white/30 text-sm mb-1">{d.welcome}, <span className="text-white/60 font-medium">{shortEmail}</span></p>
+          <p className="text-white/30 text-sm mb-1">{d.welcome}, <span className="text-white/60 font-medium">{profile?.full_name?.split(' ')[0] || shortEmail}</span></p>
           <h1 className="text-2xl md:text-3xl font-black text-white">{d.title}</h1>
         </div>
 

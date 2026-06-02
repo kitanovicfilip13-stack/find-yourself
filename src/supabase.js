@@ -20,6 +20,24 @@ export async function saveResultToDb({ userId, segment, city, answers, resultLab
   return { data, error }
 }
 
+export async function getProfile(userId) {
+  const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single()
+  return { data, error }
+}
+
+export async function upsertProfile(userId, profile) {
+  const { data, error } = await supabase.from('profiles').upsert({
+    id: userId,
+    full_name: profile.fullName || null,
+    age: profile.age || null,
+    phone: profile.phone || null,
+    city: profile.city || null,
+    comment: profile.comment || null,
+    updated_at: new Date().toISOString(),
+  })
+  return { data, error }
+}
+
 export async function getUserResults(userId) {
   const { data, error } = await supabase
     .from('results')

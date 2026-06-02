@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../../AuthContext'
 import { gradToRegion } from './CitySelector'
+import { upsertProfile } from '../../supabase'
 
 const sviGradovi = [
   'Ada', 'Aleksinac', 'Alibunar', 'Apatin', 'Aranđelovac', 'Arilje', 'Babušnica',
@@ -72,6 +73,8 @@ export default function OnboardingSetup({ segment, onNext, onBack }) {
     setLoading(true)
     setError('')
 
+    let currentUserId = user?.id
+
     if (!isLoggedIn) {
       const { error: signUpErr } = await signUp(form.email, form.password)
       if (signUpErr && !signUpErr.message.includes('already registered')) {
@@ -81,7 +84,19 @@ export default function OnboardingSetup({ segment, onNext, onBack }) {
         setLoading(false)
         return
       }
-      await signIn(form.email, form.password)
+      const { data: signInData } = await signIn(form.email, form.password)
+      currentUserId = signInData?.user?.id
+    }
+
+    // Sačuvaj profil u Supabase
+    if (currentUserId) {
+      await upsertProfile(currentUserId, {
+        fullName: form.fullName,
+        age: Number(form.age),
+        phone: form.phone || null,
+        city: form.city || null,
+        comment: form.comment || null,
+      })
     }
 
     setLoading(false)
