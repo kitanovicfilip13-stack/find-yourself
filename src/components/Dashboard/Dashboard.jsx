@@ -274,7 +274,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
         )}
 
         {/* Sidebar */}
-        <div className={`fixed md:static top-[73px] left-0 bottom-0 z-40 flex flex-col border-r border-white/5 py-8 flex-shrink-0 transition-all duration-300 ease-in-out
+        <div className={`fixed top-[73px] left-0 bottom-0 z-40 flex flex-col border-r border-white/5 py-8 flex-shrink-0 transition-all duration-300 ease-in-out overflow-y-auto
           ${sidebarOpen ? 'w-56 px-4 translate-x-0' : 'w-56 px-2 -translate-x-full md:translate-x-0 md:w-14'}
         `} style={{ background: 'rgba(8,8,16,0.98)', backdropFilter: 'blur(20px)' }}>
 
@@ -354,7 +354,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
         </div>
 
         {/* Content */}
-        <div className="flex-1 px-6 md:px-10 py-10">
+        <div className={`flex-1 px-6 md:px-10 py-10 transition-all duration-300 ${sidebarOpen ? 'md:ml-56' : 'md:ml-14'}`}>
 
         {/* TAB: Moji rezultati */}
         {activeTab === 'rezultati' && (
