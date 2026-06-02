@@ -301,22 +301,12 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               </button>
             ))}
 
-            {/* Kursevi */}
-            <button onClick={() => { setActiveTab('kursevi'); if(window.innerWidth < 768) setSidebarOpen(false) }}
-              className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
-                ${sidebarOpen ? 'px-3 text-left' : 'px-0 justify-center'}
-                ${activeTab === 'kursevi' ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
-              <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-1.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
-              {sidebarOpen && <span className="truncate">Kursevi</span>}
-              {sidebarOpen && <span className="ml-auto text-[10px] text-white/20 border border-white/10 rounded-full px-1.5 py-0.5">uskoro</span>}
-            </button>
-
             {/* Plan razvoja sa hover sub-menijem */}
             <div className="relative" onMouseEnter={() => setPlanHovered(true)} onMouseLeave={() => setPlanHovered(false)}>
               <button onClick={() => { setActiveTab('zadaci'); if(window.innerWidth < 768) setSidebarOpen(false) }}
                 className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
                   ${sidebarOpen ? 'px-3 text-left' : 'px-0 justify-center'}
-                  ${['zadaci','preporuke'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
+                  ${['zadaci','preporuke','kursevi'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
                 {sidebarOpen && <span className="truncate flex-1">Plan razvoja</span>}
                 {sidebarOpen && <svg className={`w-3 h-3 flex-shrink-0 transition-transform ${planHovered ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>}
@@ -328,6 +318,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                   {[
                     { id: 'zadaci', label: 'Moji zadaci' },
                     { id: 'preporuke', label: 'Preporuke' },
+                    { id: 'kursevi', label: 'Kursevi' },
                   ].map(sub => (
                     <button key={sub.id} onClick={() => { setActiveTab(sub.id); if(window.innerWidth < 768) setSidebarOpen(false) }}
                       className={`w-full text-left px-2 py-2 rounded-lg text-xs transition-all ${
@@ -507,23 +498,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               <h2 className="text-xl font-bold text-white">Kursevi</h2>
               <span className="text-xs text-white/30 border border-white/10 rounded-full px-2.5 py-1">uskoro</span>
             </div>
-            <p className="text-white/30 text-sm mb-10">Kursevi prilagođeni tvom profilu koji ti pomažu da upoznaš sebe i napraviš prvi korak ka karijeri.</p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                { title: 'Kako da otkriješ svoja interesovanja', desc: 'Vođeni program za mlade koji ne znaju šta ih zanima.', tag: 'Lični razvoj' },
-                { title: 'Osnove karijerne orijentacije', desc: 'Kako da mapiraš svoje veštine i povežeš ih sa mogućnostima.', tag: 'Karijera' },
-                { title: 'Prva zaposlenja — šta treba da znaš', desc: 'Praktičan vodič kroz tržište rada za mlade.', tag: 'Posao' },
-                { title: 'Kako da izabereš fakultet', desc: 'Metoda za donošenje odluke bez žaljenja.', tag: 'Obrazovanje' },
-              ].map((course, i) => (
-                <div key={i} className="glass rounded-2xl p-5 border border-white/5 relative overflow-hidden">
-                  <div className="absolute top-4 right-4 text-[10px] text-white/20 border border-white/10 rounded-full px-2 py-0.5">uskoro</div>
-                  <span className="text-xs text-violet-400 font-medium mb-3 block">{course.tag}</span>
-                  <p className="text-white font-semibold text-sm mb-2">{course.title}</p>
-                  <p className="text-white/40 text-xs leading-relaxed">{course.desc}</p>
-                </div>
-              ))}
-            </div>
+            <p className="text-white/30 text-sm">Kursevi prilagođeni tvom profilu koji ti pomažu da napraviš prvi korak ka karijeri. Uskoro dostupno.</p>
           </div>
         )}
 
