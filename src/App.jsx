@@ -3,24 +3,20 @@ import { useAuth } from './AuthContext'
 import { useLenis } from './hooks/useLenis'
 import LandingPage from './components/Landing/LandingPage'
 import SegmentSelector from './components/Onboarding/SegmentSelector'
-import CitySelector from './components/Onboarding/CitySelector'
-import UserInfoForm from './components/Onboarding/UserInfoForm'
+import OnboardingSetup from './components/Onboarding/OnboardingSetup'
 import OnboardingTest from './components/Onboarding/OnboardingTest'
 import ResultPage from './components/Results/ResultPage'
 import SegmentResultPage from './components/Results/SegmentResultPage'
 import Dashboard from './components/Dashboard/Dashboard'
-import AuthModal from './components/Auth/AuthModal'
 
 export default function App() {
   const { user } = useAuth()
   useLenis()
   const [page, setPage] = useState('landing')
   const [segment, setSegment] = useState('posao')
-  const [city, setCity] = useState('Beograd')
   const [userInfo, setUserInfo] = useState(null)
   const [answers, setAnswers] = useState([])
   const [resumeFrom, setResumeFrom] = useState(null)
-  const [showAuthWall, setShowAuthWall] = useState(false)
 
   useEffect(() => {
     if (!user && page === 'dashboard') setPage('landing')
@@ -35,30 +31,26 @@ export default function App() {
     } catch { return false }
   }
 
-  const proceedAfterAuth = () => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-    try {
-      const raw = localStorage.getItem('fy_progress')
-      if (raw) {
-        const parsed = JSON.parse(raw)
-        if (parsed.answers?.length > 0) {
-          setAnswers(parsed.answers || [])
-          setResumeFrom(parsed.current || 0)
-          setSegment(parsed.segment || 'posao')
-          setCity(parsed.city || 'Beograd')
-          setPage('onboarding')
-          return
-        }
-      }
-    } catch {}
-    setPage('segment-select')
-  }
-
   const handleStartJourney = () => {
-    if (!user) {
-      setShowAuthWall(true)
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    if (user) {
+      // Već ulogovan — idi direktno na segment ili nastavi
+      try {
+        const raw = localStorage.getItem('fy_progress')
+        if (raw) {
+          const parsed = JSON.parse(raw)
+          if (parsed.answers?.length > 0) {
+            setAnswers(parsed.answers || [])
+            setResumeFrom(parsed.current || 0)
+            setSegment(parsed.segment || 'posao')
+            setPage('onboarding')
+            return
+          }
+        }
+      } catch {}
+      setPage('segment-select')
     } else {
-      proceedAfterAuth()
+      setPage('segment-select')
     }
   }
 
@@ -67,17 +59,15 @@ export default function App() {
     setSegment(selectedSegment)
     setAnswers([])
     setResumeFrom(null)
-    if (selectedSegment === 'posao') setPage('user-info')
-    else setPage('city-select')
+    if (user) {
+      // Već ulogovan — preskoči setup
+      setPage('onboarding')
+    } else {
+      setPage('setup')
+    }
   }
 
-  const handleSelectCity = (selectedCity) => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-    setCity(selectedCity)
-    setPage('user-info')
-  }
-
-  const handleUserInfo = (info) => {
+  const handleSetupDone = (info) => {
     window.scrollTo({ top: 0, behavior: 'instant' })
     setUserInfo(info)
     setPage('onboarding')
@@ -85,7 +75,11 @@ export default function App() {
 
   const handleComplete = (finalAnswers) => {
     setAnswers(finalAnswers)
-    localStorage.setItem('fy_results', JSON.stringify({ answers: finalAnswers, segment, city, userInfo }))
+    localStorage.setItem('fy_results', JSON.stringify({
+      answers: finalAnswers, segment,
+      city: userInfo?.city || null,
+      userInfo,
+    }))
     localStorage.removeItem('fy_progress')
     setResumeFrom(null)
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -96,7 +90,7 @@ export default function App() {
     setAnswers([])
     setResumeFrom(null)
     setSegment('posao')
-    setCity('Beograd')
+    setUserInfo(null)
     localStorage.removeItem('fy_results')
     localStorage.removeItem('fy_progress')
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -132,23 +126,17 @@ export default function App() {
           onBack={() => setPage('landing')}
         />
       )}
-      {page === 'city-select' && (
-        <CitySelector
+      {page === 'setup' && (
+        <OnboardingSetup
           segment={segment}
-          onSelect={handleSelectCity}
+          onNext={handleSetupDone}
           onBack={() => setPage('segment-select')}
-        />
-      )}
-      {page === 'user-info' && (
-        <UserInfoForm
-          onNext={handleUserInfo}
-          onBack={() => segment === 'posao' ? setPage('segment-select') : setPage('city-select')}
         />
       )}
       {page === 'onboarding' && (
         <OnboardingTest
           onComplete={handleComplete}
-          onBack={() => segment === 'posao' ? setPage('segment-select') : setPage('city-select')}
+          onBack={() => user ? setPage('segment-select') : setPage('setup')}
           initialAnswers={answers}
           initialCurrent={resumeFrom || 0}
           segment={segment}
@@ -158,7 +146,7 @@ export default function App() {
         <SegmentResultPage
           answers={answers}
           segment={segment}
-          city={city}
+          city={userInfo?.city || null}
           userInfo={userInfo}
           onRestart={handleRestart}
           onDashboard={handleGoToDashboard}
@@ -185,15 +173,6 @@ export default function App() {
             window.scrollTo({ top: 0, behavior: 'instant' })
             setPage('results')
           }}
-        />
-      )}
-
-      {showAuthWall && (
-        <AuthModal
-          onClose={() => setShowAuthWall(false)}
-          onSuccess={() => { setShowAuthWall(false); proceedAfterAuth() }}
-          context="Napravi nalog da bi mogao/la da počneš i sačuvaš svoje rezultate."
-          defaultMode="signup"
         />
       )}
     </div>
