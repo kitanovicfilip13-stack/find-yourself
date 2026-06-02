@@ -28,7 +28,8 @@ const sviGradovi = [
 ]
 
 export default function OnboardingSetup({ segment, onNext, onBack }) {
-  const { signUp, signIn } = useAuth()
+  const { signUp, signIn, user } = useAuth()
+  const isLoggedIn = !!user
 
   const needsCity = segment !== 'posao'
   const cityLabel = segment === 'srednja'
@@ -63,8 +64,7 @@ export default function OnboardingSetup({ segment, onNext, onBack }) {
 
   const canContinue = form.fullName.trim().length >= 2
     && Number(form.age) >= 13 && Number(form.age) <= 99
-    && form.email.includes('@')
-    && form.password.length >= 6
+    && (isLoggedIn || (form.email.includes('@') && form.password.length >= 6))
     && (!needsCity || form.city)
 
   const handleSubmit = async () => {
@@ -72,17 +72,17 @@ export default function OnboardingSetup({ segment, onNext, onBack }) {
     setLoading(true)
     setError('')
 
-    const { error: signUpErr } = await signUp(form.email, form.password)
-    if (signUpErr && !signUpErr.message.includes('already registered')) {
-      setError(signUpErr.message === 'Password should be at least 6 characters'
-        ? 'Lozinka mora imati najmanje 6 karaktera.'
-        : signUpErr.message)
-      setLoading(false)
-      return
+    if (!isLoggedIn) {
+      const { error: signUpErr } = await signUp(form.email, form.password)
+      if (signUpErr && !signUpErr.message.includes('already registered')) {
+        setError(signUpErr.message === 'Password should be at least 6 characters'
+          ? 'Lozinka mora imati najmanje 6 karaktera.'
+          : signUpErr.message)
+        setLoading(false)
+        return
+      }
+      await signIn(form.email, form.password)
     }
-
-    // Pokušaj prijavu odmah (radi ako email potvrda nije obavezna)
-    await signIn(form.email, form.password)
 
     setLoading(false)
     onNext({
@@ -90,7 +90,7 @@ export default function OnboardingSetup({ segment, onNext, onBack }) {
       fullName: form.fullName,
       age: Number(form.age),
       phone: form.phone || null,
-      email: form.email,
+      email: form.email || user?.email || null,
       comment: form.comment || null,
     })
   }
@@ -116,8 +116,8 @@ export default function OnboardingSetup({ segment, onNext, onBack }) {
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-10">
         <div className="w-full max-w-lg">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-white mb-2">Napravi profil i počni</h1>
-            <p className="text-white/40 text-sm">Sve na jednom mestu. Tvoji rezultati će biti sačuvani na profilu.</p>
+            <h1 className="text-2xl font-bold text-white mb-2">{isLoggedIn ? 'Još par podataka' : 'Napravi profil i počni'}</h1>
+            <p className="text-white/40 text-sm">{isLoggedIn ? 'Popuni informacije pre nego što počneš test.' : 'Sve na jednom mestu. Tvoji rezultati će biti sačuvani na profilu.'}</p>
           </div>
 
           <div className="space-y-4">
@@ -181,21 +181,23 @@ export default function OnboardingSetup({ segment, onNext, onBack }) {
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 text-sm outline-none focus:border-violet-500/50 transition-all" />
             </div>
 
-            {/* Email + lozinka */}
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-white/40 text-xs uppercase tracking-widest mb-2 block">Email</label>
-                <input type="email" value={form.email} onChange={e => set('email', e.target.value)}
-                  placeholder="ti@email.com"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 text-sm outline-none focus:border-violet-500/50 transition-all" />
+            {/* Email + lozinka — samo za nove korisnike */}
+            {!isLoggedIn && (
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-white/40 text-xs uppercase tracking-widest mb-2 block">Email</label>
+                  <input type="email" value={form.email} onChange={e => set('email', e.target.value)}
+                    placeholder="ti@email.com"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 text-sm outline-none focus:border-violet-500/50 transition-all" />
+                </div>
+                <div>
+                  <label className="text-white/40 text-xs uppercase tracking-widest mb-2 block">Lozinka</label>
+                  <input type="password" value={form.password} onChange={e => set('password', e.target.value)}
+                    placeholder="Min. 6 karaktera"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 text-sm outline-none focus:border-violet-500/50 transition-all" />
+                </div>
               </div>
-              <div>
-                <label className="text-white/40 text-xs uppercase tracking-widest mb-2 block">Lozinka</label>
-                <input type="password" value={form.password} onChange={e => set('password', e.target.value)}
-                  placeholder="Min. 6 karaktera"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 text-sm outline-none focus:border-violet-500/50 transition-all" />
-              </div>
-            </div>
+            )}
 
             {/* Komentar */}
             <div>
@@ -217,7 +219,7 @@ export default function OnboardingSetup({ segment, onNext, onBack }) {
                   ? 'bg-violet-600 hover:bg-violet-500 text-white hover:shadow-lg hover:shadow-violet-500/20'
                   : 'bg-white/5 text-white/20 cursor-not-allowed'
               }`}>
-              {loading ? 'Kreiranje profila...' : 'Napravi profil i počni test'}
+              {loading ? 'Učitavanje...' : isLoggedIn ? 'Počni test' : 'Napravi profil i počni test'}
             </button>
 
             {!canContinue && (

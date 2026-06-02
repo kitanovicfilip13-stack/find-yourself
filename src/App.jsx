@@ -59,12 +59,7 @@ export default function App() {
     setSegment(selectedSegment)
     setAnswers([])
     setResumeFrom(null)
-    if (user) {
-      // Već ulogovan — preskoči setup
-      setPage('onboarding')
-    } else {
-      setPage('setup')
-    }
+    setPage('setup')
   }
 
   const handleSetupDone = (info) => {
