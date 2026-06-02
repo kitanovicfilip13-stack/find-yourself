@@ -440,19 +440,55 @@ export default function Dashboard({ onRetake, onGoToLanding }) {
                   Uradi karijerski test
                 </button>
               </div>
-            ) : plan && plan.length > 0 ? (
-              <div className="space-y-3">
-                {plan.map((task, i) => (
-                  <div key={i} className="glass rounded-2xl p-5 border border-white/5 flex items-start gap-4">
-                    <div className="w-6 h-6 rounded-lg border-2 border-white/15 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-white/80 text-sm font-medium">{task.action || task}</p>
-                      {task.day && <p className="text-white/30 text-xs mt-1">Dan {task.day}</p>}
+            ) : plan && plan.length > 0 ? (() => {
+              const completedCount = plan.filter((_, i) => checkedItems[`plan-${i}`]).length
+              const progress = Math.round((completedCount / plan.length) * 100)
+              return (
+                <div>
+                  {/* Progress bar */}
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-white/40 text-xs">{completedCount} / {plan.length} zadataka završeno</p>
+                      <p className="text-violet-400 text-xs font-medium">{progress}%</p>
+                    </div>
+                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-full rounded-full transition-all duration-500"
+                        style={{ width: `${progress}%`, background: 'linear-gradient(90deg, #7c3aed, #2563eb)' }} />
                     </div>
                   </div>
-                ))}
-              </div>
-            ) : (
+
+                  {/* Zadaci */}
+                  <div className="space-y-3">
+                    {plan.map((task, i) => {
+                      const isDone = checkedItems[`plan-${i}`]
+                      return (
+                        <div key={i} className={`rounded-2xl p-5 border transition-all duration-200 ${isDone ? 'border-white/5 bg-white/[0.01] opacity-60' : 'glass border-white/5'}`}>
+                          <div className="flex items-start gap-4">
+                            <button onClick={() => toggleCheck(`plan-${i}`)}
+                              className={`flex-shrink-0 w-6 h-6 rounded-lg border-2 flex items-center justify-center mt-0.5 transition-all ${isDone ? 'bg-violet-500 border-violet-400' : 'border-white/20 hover:border-violet-400'}`}>
+                              {isDone && <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>}
+                            </button>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20">{task.day}</span>
+                              </div>
+                              <p className={`text-sm leading-relaxed ${isDone ? 'line-through text-white/30' : 'text-white/80'}`}>{task.action}</p>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+
+                  {completedCount === plan.length && (
+                    <div className="mt-6 p-4 rounded-2xl border border-green-500/20 bg-green-500/5 text-center">
+                      <p className="text-green-400 font-semibold text-sm mb-1">🎉 Završio/la si ceo plan!</p>
+                      <p className="text-white/40 text-xs">Uradi test ponovo da dobiš novi plan razvoja.</p>
+                    </div>
+                  )}
+                </div>
+              )
+            })() : (
               <div className="glass rounded-2xl p-8 text-center border border-white/5">
                 <p className="text-white/40 text-sm mb-4">Uradi test da bi dobio/la personalizovane zadatke.</p>
                 <button onClick={onRetake}
