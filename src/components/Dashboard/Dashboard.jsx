@@ -290,7 +290,6 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
             {[
               { id: 'profil', label: 'Pregled profila', icon: <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg> },
               { id: 'rezultati', label: 'Istorija rezultata', icon: <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z" /></svg> },
-              { id: 'ciljevi', label: 'Moji ciljevi', icon: <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" /></svg> },
             ].map(item => (
               <button key={item.id} onClick={() => { setActiveTab(item.id); if(window.innerWidth < 768) setSidebarOpen(false) }}
                 className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
@@ -306,9 +305,9 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               <button onClick={() => { setActiveTab('ciljevi'); if(window.innerWidth < 768) setSidebarOpen(false) }}
                 className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
                   ${sidebarOpen ? 'px-3 text-left' : 'px-0 justify-center'}
-                  ${['ciljevi','preporuke','kursevi'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
+                  ${['ciljevi','preporuke'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
-                {sidebarOpen && <span className="truncate flex-1">Moji ciljevi</span>}
+                {sidebarOpen && <span className="truncate flex-1">Plan razvoja</span>}
                 {sidebarOpen && <svg className={`w-3 h-3 flex-shrink-0 transition-transform ${planHovered ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>}
               </button>
 
@@ -316,8 +315,8 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               {planHovered && sidebarOpen && (
                 <div className="ml-4 mt-1 space-y-1 border-l border-white/5 pl-3">
                   {[
+                    { id: 'ciljevi', label: 'Moji ciljevi' },
                     { id: 'preporuke', label: 'Preporuke' },
-                    { id: 'kursevi', label: 'Kursevi' },
                   ].map(sub => (
                     <button key={sub.id} onClick={() => { setActiveTab(sub.id); if(window.innerWidth < 768) setSidebarOpen(false) }}
                       className={`w-full text-left px-2 py-2 rounded-lg text-xs transition-all ${
@@ -329,6 +328,16 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                 </div>
               )}
             </div>
+
+            {/* Kursevi */}
+            <button onClick={() => { setActiveTab('kursevi'); if(window.innerWidth < 768) setSidebarOpen(false) }}
+              className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
+                ${sidebarOpen ? 'px-3 text-left' : 'px-0 justify-center'}
+                ${activeTab === 'kursevi' ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-1.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+              {sidebarOpen && <span className="truncate flex-1">Kursevi</span>}
+              {sidebarOpen && <span className="text-[10px] text-white/20 border border-white/10 rounded-full px-1.5 py-0.5 flex-shrink-0">uskoro</span>}
+            </button>
 
           </div>
 
