@@ -289,7 +289,7 @@ export const translations = {
       tag: 'Primer profila',
       title: 'Ovako izgleda rezultat',
       sub: 'Pravi profil, izmišljena osoba.',
-      personalityLabel: 'Tvoj radni stil',
+      personalityLabel: 'Radni stil',
       personalityName: 'Kreativni strateg',
       personalityDesc: "Razmišljaš u sistemima, ali osećaš kroz priče. Trebaš slobodu da stvaraš, ali i jasnu strukturu unutar koje radiš. Samostalni rad te puni energijom, a najsrećniji si kada ono što radiš ima neki viši smisao.",
       strengthsLabel: 'Najveći potencijali',
@@ -348,7 +348,7 @@ export const translations = {
     result: {
       save: 'Sačuvaj',
       retake: 'Uradi test ponovo',
-      personalityLabel: 'Tvoj radni stil',
+      personalityLabel: 'Radni stil',
       dimensionsLabel: 'Tvoj profil',
       dimNames: { C: 'Kreativnost', T: 'Tehnologija', P: 'Rad s ljudima', B: 'Biznis', O: 'Organizacija', N: 'Praktičan rad' },
       strengthsLabel: 'Tvoji najveći potencijali',
