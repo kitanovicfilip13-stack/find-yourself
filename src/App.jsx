@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from './AuthContext'
 import { useLenis } from './hooks/useLenis'
+import { getProfile } from './supabase'
 import LandingPage from './components/Landing/LandingPage'
 import SegmentSelector from './components/Onboarding/SegmentSelector'
 import OnboardingSetup from './components/Onboarding/OnboardingSetup'
@@ -20,6 +21,11 @@ export default function App() {
 
   useEffect(() => {
     if (!user && page === 'dashboard') setPage('landing')
+    if (user && !userInfo) {
+      getProfile(user.id).then(({ data }) => {
+        if (data) setUserInfo({ city: data.city, fullName: data.full_name, age: data.age, phone: data.phone })
+      })
+    }
   }, [user])
 
   const hasProgress = () => {
@@ -59,10 +65,11 @@ export default function App() {
     setSegment(selectedSegment)
     setAnswers([])
     setResumeFrom(null)
-    if (user && selectedSegment === 'posao') {
-      // Ulogovan + posao → direktno na test
+    if (user) {
+      // Već ulogovan → direktno na test, bez forme
       setPage('onboarding')
     } else {
+      // Novi korisnik → forma sa profilom
       setPage('setup')
     }
   }

@@ -131,8 +131,8 @@ export default function OnboardingSetup({ segment, onNext, onBack }) {
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-10">
         <div className="w-full max-w-lg">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-white mb-2">{isLoggedIn ? 'Još par podataka' : 'Napravi profil i počni'}</h1>
-            <p className="text-white/40 text-sm">{isLoggedIn ? 'Popuni informacije pre nego što počneš test.' : 'Sve na jednom mestu. Tvoji rezultati će biti sačuvani na profilu.'}</p>
+            <h1 className="text-2xl font-bold text-white mb-2">Pre početka napravi svoj profil</h1>
+            <p className="text-white/40 text-sm">Kako bi se tvoj rezultat sačuvao na tvom profilu.</p>
           </div>
 
           <div className="space-y-4">
@@ -234,7 +234,7 @@ export default function OnboardingSetup({ segment, onNext, onBack }) {
                   ? 'bg-violet-600 hover:bg-violet-500 text-white hover:shadow-lg hover:shadow-violet-500/20'
                   : 'bg-white/5 text-white/20 cursor-not-allowed'
               }`}>
-              {loading ? 'Učitavanje...' : isLoggedIn ? 'Počni test' : 'Napravi profil i počni test'}
+              {loading ? 'Kreiranje profila...' : 'Počni test'}
             </button>
 
             {!canContinue && (
