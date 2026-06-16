@@ -611,12 +611,12 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
           </div>
         )}
 
-        {/* TAB: Plan razvoja — objašnjenje */}
+        {/* TAB: Plan razvoja (objasnjenje) */}
         {activeTab === 'plan' && (
           <div>
             <div className="mb-10">
               <h2 className="text-2xl font-black text-white mb-2">Plan razvoja</h2>
-              <p className="text-white/30 text-sm">Personalizovani put ka sebi — za mlade koji žele više od test rezultata.</p>
+              <p className="text-white/30 text-sm">Personalizovani put ka sebi, za mlade koji žele više od test rezultata.</p>
             </div>
 
             <div className="relative rounded-3xl overflow-hidden mb-8 p-8 md:p-10"
@@ -630,7 +630,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                 <h3 className="text-xl md:text-2xl font-black text-white mb-3">Šta je zapravo Plan razvoja?</h3>
                 <p className="text-white/55 text-sm leading-relaxed max-w-xl">
                   Plan razvoja je personalizovani put koji pravimo za tebe na osnovu tvog profila ličnosti.
-                  Nije generički savjet — sve je prilagođeno tvojim snagama, interesovanjima i karijernom smjeru.
+                  Nije generički savjet. Sve je prilagođeno tvojim snagama, interesovanjima i karijernom smjeru.
                   Cilj je jedan: da znaš ko si, šta hoćeš i kakav je tvoj sledeći korak.
                 </p>
               </div>
@@ -646,11 +646,11 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                   },
                   {
                     icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>,
-                    title: 'Tvoj predloženi prvi put', desc: 'Koji korak da napraviš prvi — kurs, projekat, volontiranje, ili nešto treće.', active: true,
+                    title: 'Tvoj predloženi prvi put', desc: 'Koji korak da napraviš prvi: kurs, projekat, volontiranje, ili nešto treće.', active: true,
                   },
                   {
                     icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>,
-                    title: 'AI Chat mentor', desc: 'Pitaš, mentor odgovara — tvoj lični savetnik u džepu, dostupan 24/7.', active: false,
+                    title: 'AI Chat mentor', desc: 'Pitaš, mentor odgovara. Tvoj lični savetnik u džepu, dostupan 24/7.', active: false,
                   },
                   {
                     icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>,
@@ -658,7 +658,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                   },
                   {
                     icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" /></svg>,
-                    title: 'Personalizovani kursevi', desc: 'Kursevi odabrani isključivo za tvoj profil — ne ono što svi gledaju.', active: false,
+                    title: 'Personalizovani kursevi', desc: 'Kursevi odabrani isključivo za tvoj profil, ne ono što svi gledaju.', active: false,
                   },
                   {
                     icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>,
@@ -687,7 +687,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               <p className="text-white/30 text-xs uppercase tracking-widest mb-5">Kako funkcioniše</p>
               <div className="space-y-4">
                 {[
-                  { step: '1', title: 'Uradiš test od 20 pitanja', desc: 'Pitanja o ličnosti, interesovanjima i vrednostima — iskreni odgovori, bolji rezultat.' },
+                  { step: '1', title: 'Uradiš test od 20 pitanja', desc: 'Pitanja o ličnosti, interesovanjima i vrednostima. Iskreni odgovori, bolji rezultat.' },
                   { step: '2', title: 'Dobijaš personalizovani profil', desc: 'Algoritam analizira tvoje odgovore i pravi tvoj jedinstveni karijermi profil.' },
                   { step: '3', title: 'Plan razvoja se aktivira', desc: 'Na osnovu profila, dobijaš konkretan 7-dnevni plan i predloženi prvi korak.' },
                   { step: '4', title: 'Pratiš korake i rasteš', desc: 'Svaki zadatak te vodi ka jasnijem cilju. AI mentor ti pomaže kad zapneš (uskoro).' },
@@ -713,7 +713,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                 <svg className="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" /></svg>
               </div>
               <h3 className="text-xl font-black text-white mb-2">Spreman/na da počneš?</h3>
-              <p className="text-white/40 text-sm mb-6 max-w-sm mx-auto">Otključaj Plan razvoja i počni da gradiš svoju budućnost — korak po korak.</p>
+              <p className="text-white/40 text-sm mb-6 max-w-sm mx-auto">Otključaj Plan razvoja i počni da gradiš svoju budućnost, korak po korak.</p>
               <div className="mb-5">
                 <span className="text-3xl font-black text-white">4.99€</span>
                 <span className="text-white/30 text-sm"> / mesec</span>
@@ -728,7 +728,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
           </div>
         )}
 
-        {/* TAB: Plan razvoja — zadaci */}
+        {/* TAB: Plan razvoja (zadaci) */}
         {activeTab === 'zadaci' && (
           <div>
             <h2 className="text-xl font-bold text-white mb-2">Plan razvoja</h2>
