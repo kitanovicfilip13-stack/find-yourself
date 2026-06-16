@@ -318,7 +318,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               <button onClick={() => { setActiveTab('plan'); if(window.innerWidth < 768) setSidebarOpen(false) }}
                 className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
                   ${sidebarOpen ? 'px-3 text-left' : 'px-0 justify-center'}
-                  ${['plan','ciljevi','preporuke'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
+                  ${['plan','ciljevi','preporuke','mapa'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
                 {sidebarOpen && <span className="truncate flex-1">Plan razvoja</span>}
                 {sidebarOpen && <svg className={`w-3 h-3 flex-shrink-0 transition-transform ${planHovered ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>}
@@ -330,6 +330,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                   {[
                     { id: 'ciljevi', label: 'Moji ciljevi' },
                     { id: 'preporuke', label: 'Preporuke' },
+                    { id: 'mapa', label: 'Mapa' },
                   ].map(sub => (
                     <button key={sub.id} onClick={() => { setActiveTab(sub.id); if(window.innerWidth < 768) setSidebarOpen(false) }}
                       className={`w-full text-left px-2 py-2 rounded-lg text-xs transition-all ${
@@ -725,6 +726,181 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               </button>
               <p className="text-white/20 text-xs mt-3">7-dnevni trial · Otkaži bilo kad · Bez skrivenih troškova</p>
             </div>
+          </div>
+        )}
+
+        {/* TAB: Plan razvoja (mapa) */}
+        {activeTab === 'mapa' && (
+          <div>
+            <div className="mb-8">
+              <h2 className="text-2xl font-black text-white mb-2">Mapa</h2>
+              <p className="text-white/30 text-sm">Tvoj put kroz plan razvoja: odakle krećeš, šta radiš prvo i kako, i gde si stao.</p>
+            </div>
+
+            {!isPosaoSegment ? (
+              <div className="glass rounded-2xl p-8 text-center border border-violet-500/20 bg-violet-500/5">
+                <div className="w-12 h-12 rounded-full bg-violet-500/20 border border-violet-500/30 flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" /></svg>
+                </div>
+                <p className="text-white font-semibold text-sm mb-2">Mapa je dostupna za segment Posao i karijera</p>
+                <p className="text-white/40 text-xs mb-5">Uradi karijerski test da bi dobio/la svoju personalizovanu mapu puta.</p>
+                <button onClick={onRetake} className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">Uradi karijerski test</button>
+              </div>
+            ) : plan && plan.length > 0 ? (() => {
+              const currentIndex = plan.findIndex((_, i) => !checkedItems[`plan-${i}`])
+              const allDone = currentIndex === -1
+              const reachedIndex = allDone ? plan.length : currentIndex
+              const completedCount = plan.filter((_, i) => checkedItems[`plan-${i}`]).length
+              const progress = Math.round((completedCount / plan.length) * 100)
+
+              const seg = (solid) => (
+                <div className="flex-1 w-0.5 my-1 rounded-full"
+                  style={solid
+                    ? { background: 'linear-gradient(180deg, #7c3aed, #2563eb)' }
+                    : { backgroundImage: 'linear-gradient(180deg, rgba(255,255,255,0.18) 50%, transparent 50%)', backgroundSize: '2px 8px' }} />
+              )
+
+              return (
+                <div className="relative max-w-2xl">
+                  {/* Pozadina mape */}
+                  <div className="absolute inset-0 -z-10 rounded-3xl overflow-hidden pointer-events-none opacity-60"
+                    style={{
+                      backgroundImage: 'linear-gradient(rgba(124,58,237,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.05) 1px, transparent 1px)',
+                      backgroundSize: '28px 28px',
+                    }}>
+                    <div className="absolute -top-10 -right-10 w-56 h-56 rounded-full" style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 70%)', filter: 'blur(20px)' }} />
+                    <div className="absolute bottom-0 -left-10 w-56 h-56 rounded-full" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.15), transparent 70%)', filter: 'blur(20px)' }} />
+                  </div>
+
+                  {/* Napredak */}
+                  <div className="relative glass rounded-2xl border border-white/8 p-4 mb-6">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-white/50 text-xs">Pređeno {completedCount} / {plan.length} stanica</span>
+                      <span className="text-violet-400 text-xs font-semibold">{progress}%</span>
+                    </div>
+                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-full rounded-full transition-all duration-700" style={{ width: `${progress}%`, background: 'linear-gradient(90deg, #7c3aed, #2563eb)' }} />
+                    </div>
+                  </div>
+
+                  {/* Ruta */}
+                  <div className="relative pl-1">
+
+                    {/* START */}
+                    <div className="flex items-stretch">
+                      <div className="relative w-12 flex-shrink-0 flex flex-col items-center">
+                        <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0"
+                          style={{ background: 'linear-gradient(135deg, #7c3aed, #2563eb)', boxShadow: '0 0 20px rgba(124,58,237,0.4)' }}>
+                          <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>
+                        </div>
+                        {seg(true)}
+                      </div>
+                      <div className="flex-1 pb-7 pt-0.5">
+                        <span className="text-violet-400/80 text-[10px] font-bold uppercase tracking-widest">Odavde krećeš</span>
+                        <div className="rounded-2xl border border-violet-500/20 p-4 mt-1.5" style={{ background: `${type.color}0d` }}>
+                          <p className="text-white font-bold text-sm">{type.name}</p>
+                          <p className="text-white/45 text-xs leading-relaxed mt-1">{type.tagline?.split('.')[0]}. Ovo je tvoja polazna tačka.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Stanice */}
+                    {plan.map((task, i) => {
+                      const done = !!checkedItems[`plan-${i}`]
+                      const current = i === currentIndex
+                      const locked = !done && !current
+                      const connectorSolid = (i + 1) <= reachedIndex
+                      return (
+                        <div key={i} className="flex items-stretch">
+                          <div className="relative w-12 flex-shrink-0 flex flex-col items-center">
+                            <div className={`w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 transition-all font-bold text-sm
+                              ${done ? 'text-white' : current ? 'text-violet-300' : 'text-white/25'}`}
+                              style={done
+                                ? { background: 'linear-gradient(135deg, #7c3aed, #2563eb)', boxShadow: '0 0 16px rgba(124,58,237,0.35)' }
+                                : current
+                                  ? { background: '#0e0e1a', border: '2px solid #7c3aed', boxShadow: '0 0 0 4px rgba(124,58,237,0.18), 0 0 22px rgba(124,58,237,0.45)' }
+                                  : { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                              {done
+                                ? <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                                : locked
+                                  ? <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
+                                  : i + 1}
+                            </div>
+                            {(i < plan.length - 1) ? seg(connectorSolid) : seg(allDone)}
+                          </div>
+
+                          <div className="flex-1 pb-7 pt-0.5">
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <span className={`text-[10px] font-bold uppercase tracking-widest ${done ? 'text-violet-400/70' : current ? 'text-violet-400' : 'text-white/25'}`}>{task.day}</span>
+                              {current && (
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-white bg-violet-600 rounded-full px-2 py-0.5 animate-pulse">
+                                  <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" /></svg>
+                                  Ti si ovde
+                                </span>
+                              )}
+                            </div>
+                            <div className={`rounded-2xl border p-4 transition-all ${done ? 'border-white/5 bg-white/[0.02]' : current ? 'glass border-violet-500/30' : 'border-white/5 bg-white/[0.01]'}`}>
+                              <p className={`text-sm leading-relaxed ${done ? 'text-white/40' : current ? 'text-white/85' : 'text-white/30'}`}>{task.action}</p>
+
+                              {done && (
+                                <button onClick={() => toggleCheck(`plan-${i}`)} className="mt-3 text-xs text-white/30 hover:text-white/60 transition-colors">Poništi</button>
+                              )}
+                              {current && (
+                                <button onClick={() => toggleCheck(`plan-${i}`)} className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold rounded-xl transition-all">
+                                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                  Završi ovaj korak
+                                </button>
+                              )}
+                              {locked && (
+                                <p className="mt-2 text-[11px] text-white/20 flex items-center gap-1.5">
+                                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
+                                  Otključava se kad završiš prethodni korak
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+
+                    {/* CILJ */}
+                    <div className="flex items-stretch">
+                      <div className="relative w-12 flex-shrink-0 flex flex-col items-center">
+                        <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 transition-all"
+                          style={allDone
+                            ? { background: 'linear-gradient(135deg, #f59e0b, #f97316)', boxShadow: '0 0 22px rgba(245,158,11,0.5)' }
+                            : { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                          <svg className={`w-5 h-5 ${allDone ? 'text-white' : 'text-white/25'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0" /></svg>
+                        </div>
+                      </div>
+                      <div className="flex-1 pt-0.5">
+                        <span className={`text-[10px] font-bold uppercase tracking-widest ${allDone ? 'text-amber-400' : 'text-white/25'}`}>Cilj</span>
+                        <div className="rounded-2xl border p-4 mt-1.5" style={allDone ? { borderColor: 'rgba(245,158,11,0.3)', background: 'rgba(245,158,11,0.06)' } : { borderColor: 'rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.01)' }}>
+                          {allDone ? (
+                            <>
+                              <p className="text-white font-bold text-sm mb-1">Stigao/la si do cilja!</p>
+                              <p className="text-white/55 text-xs leading-relaxed">{firstPath}</p>
+                              <button onClick={onRetake} className="mt-3 text-xs text-amber-400/80 hover:text-amber-300 transition-colors">Uradi test ponovo za novu mapu</button>
+                            </>
+                          ) : (
+                            <>
+                              <p className="text-white/70 font-semibold text-sm mb-1">Tvoj prvi pravi korak</p>
+                              <p className="text-white/35 text-xs leading-relaxed">{firstPath}</p>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              )
+            })() : (
+              <div className="glass rounded-2xl p-8 text-center border border-white/5">
+                <p className="text-white/40 text-sm mb-4">Uradi test da bi dobio/la svoju mapu puta.</p>
+                <button onClick={onRetake} className="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-xl transition-all">Uradi test</button>
+              </div>
+            )}
           </div>
         )}
 
