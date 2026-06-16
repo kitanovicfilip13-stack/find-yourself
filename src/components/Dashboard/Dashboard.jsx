@@ -640,94 +640,78 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               </div>
             </div>
 
-            <div className="mb-8">
-              <p className="text-white/30 text-xs uppercase tracking-widest mb-4">Šta dobijaš</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {[
-                  {
-                    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>,
-                    title: '7-dnevni akcioni plan', desc: 'Konkretni dnevni zadaci prilagođeni tvom tipu ličnosti i karijernom cilju.', active: true,
-                  },
-                  {
-                    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>,
-                    title: 'Tvoj predloženi prvi put', desc: 'Koji korak da napraviš prvi: kurs, projekat, volontiranje, ili nešto treće.', active: true,
-                  },
-                  {
-                    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>,
-                    title: 'AI Chat mentor', desc: 'Pitaš, mentor odgovara. Tvoj lični savetnik u džepu, dostupan 24/7.', active: false,
-                  },
-                  {
-                    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>,
-                    title: 'Partnerske kompanije', desc: 'Direktna veza sa firmama koje traže profile poput tvojeg.', active: false,
-                  },
-                  {
-                    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" /></svg>,
-                    title: 'Personalizovani kursevi', desc: 'Kursevi odabrani isključivo za tvoj profil, ne ono što svi gledaju.', active: false,
-                  },
-                  {
-                    icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" /></svg>,
-                    title: 'Praćenje napretka', desc: 'Vidiš kako se razvijaš tokom vremena i šta si sve postigao/la.', active: false,
-                  },
-                ].map((item, i) => (
-                  <div key={i} className={`rounded-2xl p-5 border ${item.active ? 'glass border-violet-500/20' : 'border-white/5 bg-white/[0.02]'}`}>
-                    <div className="flex items-start gap-4">
-                      <div className={`flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center ${item.active ? 'bg-violet-500/15 border border-violet-500/25 text-violet-400' : 'bg-white/5 border border-white/8 text-white/25'}`}>
-                        {item.icon}
+            <div className="mb-2">
+              <p className="text-white/30 text-xs uppercase tracking-widest mb-4">Odaberi plan</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <div className="rounded-2xl p-6 border border-white/10 bg-white/[0.03]">
+                  <div className="flex items-start justify-between mb-6">
+                    <div>
+                      <p className="text-white/35 text-xs uppercase tracking-widest mb-1.5">Starter</p>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-3xl font-black text-white">4.99€</span>
+                        <span className="text-white/30 text-sm">/ mesec</span>
                       </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <p className={`font-semibold text-sm ${item.active ? 'text-white' : 'text-white/40'}`}>{item.title}</p>
-                          {!item.active && <span className="text-[10px] text-white/20 border border-white/10 rounded-full px-1.5 py-0.5">uskoro</span>}
-                        </div>
-                        <p className={`text-xs leading-relaxed ${item.active ? 'text-white/50' : 'text-white/25'}`}>{item.desc}</p>
+                    </div>
+                    <div className="relative group">
+                      <button className="w-7 h-7 rounded-full border border-white/15 bg-white/5 flex items-center justify-center text-white/40 hover:text-white/70 hover:border-white/30 transition-all">
+                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" /></svg>
+                      </button>
+                      <div className="absolute right-0 top-9 w-56 rounded-2xl p-4 border border-white/10 bg-[#0f0f1a] shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-150 z-20">
+                        <p className="text-white/35 text-[10px] uppercase tracking-widest mb-3">Šta dobijaš</p>
+                        <ul className="space-y-2">
+                          {['7-dnevni akcioni plan', 'Personalizovani profil', 'Mapa napretka', 'Preporuke knjiga i podkasta'].map((f) => (
+                            <li key={f} className="flex items-center gap-2 text-xs text-white/60">
+                              <svg className="w-3 h-3 text-violet-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                  <button
+                    onClick={() => setShowPremiumModal(true)}
+                    className="w-full py-3 rounded-xl font-semibold text-sm border border-violet-500/30 text-violet-300 hover:bg-violet-500/10 transition-all">
+                    Odaberi
+                  </button>
+                </div>
 
-            <div className="glass rounded-2xl p-6 mb-8 border border-white/5">
-              <p className="text-white/30 text-xs uppercase tracking-widest mb-5">Kako funkcioniše</p>
-              <div className="space-y-4">
-                {[
-                  { step: '1', title: 'Uradiš test od 20 pitanja', desc: 'Pitanja o ličnosti, interesovanjima i vrednostima. Iskreni odgovori, bolji rezultat.' },
-                  { step: '2', title: 'Dobijaš personalizovani profil', desc: 'Algoritam analizira tvoje odgovore i pravi tvoj jedinstveni karijermi profil.' },
-                  { step: '3', title: 'Plan razvoja se aktivira', desc: 'Na osnovu profila, dobijaš konkretan 7-dnevni plan i predloženi prvi korak.' },
-                  { step: '4', title: 'Pratiš korake i rasteš', desc: 'Svaki zadatak te vodi ka jasnijem cilju. AI mentor ti pomaže kad zapneš (uskoro).' },
-                ].map((item, i, arr) => (
-                  <div key={i} className="flex items-start gap-4">
-                    <div className="flex flex-col items-center flex-shrink-0">
-                      <div className="w-7 h-7 rounded-full bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-xs font-bold text-violet-400">
-                        {item.step}
+                <div className="rounded-2xl p-6 border border-violet-500/30" style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.12), rgba(37,99,235,0.08))' }}>
+                  <div className="flex items-start justify-between mb-6">
+                    <div>
+                      <p className="text-violet-400 text-xs uppercase tracking-widest mb-1.5">Pro</p>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-3xl font-black text-white">8.99€</span>
+                        <span className="text-white/30 text-sm">/ mesec</span>
                       </div>
-                      {i < arr.length - 1 && <div className="w-px h-8 bg-white/5 mt-1" />}
                     </div>
-                    <div className="pb-4">
-                      <p className="text-white font-medium text-sm mb-0.5">{item.title}</p>
-                      <p className="text-white/35 text-xs leading-relaxed">{item.desc}</p>
+                    <div className="relative group">
+                      <button className="w-7 h-7 rounded-full border border-violet-500/30 bg-violet-500/10 flex items-center justify-center text-violet-400 hover:text-violet-300 hover:border-violet-400/50 transition-all">
+                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" /></svg>
+                      </button>
+                      <div className="absolute right-0 top-9 w-56 rounded-2xl p-4 border border-violet-500/20 bg-[#0f0f1a] shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-150 z-20">
+                        <p className="text-violet-400/60 text-[10px] uppercase tracking-widest mb-3">Šta dobijaš</p>
+                        <ul className="space-y-2">
+                          {['Sve iz Starter plana', 'AI Chat mentor 24/7', 'Partnerske kompanije', 'Personalizovani kursevi', 'Praćenje napretka'].map((f) => (
+                            <li key={f} className="flex items-center gap-2 text-xs text-white/60">
+                              <svg className="w-3 h-3 text-violet-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                  <button
+                    onClick={() => setShowPremiumModal(true)}
+                    className="w-full py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white transition-all shadow-lg shadow-violet-500/20">
+                    Odaberi
+                  </button>
+                </div>
 
-            <div className="rounded-3xl p-8 text-center" style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.15), rgba(37,99,235,0.10))', border: '1px solid rgba(124,58,237,0.25)' }}>
-              <div className="w-12 h-12 rounded-2xl bg-violet-500/20 border border-violet-500/30 flex items-center justify-center mx-auto mb-3">
-                <svg className="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" /></svg>
               </div>
-              <h3 className="text-xl font-black text-white mb-2">Spreman/na da počneš?</h3>
-              <p className="text-white/40 text-sm mb-6 max-w-sm mx-auto">Otključaj Plan razvoja i počni da gradiš svoju budućnost, korak po korak.</p>
-              <div className="mb-5">
-                <span className="text-3xl font-black text-white">4.99€</span>
-                <span className="text-white/30 text-sm"> / mesec</span>
-              </div>
-              <button
-                onClick={() => setShowPremiumModal(true)}
-                className="px-8 py-4 bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-violet-500/25 text-sm">
-                Otključaj Plan razvoja
-              </button>
-              <p className="text-white/20 text-xs mt-3">7-dnevni trial · Otkaži bilo kad · Bez skrivenih troškova</p>
+              <p className="text-white/15 text-xs text-center mt-4">7-dnevni trial · Otkaži bilo kad · Bez skrivenih troškova</p>
             </div>
           </div>
         )}
