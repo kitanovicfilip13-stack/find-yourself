@@ -625,7 +625,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               <div className="relative">
                 <h3 className="text-xl md:text-2xl font-black text-white mb-3">Šta je Plan razvoja?</h3>
                 <p className="text-white/55 text-sm leading-relaxed max-w-xl">
-                  Nakon rezultata, vecina ljudi i dalje ne zna odakle da krene. Plan razvoja pretvara tvoje rezultate u konkretne korake. Dobijas zadatke, preporuke i izazove koje mozes da prates narednih dana i nedelja kako bi konacno znao kojim putem da krenes i napravio prvi korak.
+                  Nakon rezultata, većina ljudi i dalje ne zna odakle da krene. Plan razvoja pretvara tvoje rezultate u konkretne korake. Dobijaš zadatke, preporuke i izazove koje možeš da pratiš narednih dana i nedelja kako bi konačno znao kojim putem da kreneš i napravio prvi korak.
                 </p>
               </div>
             </div>
