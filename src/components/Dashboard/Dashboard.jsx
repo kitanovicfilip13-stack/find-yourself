@@ -618,20 +618,14 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
         {/* TAB: Plan razvoja (objasnjenje) */}
         {activeTab === 'plan' && (
           <div>
-            <div className="mb-10">
-              <h2 className="text-2xl font-black text-white mb-2">Plan razvoja</h2>
-            </div>
-
             <div className="relative rounded-3xl overflow-hidden mb-8 p-8 md:p-10"
               style={{ background: 'linear-gradient(135deg, #7c3aed22 0%, rgba(8,8,16,0.95) 60%)', border: '1px solid #7c3aed33' }}>
               <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none"
                 style={{ background: 'radial-gradient(circle, #7c3aed25 0%, transparent 70%)', filter: 'blur(30px)', transform: 'translate(20%, -20%)' }} />
               <div className="relative">
-                <h3 className="text-xl md:text-2xl font-black text-white mb-3">Šta je zapravo Plan razvoja?</h3>
+                <h3 className="text-xl md:text-2xl font-black text-white mb-3">Šta je Plan razvoja?</h3>
                 <p className="text-white/55 text-sm leading-relaxed max-w-xl">
-                  Plan razvoja je personalizovani put koji pravimo za tebe na osnovu tvog profila licnosti.
-                  Nije genericki savet. Sve je prilagodeno tvojim snagama, interesovanjima i karijernom smeru.
-                  Cilj je jedan: da znas ko si, sta hoces i kakav je tvoj sledeci korak.
+                  Nakon rezultata, vecina ljudi i dalje ne zna odakle da krene. Plan razvoja pretvara tvoje rezultate u konkretne korake. Dobijas zadatke, preporuke i izazove koje mozes da prates narednih dana i nedelja kako bi konacno znao kojim putem da krenes i napravio prvi korak.
                 </p>
               </div>
             </div>
