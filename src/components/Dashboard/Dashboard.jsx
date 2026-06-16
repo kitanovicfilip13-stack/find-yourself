@@ -321,7 +321,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               <button onClick={() => { setActiveTab('plan'); if(window.innerWidth < 768) setSidebarOpen(false) }}
                 className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
                   ${sidebarOpen ? 'px-3 text-left' : 'px-0 justify-center'}
-                  ${['plan','ciljevi','preporuke','mapa'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
+                  ${['plan','ciljevi','preporuke','mapa','fokus'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
                 {sidebarOpen && <span className="truncate flex-1">Plan razvoja</span>}
                 {sidebarOpen && <svg className={`w-3 h-3 flex-shrink-0 transition-transform ${planHovered ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>}
@@ -334,6 +334,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                     { id: 'ciljevi', label: 'Moji ciljevi' },
                     { id: 'preporuke', label: 'Preporuke' },
                     { id: 'mapa', label: 'Mapa' },
+                    { id: 'fokus', label: 'Nedeljni fokus' },
                   ].map(sub => (
                     <button key={sub.id} onClick={() => { setActiveTab(sub.id); if(window.innerWidth < 768) setSidebarOpen(false) }}
                       className={`w-full text-left px-2 py-2 rounded-lg text-xs transition-all ${
@@ -345,15 +346,6 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                 </div>
               )}
             </div>
-
-            {/* Nedeljni fokus */}
-            <button onClick={() => { setActiveTab('fokus'); if(window.innerWidth < 768) setSidebarOpen(false) }}
-              className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
-                ${sidebarOpen ? 'px-3 text-left' : 'px-0 justify-center'}
-                ${activeTab === 'fokus' ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
-              <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
-              {sidebarOpen && <span className="truncate">Nedeljni fokus</span>}
-            </button>
 
             {/* Kursevi */}
             <button onClick={() => { setActiveTab('kursevi'); if(window.innerWidth < 768) setSidebarOpen(false) }}
