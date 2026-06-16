@@ -627,9 +627,6 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none"
                 style={{ background: 'radial-gradient(circle, #7c3aed25 0%, transparent 70%)', filter: 'blur(30px)', transform: 'translate(20%, -20%)' }} />
               <div className="relative">
-                <div className="w-12 h-12 rounded-2xl bg-violet-500/20 border border-violet-500/30 flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" /></svg>
-                </div>
                 <h3 className="text-xl md:text-2xl font-black text-white mb-3">Šta je zapravo Plan razvoja?</h3>
                 <p className="text-white/55 text-sm leading-relaxed max-w-xl">
                   Plan razvoja je personalizovani put koji pravimo za tebe na osnovu tvog profila licnosti.
