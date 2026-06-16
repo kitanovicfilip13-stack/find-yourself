@@ -315,10 +315,10 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
 
             {/* Plan razvoja sa hover sub-menijem */}
             <div className="relative" onMouseEnter={() => setPlanHovered(true)} onMouseLeave={() => setPlanHovered(false)}>
-              <button onClick={() => { setActiveTab('ciljevi'); if(window.innerWidth < 768) setSidebarOpen(false) }}
+              <button onClick={() => { setActiveTab('plan'); if(window.innerWidth < 768) setSidebarOpen(false) }}
                 className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
                   ${sidebarOpen ? 'px-3 text-left' : 'px-0 justify-center'}
-                  ${['ciljevi','preporuke'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
+                  ${['plan','ciljevi','preporuke'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
                 {sidebarOpen && <span className="truncate flex-1">Plan razvoja</span>}
                 {sidebarOpen && <svg className={`w-3 h-3 flex-shrink-0 transition-transform ${planHovered ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>}
@@ -611,7 +611,100 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
           </div>
         )}
 
-        {/* TAB: Plan razvoja */}
+        {/* TAB: Plan razvoja — objašnjenje */}
+        {activeTab === 'plan' && (
+          <div>
+            <div className="mb-10">
+              <h2 className="text-2xl font-black text-white mb-2">Plan razvoja</h2>
+              <p className="text-white/30 text-sm">Personalizovani put ka sebi — za mlade koji žele više od test rezultata.</p>
+            </div>
+
+            <div className="relative rounded-3xl overflow-hidden mb-8 p-8 md:p-10"
+              style={{ background: 'linear-gradient(135deg, #7c3aed22 0%, rgba(8,8,16,0.95) 60%)', border: '1px solid #7c3aed33' }}>
+              <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none"
+                style={{ background: 'radial-gradient(circle, #7c3aed25 0%, transparent 70%)', filter: 'blur(30px)', transform: 'translate(20%, -20%)' }} />
+              <div className="relative">
+                <div className="text-4xl mb-4">🧭</div>
+                <h3 className="text-xl md:text-2xl font-black text-white mb-3">Šta je zapravo Plan razvoja?</h3>
+                <p className="text-white/55 text-sm leading-relaxed max-w-xl">
+                  Plan razvoja je personalizovani put koji pravimo za tebe na osnovu tvog profila ličnosti.
+                  Nije generički savjet — sve je prilagođeno tvojim snagama, interesovanjima i karijernom smjeru.
+                  Cilj je jedan: da znaš ko si, šta hoćeš i kakav je tvoj sledeći korak.
+                </p>
+              </div>
+            </div>
+
+            <div className="mb-8">
+              <p className="text-white/30 text-xs uppercase tracking-widest mb-4">Šta dobijaš</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {[
+                  { icon: '📅', title: '7-dnevni akcioni plan', desc: 'Konkretni dnevni zadaci prilagođeni tvom tipu ličnosti i karijernom cilju.', active: true },
+                  { icon: '🎯', title: 'Tvoj predloženi prvi put', desc: 'Koji korak da napraviš prvi — kurs, projekat, volontiranje, ili nešto treće.', active: true },
+                  { icon: '💬', title: 'AI Chat mentor', desc: 'Pitaš, mentor odgovara — tvoj lični savetnik u džepu, dostupan 24/7.', active: false },
+                  { icon: '🏢', title: 'Partnerske kompanije', desc: 'Direktna veza sa firmama koje traže profile poput tvojeg.', active: false },
+                  { icon: '📚', title: 'Personalizovani kursevi', desc: 'Kursevi odabrani isključivo za tvoj profil — ne ono što svi gledaju.', active: false },
+                  { icon: '📊', title: 'Praćenje napretka', desc: 'Vidiš kako se razvijaš tokom vremena i šta si sve postigao/la.', active: false },
+                ].map((item, i) => (
+                  <div key={i} className={`rounded-2xl p-5 border ${item.active ? 'glass border-violet-500/20' : 'border-white/5 bg-white/[0.02]'}`}>
+                    <div className="flex items-start gap-4">
+                      <span className="text-2xl flex-shrink-0">{item.icon}</span>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <p className={`font-semibold text-sm ${item.active ? 'text-white' : 'text-white/40'}`}>{item.title}</p>
+                          {!item.active && <span className="text-[10px] text-white/20 border border-white/10 rounded-full px-1.5 py-0.5">uskoro</span>}
+                        </div>
+                        <p className={`text-xs leading-relaxed ${item.active ? 'text-white/50' : 'text-white/25'}`}>{item.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="glass rounded-2xl p-6 mb-8 border border-white/5">
+              <p className="text-white/30 text-xs uppercase tracking-widest mb-5">Kako funkcioniše</p>
+              <div className="space-y-4">
+                {[
+                  { step: '1', title: 'Uradiš test od 20 pitanja', desc: 'Pitanja o ličnosti, interesovanjima i vrednostima — iskreni odgovori, bolji rezultat.' },
+                  { step: '2', title: 'Dobijaš personalizovani profil', desc: 'Algoritam analizira tvoje odgovore i pravi tvoj jedinstveni karijermi profil.' },
+                  { step: '3', title: 'Plan razvoja se aktivira', desc: 'Na osnovu profila, dobijaš konkretan 7-dnevni plan i predloženi prvi korak.' },
+                  { step: '4', title: 'Pratiš korake i rasteš', desc: 'Svaki zadatak te vodi ka jasnijem cilju. AI mentor ti pomaže kad zapneš (uskoro).' },
+                ].map((item, i, arr) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="flex flex-col items-center flex-shrink-0">
+                      <div className="w-7 h-7 rounded-full bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-xs font-bold text-violet-400">
+                        {item.step}
+                      </div>
+                      {i < arr.length - 1 && <div className="w-px h-8 bg-white/5 mt-1" />}
+                    </div>
+                    <div className="pb-4">
+                      <p className="text-white font-medium text-sm mb-0.5">{item.title}</p>
+                      <p className="text-white/35 text-xs leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-3xl p-8 text-center" style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.15), rgba(37,99,235,0.10))', border: '1px solid rgba(124,58,237,0.25)' }}>
+              <div className="text-3xl mb-3">⚡</div>
+              <h3 className="text-xl font-black text-white mb-2">Spreman/na da počneš?</h3>
+              <p className="text-white/40 text-sm mb-6 max-w-sm mx-auto">Otključaj Plan razvoja i počni da gradiš svoju budućnost — korak po korak.</p>
+              <div className="mb-5">
+                <span className="text-3xl font-black text-white">4.99€</span>
+                <span className="text-white/30 text-sm"> / mesec</span>
+              </div>
+              <button
+                onClick={() => setShowPremiumModal(true)}
+                className="px-8 py-4 bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-500 hover:to-blue-500 text-white font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-violet-500/25 text-sm">
+                Otključaj Plan razvoja
+              </button>
+              <p className="text-white/20 text-xs mt-3">7-dnevni trial · Otkaži bilo kad · Bez skrivenih troškova</p>
+            </div>
+          </div>
+        )}
+
+        {/* TAB: Plan razvoja — zadaci */}
         {activeTab === 'zadaci' && (
           <div>
             <h2 className="text-xl font-bold text-white mb-2">Plan razvoja</h2>
