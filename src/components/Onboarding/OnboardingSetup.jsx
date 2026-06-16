@@ -196,7 +196,7 @@ export default function OnboardingSetup({ segment, onNext, onBack }) {
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 text-sm outline-none focus:border-violet-500/50 transition-all" />
             </div>
 
-            {/* Email + lozinka — samo za nove korisnike */}
+            {/* Email + lozinka (samo za nove korisnike) */}
             {!isLoggedIn && (
               <div className="grid grid-cols-2 gap-3">
                 <div>

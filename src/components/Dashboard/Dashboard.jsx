@@ -435,7 +435,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
 
                   return (
                     <div key={res.id} className={`glass rounded-2xl border transition-all duration-200 overflow-hidden ${isExpanded ? 'border-violet-500/20' : 'border-white/5'}`}>
-                      {/* Header — uvek vidljiv */}
+                      {/* Header (uvek vidljiv) */}
                       <button
                         onClick={() => setExpandedResult(isExpanded ? null : res.id)}
                         className="w-full flex items-center justify-between p-5 text-left">

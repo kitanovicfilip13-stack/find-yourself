@@ -97,7 +97,7 @@ export function scoreFromText(text) {
     }
   })
 
-  // Ako nema match-a ali ima tekst — daj neutralan mali score svakoj dimenziji
+  // Ako nema matcha ali ima tekst: daj neutralan mali score svakoj dimenziji
   if (!matched && text.trim().length > 5) {
     return { C: 1, T: 1, P: 1, B: 1, O: 1, N: 1 }
   }

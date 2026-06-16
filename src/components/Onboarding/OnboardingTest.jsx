@@ -175,7 +175,7 @@ export default function OnboardingTest({ onComplete, onBack, initialAnswers = []
           </h2>
           <p className="text-white/30 text-xs mb-6">Možeš odabrati više odgovora</p>
 
-          {/* Opcije — checkboxovi */}
+          {/* Opcije (checkboxovi) */}
           <div className="space-y-3">
             {question.options.map((option, i) => {
               const isSelected = selected.includes(i)

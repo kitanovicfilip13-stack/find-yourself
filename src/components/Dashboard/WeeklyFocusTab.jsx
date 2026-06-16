@@ -14,7 +14,7 @@ function formatWeek(weekStart) {
   end.setDate(end.getDate() + 6)
   const s = d.toLocaleDateString('sr-RS', { day: '2-digit', month: '2-digit' })
   const e = end.toLocaleDateString('sr-RS', { day: '2-digit', month: '2-digit' })
-  return `${s} — ${e}`
+  return `${s} do ${e}`
 }
 
 export default function WeeklyFocusTab({ userId }) {

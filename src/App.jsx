@@ -40,7 +40,7 @@ export default function App() {
   const handleStartJourney = () => {
     window.scrollTo({ top: 0, behavior: 'instant' })
     if (user) {
-      // Već ulogovan — idi direktno na segment ili nastavi
+      // Vec ulogovan, idi direktno na segment ili nastavi
       try {
         const raw = localStorage.getItem('fy_progress')
         if (raw) {
