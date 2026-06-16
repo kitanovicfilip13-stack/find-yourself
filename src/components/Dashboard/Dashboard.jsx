@@ -630,7 +630,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                 <h3 className="text-xl md:text-2xl font-black text-white mb-3">Šta je zapravo Plan razvoja?</h3>
                 <p className="text-white/55 text-sm leading-relaxed max-w-xl">
                   Plan razvoja je personalizovani put koji pravimo za tebe na osnovu tvog profila ličnosti.
-                  Nije generički savjet. Sve je prilagođeno tvojim snagama, interesovanjima i karijernom smjeru.
+                  Nije generički savet. Sve je prilagođeno tvojim snagama, interesovanjima i karijernom smeru.
                   Cilj je jedan: da znaš ko si, šta hoćeš i kakav je tvoj sledeći korak.
                 </p>
               </div>
