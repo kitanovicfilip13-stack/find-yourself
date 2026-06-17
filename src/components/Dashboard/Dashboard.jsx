@@ -175,6 +175,11 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
 
   const [mainResult, setMainResult] = useState(null)
   const [mainResultLoading, setMainResultLoading] = useState(true)
+  const [calMonth, setCalMonth] = useState(() => new Date())
+  const [calDay, setCalDay] = useState(null)
+  const [calData, setCalData] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('fy_calendar') || '{}') } catch { return {} }
+  })
 
   useEffect(() => {
     if (user) {
@@ -321,7 +326,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
               <button onClick={() => { setActiveTab('plan'); if(window.innerWidth < 768) setSidebarOpen(false) }}
                 className={`flex items-center gap-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 w-full overflow-hidden
                   ${sidebarOpen ? 'px-3 text-left' : 'px-0 justify-center'}
-                  ${['plan','ciljevi','preporuke','mapa','fokus'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
+                  ${['plan','ciljevi','preporuke','mapa','fokus','kalendar'].includes(activeTab) ? 'bg-violet-500/15 text-white border border-violet-500/20' : 'text-white/35 hover:text-white hover:bg-white/8 border border-transparent'}`}>
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
                 {sidebarOpen && <span className="truncate flex-1">Plan razvoja</span>}
                 {sidebarOpen && <svg className={`w-3 h-3 flex-shrink-0 transition-transform ${planHovered ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>}
@@ -335,6 +340,7 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
                     { id: 'preporuke', label: 'Preporuke' },
                     { id: 'mapa', label: 'Mapa' },
                     { id: 'fokus', label: 'Nedeljni fokus' },
+                    { id: 'kalendar', label: 'Kalendar' },
                   ].map(sub => (
                     <button key={sub.id} onClick={() => { setActiveTab(sub.id); if(window.innerWidth < 768) setSidebarOpen(false) }}
                       className={`w-full text-left px-2 py-2 rounded-lg text-xs transition-all ${
@@ -530,6 +536,118 @@ export default function Dashboard({ onRetake, onGoToLanding, onViewResult }) {
         {activeTab === 'fokus' && (
           <WeeklyFocusTab userId={user?.id} />
         )}
+
+        {/* TAB: Kalendar */}
+        {activeTab === 'kalendar' && (() => {
+          const yr = calMonth.getFullYear()
+          const mo = calMonth.getMonth()
+          const monthNames = ['Januar','Februar','Mart','April','Maj','Jun','Jul','Avgust','Septembar','Oktobar','Novembar','Decembar']
+          const dayNames = ['Pon','Uto','Sre','Čet','Pet','Sub','Ned']
+          const firstDow = (new Date(yr, mo, 1).getDay() + 6) % 7
+          const daysInMo = new Date(yr, mo + 1, 0).getDate()
+          const todayD = new Date()
+          const todayStr = `${todayD.getFullYear()}-${String(todayD.getMonth()+1).padStart(2,'0')}-${String(todayD.getDate()).padStart(2,'0')}`
+          const cells = Array(firstDow).fill(null).concat(Array.from({ length: daysInMo }, (_, i) => i + 1))
+          const toDayStr = (d) => `${yr}-${String(mo+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`
+          const selectedData = calDay ? (calData[calDay] || {}) : null
+          const durOptions = ['Nisam radio/la', 'Do 30 minuta', '1 sat', '2 sata', '3 sata', '4+ sata']
+
+          const saveField = (field, value) => {
+            const updated = { ...(calData[calDay] || {}), [field]: value }
+            const newData = { ...calData, [calDay]: updated }
+            setCalData(newData)
+            try { localStorage.setItem('fy_calendar', JSON.stringify(newData)) } catch {}
+          }
+
+          return (
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-white">Kalendar</h2>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setCalMonth(new Date(yr, mo - 1, 1))}
+                    className="w-8 h-8 rounded-lg border border-white/10 hover:border-white/25 flex items-center justify-center text-white/40 hover:text-white transition-all">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                  </button>
+                  <span className="text-white font-medium text-sm min-w-[160px] text-center">{monthNames[mo]} {yr}</span>
+                  <button onClick={() => setCalMonth(new Date(yr, mo + 1, 1))}
+                    className="w-8 h-8 rounded-lg border border-white/10 hover:border-white/25 flex items-center justify-center text-white/40 hover:text-white transition-all">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-col lg:flex-row gap-6">
+                <div className="flex-1">
+                  <div className="grid grid-cols-7 gap-1 mb-1">
+                    {dayNames.map(d => (
+                      <div key={d} className="text-center text-white/25 text-xs font-medium py-2">{d}</div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-7 gap-1">
+                    {cells.map((day, i) => {
+                      if (!day) return <div key={`e-${i}`} />
+                      const ds = toDayStr(day)
+                      const isToday = ds === todayStr
+                      const isSelected = ds === calDay
+                      const hasData = !!(calData[ds]?.q1 || calData[ds]?.q2)
+                      return (
+                        <button key={ds} onClick={() => setCalDay(ds)}
+                          className={`aspect-square rounded-xl flex flex-col items-center justify-center gap-0.5 transition-all border text-sm font-medium
+                            ${isSelected
+                              ? 'bg-violet-500/25 border-violet-500/60 text-white'
+                              : isToday
+                              ? 'border-violet-500/40 text-violet-300 bg-violet-500/10'
+                              : 'border-white/5 text-white/50 hover:border-white/20 hover:text-white/80 bg-white/[0.02]'}`}>
+                          {day}
+                          {hasData && <div className="w-1 h-1 rounded-full bg-violet-400" />}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+
+                {calDay ? (
+                  <div className="lg:w-72 glass rounded-2xl p-5 border border-white/5 self-start">
+                    <p className="text-white font-semibold mb-5 text-sm">
+                      {new Date(calDay + 'T12:00:00').toLocaleDateString('sr-Latn', { weekday: 'long', day: 'numeric', month: 'long' })}
+                    </p>
+                    <div className="space-y-5">
+                      <div>
+                        <p className="text-white/40 text-xs uppercase tracking-widest mb-2">Šta si uradio danas?</p>
+                        <textarea
+                          value={selectedData?.q1 || ''}
+                          onChange={(e) => saveField('q1', e.target.value)}
+                          placeholder="Napiši šta si radio..."
+                          rows={3}
+                          className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-3 text-sm text-white/70 placeholder-white/20 resize-none outline-none focus:border-violet-500/40 transition-colors leading-relaxed"
+                        />
+                      </div>
+                      <div>
+                        <p className="text-white/40 text-xs uppercase tracking-widest mb-2">Koliko dugo si radio?</p>
+                        <div className="grid grid-cols-2 gap-1.5">
+                          {durOptions.map(opt => (
+                            <button key={opt} onClick={() => saveField('q2', opt)}
+                              className={`px-3 py-2 rounded-lg text-xs transition-all text-left border ${
+                                selectedData?.q2 === opt
+                                  ? 'bg-violet-500/20 border-violet-500/40 text-violet-300'
+                                  : 'border-white/8 text-white/40 hover:border-white/20 hover:text-white/70'
+                              }`}>
+                              {opt}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="lg:w-72 rounded-2xl border border-white/5 bg-white/[0.02] flex items-center justify-center p-10">
+                    <p className="text-white/20 text-sm text-center">Klikni na dan da upišeš beleške</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )
+        })()}
 
         {/* TAB: Kursevi */}
         {activeTab === 'kursevi' && (
