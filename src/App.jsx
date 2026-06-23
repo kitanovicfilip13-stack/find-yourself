@@ -9,6 +9,7 @@ import OnboardingTest from './components/Onboarding/OnboardingTest'
 import ResultPage from './components/Results/ResultPage'
 import SegmentResultPage from './components/Results/SegmentResultPage'
 import Dashboard from './components/Dashboard/Dashboard'
+import RadNaSebiLanding from './components/RadNaSebi/RadNaSebiLanding'
 
 export default function App() {
   const { user } = useAuth()
@@ -113,6 +114,11 @@ export default function App() {
     setPage('segment-select')
   }
 
+  const handleGoToRadNaSebi = () => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    setPage('rad-na-sebi')
+  }
+
   const handleGoToDashboard = () => {
     window.scrollTo({ top: 0, behavior: 'instant' })
     setPage('dashboard')
@@ -125,6 +131,19 @@ export default function App() {
           onStart={handleStartJourney}
           hasProgress={hasProgress()}
           onDashboard={user ? handleGoToDashboard : null}
+          onRadNaSebi={handleGoToRadNaSebi}
+        />
+      )}
+      {page === 'rad-na-sebi' && (
+        <RadNaSebiLanding
+          onPocni={() => {
+            window.scrollTo({ top: 0, behavior: 'instant' })
+            setPage('rad-na-sebi-procena')
+          }}
+          onBack={() => {
+            window.scrollTo({ top: 0, behavior: 'instant' })
+            setPage('landing')
+          }}
         />
       )}
       {page === 'segment-select' && (

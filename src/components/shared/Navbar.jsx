@@ -3,7 +3,7 @@ import { useLanguage } from '../../LanguageContext'
 import { useAuth } from '../../AuthContext'
 import AuthModal from '../Auth/AuthModal'
 
-export default function Navbar({ onStart, onDashboard }) {
+export default function Navbar({ onStart, onDashboard, onRadNaSebi }) {
   const { t, lang, toggle } = useLanguage()
   const { user, signOut } = useAuth()
   const [scrolled, setScrolled] = useState(false)
@@ -64,6 +64,15 @@ export default function Navbar({ onStart, onDashboard }) {
             </button>
           </div>
 
+          {/* Rad na sebi dugme */}
+          <button
+            onClick={onRadNaSebi}
+            className="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-violet-500/30 hover:border-violet-400/60 text-violet-300 hover:text-violet-200 transition-all duration-200"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+            Rad na sebi
+          </button>
+
           {/* Right side */}
           <div className="flex items-center gap-3">
 
@@ -105,6 +114,12 @@ export default function Navbar({ onStart, onDashboard }) {
                           {lang === 'sr' ? 'Moj profil' : 'My profile'}
                         </button>
                       )}
+                      <button
+                        onClick={() => { setShowUserMenu(false); onRadNaSebi?.() }}
+                        className="w-full text-left px-3 py-2 text-white/60 hover:text-white text-sm transition-colors"
+                      >
+                        Rad na sebi
+                      </button>
                       <button
                         onClick={() => { signOut(); setShowUserMenu(false) }}
                         className="w-full text-left px-3 py-2 text-white/60 hover:text-white text-sm transition-colors"
